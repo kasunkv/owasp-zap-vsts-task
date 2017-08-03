@@ -1,0 +1,36 @@
+{
+  "name": "owasp-zap-scan",
+  "version": "1.0.0",
+  "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
+  "main": "owaspzapscan.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kasunkv/owasp-zap-vsts-task.git"
+  },
+  "keywords": [
+    "owasp",
+    "zap",
+    "security",
+    "pentesting",
+    "security-testing",
+    "security-scan",
+    "attack-proxy",
+    "web-security"
+  ],
+  "author": "Kasun Kodagoda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kasunkv/owasp-zap-vsts-task/issues"
+  },
+  "homepage": "https://github.com/kasunkv/owasp-zap-vsts-task#readme",
+  "dependencies": {
+    "vsts-task-lib": "^2.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.19",
+    "@types/q": "^1.0.3"
+  }
+}
