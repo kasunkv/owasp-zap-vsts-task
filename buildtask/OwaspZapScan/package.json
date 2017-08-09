@@ -27,11 +27,13 @@
   },
   "homepage": "https://github.com/kasunkv/owasp-zap-vsts-task#readme",
   "dependencies": {
+    "request": "^2.81.0",
     "vsts-task-lib": "^2.0.6",
     "zaproxy": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.19",
-    "@types/q": "^1.0.3"
+    "@types/q": "^1.0.3",
+    "@types/request": "^2.0.0"
   }
 }
