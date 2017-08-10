@@ -118,6 +118,30 @@
                 "resizable": true,
                 "rows" : "20"
             }
+        },
+        {
+            "name": "maxHighRiskAlerts",
+            "type": "string",
+            "label": "Max High Risk Alerts",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "Maximum allowed High Risk Alerts"
+        },
+        {
+            "name": "maxMediumRiskAlerts",
+            "type": "string",
+            "label": "Max Medium Risk Alerts",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "Maximum allowed Medium Risk Alerts"
+        },
+        {
+            "name": "maxLowRiskAlerts",
+            "type": "string",
+            "label": "Max Low Risk Alerts",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "Maximum allowed Low Risk Alerts"
         }
     ],
     "instanceNameFormat": "OWASP ZAP Active Scan",
