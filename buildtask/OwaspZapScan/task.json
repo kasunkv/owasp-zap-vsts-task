@@ -1,0 +1,41 @@
+{
+    "$schema": "https://raw.githubusercontent.com/AArnott/vso-agent-tasks/9b41d803a/tasks.schema.json",
+    "id": "dbe30948-5954-4e03-ab88-b35c3b16ec46",
+    "name": "",
+    "friendlyName": "",
+    "description": "",
+    "helpMarkDown": "[More Information](https://github.com/kasunkv/)",
+    "category": "Utility",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "runsOn": [
+        "Agent",
+        "DeploymentGroup"
+    ],
+    "author": "Kasun Kodagoda",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "demands": [
+        "npm"
+    ],
+    "minimumAgentVersion": "1.92.0",
+    "groups": [
+              
+    ],
+    "inputs": [
+        
+    ],
+    "instanceNameFormat": "OWASP ZAP Active Scan",
+    "execution": {
+        "Node": {
+            "target": "owaspzapscan.js",
+            "argumentFormat": ""
+        }
+    },
+    "messages": { }
+}
