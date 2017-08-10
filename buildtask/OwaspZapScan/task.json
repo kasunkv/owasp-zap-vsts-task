@@ -26,7 +26,21 @@
     ],
     "minimumAgentVersion": "1.92.0",
     "groups": [
-              
+        {
+            "name": "apiConfiguration",
+            "displayName": "ZAP API Configuration",
+            "isExpanded": true
+        },
+        {
+            "name": "activeScanOptions",
+            "displayName": "Active Scan Options",
+            "isExpanded": false
+        },
+        {
+            "name": "verificationConfig",
+            "displayName": "Configure Verification",
+            "isExpanded": false
+        }
     ],
     "inputs": [
         
