@@ -1,18 +1,19 @@
 {
     "$schema": "https://raw.githubusercontent.com/AArnott/vso-agent-tasks/9b41d803a/tasks.schema.json",
     "id": "dbe30948-5954-4e03-ab88-b35c3b16ec46",
-    "name": "",
-    "friendlyName": "",
-    "description": "",
-    "helpMarkDown": "[More Information](https://github.com/kasunkv/)",
-    "category": "Utility",
+    "name": "OwaspZapScan",
+    "friendlyName": "OWASP Zed Attack Proxy Scan",
+    "description": "Visual Studio Team Services build/release task for running OWASP ZAP automated security tests",
+    "helpMarkDown": "[More Information](https://github.com/kasunkv/owasp-zap-vsts-task)",
+    "category": "Test",
     "visibility": [
         "Build",
         "Release"
     ],
     "runsOn": [
         "Agent",
-        "DeploymentGroup"
+        "MachineGroup",
+        "Server"
     ],
     "author": "Kasun Kodagoda",
     "version": {
