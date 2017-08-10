@@ -58,6 +58,66 @@
             "required": true,
             "groupName": "apiConfiguration",
             "helpMarkDown": "The API key for ZAP. Details about obtaining the API can be found [here](https://github.com/zaproxy/zaproxy/wiki/FAQapikey)"
+        },
+        {
+            "name": "targetUrl",
+            "type": "string",
+            "label": "Target URL",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Target URL where the active scan is performed."
+        },
+        {
+            "name": "contextId",
+            "type": "string",
+            "label": "Context ID",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Context identifier of the Scan context"
+        },
+        {
+            "name": "recurse",
+            "type": "boolean",
+            "label": "Recurse",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Set recurse option to scan URLs under the given target URL"
+        },
+        {
+            "name": "inScopeOnly",
+            "type": "boolean",
+            "label": "In Scope Only",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Set In Scope only to true to constrain the scan to URLs that are in scope (ignored if a Context is specified)"
+        },
+        {
+            "name": "scanPolicyName",
+            "type": "string",
+            "label": "Scan Policy Name",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Scan Policy Name allows to specify the scan policy (if none is given it uses the default scan policy)"
+        },
+        {
+            "name": "method",
+            "type": "string",
+            "label": "Method",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Allow you to select a given request in conjunction with the given URL"
+        },
+        {
+            "name": "postData",
+            "type": "multiLine",
+            "label": "POST Data",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Allow you to select a given request in conjunction with the given URL",
+            "properties": {
+                "resizable": true,
+                "rows" : "20"
+            }
         }
     ],
     "instanceNameFormat": "OWASP ZAP Active Scan",
