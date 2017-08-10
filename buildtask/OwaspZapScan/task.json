@@ -43,7 +43,22 @@
         }
     ],
     "inputs": [
-        
+        {
+            "name": "zapApiUrl",
+            "type": "string",
+            "label": "ZAP API Url",
+            "required": true,
+            "groupName": "apiConfiguration",
+            "helpMarkDown": "The fully qualified domain name (FQDN) with out the protocol. _(Eg. zap.example.com)_"
+        },
+        {
+            "name": "zapApiKey",
+            "type": "string",
+            "label": "API Key",
+            "required": true,
+            "groupName": "apiConfiguration",
+            "helpMarkDown": "The API key for ZAP. Details about obtaining the API can be found [here](https://github.com/zaproxy/zaproxy/wiki/FAQapikey)"
+        }
     ],
     "instanceNameFormat": "OWASP ZAP Active Scan",
     "execution": {
