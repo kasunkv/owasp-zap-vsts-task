@@ -116,7 +116,7 @@
             "helpMarkDown": "Allow you to select a given request in conjunction with the given URL",
             "properties": {
                 "resizable": true,
-                "rows" : "20"
+                "rows" : "10"
             }
         },
         {
