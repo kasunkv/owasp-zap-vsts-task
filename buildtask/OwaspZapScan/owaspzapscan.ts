@@ -108,6 +108,24 @@ function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string):
 }
 
 
+class Constants {
+    // Report Type
+    static HtmlReport: string = 'htmlreport';
+    static XmlReport: string = 'xmlreport';
+    static MdReport: string = 'mdreport';
+
+    // Risk Code
+    static HighRisk: string = '3';
+    static MediumRisk: string = '2';
+    static LowRisk: string = '1';
+}
+
+enum ReportType {
+    XML,
+    HTML,
+    MD
+}
+
 // ZAP Request Interfaces
 interface ZapScanOptionsBase {
     zapapiformat: string;
