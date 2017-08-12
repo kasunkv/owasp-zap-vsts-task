@@ -21,7 +21,16 @@ async function run() {
     let scanPolicyName: string = task.getInput('scanPolicyName');
     let method: string = task.getInput('method');
     let postData: string = task.getInput('postData');
+    
+    // Verification options
     let enableVerifications: boolean = task.getBoolInput('enableVerifications');    
+
+    // Reporting options
+    let reportType: string = task.getInput('reportType');
+    let destinationFolder: string = task.getPathInput('reportFileDestination');
+    let reportFileName: string = task.getInput('reportFileName');
+
+
 
     let scanOptions: ZapActiveScanOptions = {
         zapapiformat: 'JSON',
@@ -68,14 +77,8 @@ async function run() {
                 console.log(`Scan In Progress: ${scanStatus}%`);
             }
 
-            // Write the HTML report
-            let htmlReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, ReportType.HTML);
-            fs.writeFile('./report.html', htmlReport, (err) => {
-                if (err) {
-                    task.warning('Failed to generate the HTML report');
-                    hasIssues = true;
-                }
-            });
+            // Generate the Scan Report
+            hasIssues = !await generateReport(zapApiKey, zapApiUrl, reportType, destinationFolder, reportFileName);
 
             // Get the XML Report
             let xmlReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, ReportType.XML);
@@ -204,6 +207,41 @@ function getActiveScanResults(apiKey: string, zapApiUrl: string, type: ReportTyp
             });
     });
 }
+
+async function generateReport(zapApiKey: string, zapApiUrl: string, reportType: string, destination: string, fileName: string): Promise<boolean> {
+    let type: ReportType;
+    let ext: string;
+
+    fileName = fileName == '' ? 'OWASP-ZAP-Report' :  fileName;
+    destination = destination == '' ? './' : destination;
+
+    if (reportType == Constants.Xml) {
+        type = ReportType.XML;
+        ext = Constants.Xml;
+    } else if (reportType == Constants.Markdown) {
+        type = ReportType.MD;
+        ext = Constants.Markdown;
+    } else {
+        type = ReportType.HTML;
+        ext = Constants.Html;
+    }
+    
+    let fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
+    task.debug(`Report Filename: ${fullFilePath}`);
+
+    let scanReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, type);
+    
+    return new Promise<boolean>((resolve, reject) => {
+        fs.writeFile(fullFilePath, scanReport, (err) => {
+            if (err) {
+                task.error('Failed to generate the HTML report');
+                reject(false);
+            }
+            resolve(true);
+        });
+    });    
+}
+
 
 class Constants {
     // Report Endpoints
