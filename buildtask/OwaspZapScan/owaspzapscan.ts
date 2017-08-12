@@ -66,3 +66,56 @@ interface ZapActiveScanResult {
 interface ZapActiveScanStatus {
     status: number;
 }
+
+// ZAP Report interfaces
+interface ScanReport {
+    OWASPZAPReport: OWASPZAPReport
+}
+
+interface OWASPZAPReport {
+    site: site;
+    $: { version: string, generated: string };
+}
+
+interface site {
+    $: {
+        name: string,
+        host: string,
+        port: string,
+        ssl: string,
+    };
+    alerts: alerts;
+}
+
+interface alerts {
+    alertitem: Array<alertitem>;
+}
+
+interface alertitem {
+    pluginid: string;
+    alert: string;
+    name: string;
+    riskcode: string;
+    confidence: string;
+    riskdesc: string;
+    desc: string;
+    instances: instances;
+    count: string;
+    solution: string;
+    reference: string;
+    cweid: string;
+    wascid: string;
+    sourceid: string;
+    otherinfo: string;
+}
+
+interface instances {
+    instance: Array<instance>
+}
+
+interface instance {
+    uri: string;
+    method: string;
+    evidence: string;
+    param: string;
+}
