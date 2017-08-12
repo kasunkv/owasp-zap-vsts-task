@@ -11,29 +11,23 @@ import fs = require('fs');
 task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run() {
-    let zapBaseUrl: string = 'http://zap.k2vsoftware.com/';
-    let apiKey: string = '8rs46ftps4st59970at65d7qim';
-    let targetUrl: string = 'http://k2vowasptestsite.azurewebsites.net/';
+    // Get the required inputs
+    let zapApiUrl: string = task.getInput('zapApiUrl', true);
+    let zapApiKey: string = task.getInput('zapApiKey', true);
+    let targetUrl: string = task.getInput('targetUrl', true);
 
-    let activeScanOptions: ZapActiveScanOptions = {
-        zapapiformat: 'JSON',
-        apikey: apiKey,
-        formMethod: 'GET',
-        url: targetUrl
-    };
-    
-    let requestOptions: request.CoreOptions = {
-        qs: activeScanOptions
-    };
+    // Get the optional inputs
+    let contextId: string = task.getInput('contextId');
+    let recurse: boolean = task.getBoolInput('recurse');
+    let inScopeOnly: boolean = task.getBoolInput('inScopeOnly');
+    let scanPolicyName: string = task.getInput('scanPolicyName');
+    let method: string = task.getInput('method');
+    let postData: string = task.getInput('postData');
 
-    request
-        .get(`${zapBaseUrl}JSON/ascan/action/scan/`, requestOptions, (err, res, body) => {
-            if (err) {
-                throw new Error('Error initiating active scan');
-            }
-
-            console.log(body);
-        });
+    let highAlertThreshold: number = parseInt(task.getInput('maxHighRiskAlerts'));
+    let mediumAlertThreshold: number = parseInt(task.getInput('maxMediumRiskAlerts'));
+    let lowAlertThreshold: number = parseInt(task.getInput('maxLowRiskAlerts'));
+   
 }
 
 run();
