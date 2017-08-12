@@ -40,6 +40,11 @@
             "name": "verificationConfig",
             "displayName": "Configure Verification",
             "isExpanded": false
+        },
+        {
+            "name": "reportingConfiguration",
+            "displayName": "Configure Reports",
+            "isExpanded": false
         }
     ],
     "inputs": [
@@ -154,6 +159,38 @@
             "groupName": "verificationConfig",
             "helpMarkDown": "Maximum allowed Low Risk Alerts",
             "visibleRule": "enableVerifications = true"
+        },
+        {
+            "name": "reportType",
+            "type": "pickList",
+            "label": "Report Type",
+            "required": false,
+            "groupName": "reportingConfiguration",
+            "helpMarkDown": "Select the type of report you want generated. Available types are *HTML*, *XML* & *Markdown*",
+            "options": {
+                "html": "HTML Report",
+                "xml": "XML Report",
+                "md": "Markdown Report"
+            },
+            "defaultValue": "html"
+        },
+        {
+            "name": "reportFileDestination",
+            "type": "filePath",
+            "label": "Destination Folder",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "The destination folder that the report file is created. You can use [variables](https://go.microsoft.com/fwlink/?LinkID=550988). Eg.: _$(agent.builddirectory)_",
+            "defaultValue": "$(System.DefaultWorkingDirectory)"
+        },
+        {
+            "name": "reportFileName",
+            "type": "string",
+            "label": "Report Filename",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "Name of the report file, without the extension. Extension is determined by the *Report Type*. Eg. _OWASP-ZAP-Report-2017-00-00_",
+            "defaultValue": "OWASP-ZAP-Report-$(Build.BuildId)"
         }
     ],
     "instanceNameFormat": "OWASP ZAP Active Scan",
