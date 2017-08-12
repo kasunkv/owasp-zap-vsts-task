@@ -60,9 +60,34 @@ async function run() {
             task.setResult(task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
         });
    
-}
+}   
 
 run();
+
+function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string): Promise<number> {
+        let statusOptions: ZapActiveScanStatusOptions = {
+            zapapiformat: 'JSON',
+            apikey: apiKey,
+            formMethod: 'GET',
+            scanId: scanId
+        };
+
+        let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+            uri: `http://${zapApiUrl}/JSON/ascan/view/status/`,
+            qs: statusOptions
+        };
+
+        return new Promise<number>((resolve, reject) => {
+            requestPromise(requestOptions)
+                .then(res => {
+                    let result: ZapActiveScanStatus = JSON.parse(res);
+                    resolve(result.status);
+                })
+                .error(err => {
+                    reject(-1);
+                });
+        });        
+    }
 
 
 // ZAP Request Interfaces
