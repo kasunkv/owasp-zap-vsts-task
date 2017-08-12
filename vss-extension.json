@@ -1,0 +1,91 @@
+{
+    "manifestVersion": 1,
+    "id": "owasp-zap-scan",
+    "name": "OWASP Zed Attack Proxy Scan",
+    "publisher": "kasunkodagoda",
+    "version": "0.0.0",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.",
+    "categories": [
+        "Build and release"
+    ],
+    "screenshots": [
+        {
+            "path": "screenshots/screenshot-add-slack-notification-task.png"
+        },
+        {
+            "path": "screenshots/screenshot-required-options.png"
+        },
+        {
+            "path": "screenshots/screenshot-attachment-options.png"
+        },
+        {
+            "path": "screenshots/screenshot-slack-message.PNG"
+        }
+    ],
+    "galleryFlags": [
+        "Public"
+    ],
+    "tags": [ "build", "release", "security", "testing", "owasp", "zaproxy", "security-scan", "security-testing", "vulnerabilities", "penetration", "penetration-testing", "scan" ],
+    "icons": {
+        "default": "marketplace-icon.png"        
+    },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        },
+        "license": {
+            "path": "LICENSE.md"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/kasunkv/owasp-zap-vsts-task/wiki"
+        },
+        "support": {
+            "uri": "https://github.com/kasunkv/owasp-zap-vsts-task/issues"
+        },
+        "repository": {
+            "uri": "https://github.com/kasunkv/owasp-zap-vsts-task"
+        },
+        "issues": {
+            "uri": "https://github.com/kasunkv/owasp-zap-vsts-task/issues"
+        }
+    },
+    "branding": {
+        "color": "rgb(28, 120, 25)",
+        "theme": "dark"
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/kasunkv/owasp-zap-vsts-task"
+    },
+    "files": [
+        {
+            "path": "buildtask"
+        },
+        {
+            "path": "screenshots",
+            "addressable": true
+        }
+    ],
+    "contributions": [
+        {
+            "id": "owasp-zap-scan",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "buildtask/OwaspZapScan"
+            }
+        }
+    ],
+    "CustomerQnASupport": {
+        "enableqna":"true"
+    } 
+}
