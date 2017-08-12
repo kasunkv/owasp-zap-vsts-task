@@ -104,9 +104,41 @@ function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string):
             .error(err => {
                 reject(-1);
             });
-    });        
+    });
 }
 
+function getActiveScanResults(apiKey: string, zapApiUrl: string, type: ReportType = ReportType.XML): Promise<string> {
+
+    let reportType: string = 'xmlreport';
+
+    if (type == ReportType.XML) { reportType = Constants.XmlReport; }
+    if (type == ReportType.HTML) { reportType = Constants.HtmlReport; } 
+    if (type == ReportType.MD) { reportType = Constants.MdReport; } 
+
+    let reportOptions: ZapScanReportOptions = {
+        apikey: apiKey,
+        formMethod: 'GET'
+    };
+
+    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+        uri: `http://${zapApiUrl}/OTHER/core/other/${reportType}/`,
+        qs: reportOptions
+    };
+
+    task.debug('*** Get Active Scan Results ***');
+    task.debug(`ZAP API Call: http://${zapApiUrl}/OTHER/core/other/${reportType}/`);
+    task.debug(`Request Options: ${JSON.stringify(requestOptions)}`);
+
+    return new Promise<string>((resolve, reject) => {
+        requestPromise(requestOptions)
+            .then(res => {
+                resolve(res);
+            })
+            .error(err => {
+                reject("");
+            });
+    });
+}
 
 class Constants {
     // Report Type
