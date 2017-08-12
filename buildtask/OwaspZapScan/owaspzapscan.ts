@@ -206,10 +206,15 @@ function getActiveScanResults(apiKey: string, zapApiUrl: string, type: ReportTyp
 }
 
 class Constants {
-    // Report Type
+    // Report Endpoints
     static HtmlReport: string = 'htmlreport';
     static XmlReport: string = 'xmlreport';
     static MdReport: string = 'mdreport';
+
+    // Report Types
+    static Html: string = 'html';
+    static Xml: string = 'xml';
+    static Markdown: string = 'md';
 
     // Risk Code
     static HighRisk: string = '3';
