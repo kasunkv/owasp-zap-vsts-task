@@ -51,6 +51,10 @@ async function run() {
 
     requestPromise(requestOptions)
         .then(async res => {
+            let actualHighAlerts: number = 0;
+            let actualMediumAlerts: number = 0;
+            let actualLowAlerts: number = 0;
+
             let result: ZapActiveScanResult = JSON.parse(res);
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
             
@@ -72,6 +76,36 @@ async function run() {
                 if (err) {
                     task.warning('Failed to generate the HTML report');
                 }
+            });
+
+            // Get the XML Report
+            let xmlReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, ReportType.XML);
+            xmlParser.to_json(xmlReport, (err: any, res: any) => {
+                if (err) {
+                    task.error('Could not parse the XML report');
+                    task.error(`Error: ${err}`);
+                    task.setResult(task.TaskResult.Failed, 'Could not parse the XML report');
+                }               
+                
+                let reportJson: ScanReport = res;
+
+                // Get the number of alert types                
+                for(let item of reportJson.OWASPZAPReport.site.alerts.alertitem) {
+                    if (item.riskcode === Constants.HighRisk) { 
+                        actualHighAlerts++; 
+                    }
+
+                    if (item.riskcode === Constants.MediumRisk) {
+                        actualMediumAlerts++;
+                    }
+
+                    if (item.riskcode === Constants.LowRisk) {
+                        actualLowAlerts++;
+                    }
+                }
+
+                task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
+                
             });
 
         })
