@@ -111,22 +111,20 @@ async function run() {
                 
                 // Verify alerts with in the limit
                 if (highAlertThreshold < actualHighAlerts) {
-                    task.error(`High Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
-                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
                 }
 
                 if (mediumAlertThreshold < actualMediumAlerts) {
-                    task.error(`High Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
-                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
                 }
 
                 if (lowAlertThreshold < actualLowAlerts) {
-                    task.error(`High Alert Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
-                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
                 }
             });
 
             task.setResult(hasIssues ? task.TaskResult.SucceededWithIssues : task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
+            console.log(`Active Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`)
 
         })
         .error(err => {
