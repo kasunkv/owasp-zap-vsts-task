@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 0,
-        "Minor": 5,
+        "Minor": 6,
         "Patch": 0
     },
     "demands": [
@@ -34,7 +34,7 @@
         {
             "name": "activeScanOptions",
             "displayName": "Active Scan Options",
-            "isExpanded": false
+            "isExpanded": true
         },
         {
             "name": "verificationConfig",
@@ -79,6 +79,7 @@
             "name": "recurse",
             "type": "boolean",
             "label": "Recurse",
+            "defaultValue": "true",
             "required": false,
             "groupName": "activeScanOptions",
             "helpMarkDown": "Set recurse option to scan URLs under the given target URL"
