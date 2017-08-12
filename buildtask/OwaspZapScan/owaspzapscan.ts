@@ -78,34 +78,34 @@ async function run() {
 run();
 
 function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string): Promise<number> {
-        let statusOptions: ZapActiveScanStatusOptions = {
-            zapapiformat: 'JSON',
-            apikey: apiKey,
-            formMethod: 'GET',
-            scanId: scanId
-        };
+    let statusOptions: ZapActiveScanStatusOptions = {
+        zapapiformat: 'JSON',
+        apikey: apiKey,
+        formMethod: 'GET',
+        scanId: scanId
+    };
 
-        let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
-            uri: `http://${zapApiUrl}/JSON/ascan/view/status/`,
-            qs: statusOptions
-        };
+    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+        uri: `http://${zapApiUrl}/JSON/ascan/view/status/`,
+        qs: statusOptions
+    };
 
-        task.debug(`ZAP API Call: http://${zapApiUrl}/JSON/ascan/view/status/`);
-        task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
+    task.debug(`ZAP API Call: http://${zapApiUrl}/JSON/ascan/view/status/`);
+    task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
 
-        return new Promise<number>((resolve, reject) => {
-            requestPromise(requestOptions)
-                .then(res => {
-                    let result: ZapActiveScanStatus = JSON.parse(res);
-                    task.debug(`Scan Status Result: ${JSON.stringify(result)}`);
-                    
-                    resolve(result.status);
-                })
-                .error(err => {
-                    reject(-1);
-                });
-        });        
-    }
+    return new Promise<number>((resolve, reject) => {
+        requestPromise(requestOptions)
+            .then(res => {
+                let result: ZapActiveScanStatus = JSON.parse(res);
+                task.debug(`Scan Status Result: ${JSON.stringify(result)}`);
+                
+                resolve(result.status);
+            })
+            .error(err => {
+                reject(-1);
+            });
+    });        
+}
 
 
 // ZAP Request Interfaces
