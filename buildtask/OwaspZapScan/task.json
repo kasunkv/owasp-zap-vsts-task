@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 0,
-        "Minor": 6,
+        "Minor": 8,
         "Patch": 0
     },
     "demands": [
@@ -175,7 +175,7 @@
             "defaultValue": "html"
         },
         {
-            "name": "reportFileDestination",
+            "name": "reportingConfiguration",
             "type": "filePath",
             "label": "Destination Folder",
             "required": false,
@@ -188,7 +188,7 @@
             "type": "string",
             "label": "Report Filename",
             "required": false,
-            "groupName": "verificationConfig",
+            "groupName": "reportingConfiguration",
             "helpMarkDown": "Name of the report file, without the extension. Extension is determined by the *Report Type*. Eg. _OWASP-ZAP-Report-2017-00-00_",
             "defaultValue": "OWASP-ZAP-Report-$(Build.BuildId)"
         }
