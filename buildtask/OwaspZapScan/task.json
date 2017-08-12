@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 0,
-        "Minor": 0,
+        "Minor": 3,
         "Patch": 0
     },
     "demands": [
@@ -63,7 +63,7 @@
             "name": "targetUrl",
             "type": "string",
             "label": "Target URL",
-            "required": false,
+            "required": true,
             "groupName": "activeScanOptions",
             "helpMarkDown": "Target URL where the active scan is performed."
         },
