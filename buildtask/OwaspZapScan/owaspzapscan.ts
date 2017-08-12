@@ -32,3 +32,37 @@ async function run() {
 
 run();
 
+
+// ZAP Request Interfaces
+interface ZapScanOptionsBase {
+    zapapiformat: string;
+    formMethod: string;
+    apikey: string;
+}
+
+interface ZapActiveScanOptions extends ZapScanOptionsBase {    
+    url: string;
+    recurse?: string;
+    inScopeOnly?: string;
+    scanPolicyName?: string;
+    method?: string;
+    postData?: string;
+    contextId?: string;
+}
+
+interface ZapActiveScanStatusOptions extends ZapScanOptionsBase {
+    scanId: number;
+}
+
+interface ZapScanReportOptions {
+    formMethod: string;
+    apikey: string;
+}
+
+interface ZapActiveScanResult {
+    scan: number;
+}
+
+interface ZapActiveScanStatus {
+    status: number;
+}
