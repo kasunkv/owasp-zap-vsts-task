@@ -46,14 +46,18 @@ async function run() {
         qs: scanOptions
     };
 
+    task.debug(`Target URL: http://${zapApiUrl}/JSON/ascan/action/scan/`);
+    task.debug(`Scan Options: ${JSON.stringify(scanOptions)}`);
+
+
     requestPromise(requestOptions)
         .then(async res => {
             let result: ZapActiveScanResult = JSON.parse(res);
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
         })
         .error(err => {
-            console.log('Active scan failed.');
-            throw new Error('Failed to initiate the active scan.');
+            task.warning('Failed to initiate the active scan.');
+            task.setResult(task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
         });
    
 }
