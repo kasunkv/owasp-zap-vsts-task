@@ -4,7 +4,8 @@
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
   "main": "owaspzapscan.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc owaspzapscan.ts --lib es2015"
   },
   "repository": {
     "type": "git",
