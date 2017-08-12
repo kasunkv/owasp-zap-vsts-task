@@ -70,7 +70,7 @@
             "label": "Target URL",
             "required": true,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Target URL where the active scan is performed."
+            "helpMarkDown": "Target URL where the active scan is performed against."
         },
         {
             "name": "contextId",
