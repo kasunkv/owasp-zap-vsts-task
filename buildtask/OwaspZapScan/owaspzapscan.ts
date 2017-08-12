@@ -3,6 +3,10 @@ import { ZapActiveScanOptions } from './ZapClientOptions';
 import task = require('vsts-task-lib');
 import path = require('path');
 import request = require('request');
+import requestPromise = require('request-promise');
+import sleep = require('thread-sleep');
+import xmlParser = require('xmljson');
+import fs = require('fs');
 
 task.setResourcePath(path.join(__dirname, 'task.json'));
 
