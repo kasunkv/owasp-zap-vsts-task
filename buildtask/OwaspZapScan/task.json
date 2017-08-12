@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 0,
-        "Minor": 3,
+        "Minor": 5,
         "Patch": 0
     },
     "demands": [
@@ -120,12 +120,21 @@
             }
         },
         {
+            "name": "enableVerifications",
+            "type": "boolean",
+            "label": "Enable Verifications",
+            "required": false,
+            "groupName": "verificationConfig",
+            "helpMarkDown": "Enable to add thresholds for security risk types and fail the build if the threshold is exceeded."
+        },
+        {
             "name": "maxHighRiskAlerts",
             "type": "string",
             "label": "Max High Risk Alerts",
             "required": false,
             "groupName": "verificationConfig",
-            "helpMarkDown": "Maximum allowed High Risk Alerts"
+            "helpMarkDown": "Maximum allowed High Risk Alerts",
+            "visibleRule": "enableVerifications = true"
         },
         {
             "name": "maxMediumRiskAlerts",
@@ -133,7 +142,8 @@
             "label": "Max Medium Risk Alerts",
             "required": false,
             "groupName": "verificationConfig",
-            "helpMarkDown": "Maximum allowed Medium Risk Alerts"
+            "helpMarkDown": "Maximum allowed Medium Risk Alerts",
+            "visibleRule": "enableVerifications = true"
         },
         {
             "name": "maxLowRiskAlerts",
@@ -141,7 +151,8 @@
             "label": "Max Low Risk Alerts",
             "required": false,
             "groupName": "verificationConfig",
-            "helpMarkDown": "Maximum allowed Low Risk Alerts"
+            "helpMarkDown": "Maximum allowed Low Risk Alerts",
+            "visibleRule": "enableVerifications = true"
         }
     ],
     "instanceNameFormat": "OWASP ZAP Active Scan",
