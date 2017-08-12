@@ -56,7 +56,7 @@ async function run() {
 
 
     requestPromise(requestOptions)
-        .then(async res => {
+        .then(async (res: any) => {
             let hasIssues: boolean = false;
             let actualHighAlerts: number = 0;
             let actualMediumAlerts: number = 0;
@@ -66,7 +66,7 @@ async function run() {
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
             
             while (true) {
-                sleep(8000);
+                sleep(10000);
                 let scanStatus: number = await getActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
                 
                 if(scanStatus >= 100) {
@@ -135,7 +135,7 @@ async function run() {
             console.log(`Active Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`)
 
         })
-        .error(err => {
+        .error((err: any) => {
             task.warning('Failed to initiate the active scan.');
             task.setResult(task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
         });
