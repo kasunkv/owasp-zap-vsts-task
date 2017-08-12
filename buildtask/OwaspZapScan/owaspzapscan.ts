@@ -51,6 +51,7 @@ async function run() {
 
     requestPromise(requestOptions)
         .then(async res => {
+            let hasIssues: boolean = false;
             let actualHighAlerts: number = 0;
             let actualMediumAlerts: number = 0;
             let actualLowAlerts: number = 0;
@@ -75,6 +76,7 @@ async function run() {
             fs.writeFile('./report.html', htmlReport, (err) => {
                 if (err) {
                     task.warning('Failed to generate the HTML report');
+                    hasIssues = true;
                 }
             });
 
@@ -106,7 +108,24 @@ async function run() {
 
                 task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
                 
+                // Verify alerts with in the limit
+                if (highAlertThreshold < actualHighAlerts) {
+                    task.error(`High Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
+                }
+
+                if (mediumAlertThreshold < actualMediumAlerts) {
+                    task.error(`High Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
+                }
+
+                if (lowAlertThreshold < actualLowAlerts) {
+                    task.error(`High Alert Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                    task.setResult(task.TaskResult.Failed, `High Alert Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                }
             });
+
+            task.setResult(hasIssues ? task.TaskResult.SucceededWithIssues : task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
 
         })
         .error(err => {
