@@ -21,10 +21,7 @@ async function run() {
     let scanPolicyName: string = task.getInput('scanPolicyName');
     let method: string = task.getInput('method');
     let postData: string = task.getInput('postData');
-
-    let highAlertThreshold: number = parseInt(task.getInput('maxHighRiskAlerts'));
-    let mediumAlertThreshold: number = parseInt(task.getInput('maxMediumRiskAlerts'));
-    let lowAlertThreshold: number = parseInt(task.getInput('maxLowRiskAlerts'));
+    let enableVerifications: boolean = task.getBoolInput('enableVerifications');    
 
     let scanOptions: ZapActiveScanOptions = {
         zapapiformat: 'JSON',
@@ -109,18 +106,26 @@ async function run() {
 
                 task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
                 
-                // Verify alerts with in the limit
-                if (highAlertThreshold < actualHighAlerts) {
-                    task.setResult(task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
-                }
+                if(enableVerifications) {
+                    // Gather the thresholds
+                    let highAlertThreshold: number = parseInt(task.getInput('maxHighRiskAlerts'));
+                    let mediumAlertThreshold: number = parseInt(task.getInput('maxMediumRiskAlerts'));
+                    let lowAlertThreshold: number = parseInt(task.getInput('maxLowRiskAlerts'));
 
-                if (mediumAlertThreshold < actualMediumAlerts) {
-                    task.setResult(task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
-                }
+                    // Verify alerts with in the limit
+                    if (highAlertThreshold < actualHighAlerts) {
+                        task.setResult(task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
+                    }
 
-                if (lowAlertThreshold < actualLowAlerts) {
-                    task.setResult(task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                    if (mediumAlertThreshold < actualMediumAlerts) {
+                        task.setResult(task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
+                    }
+
+                    if (lowAlertThreshold < actualLowAlerts) {
+                        task.setResult(task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                    }
                 }
+                
             });
 
             task.setResult(hasIssues ? task.TaskResult.SucceededWithIssues : task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
