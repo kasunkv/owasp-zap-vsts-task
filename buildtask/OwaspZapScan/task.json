@@ -175,11 +175,11 @@
             "defaultValue": "html"
         },
         {
-            "name": "reportingConfiguration",
+            "name": "reportFileDestination",
             "type": "filePath",
             "label": "Destination Folder",
             "required": false,
-            "groupName": "verificationConfig",
+            "groupName": "reportingConfiguration",
             "helpMarkDown": "The destination folder that the report file is created. You can use [variables](https://go.microsoft.com/fwlink/?LinkID=550988). Eg.: _$(agent.builddirectory)_",
             "defaultValue": "$(System.DefaultWorkingDirectory)"
         },
