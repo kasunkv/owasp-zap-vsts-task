@@ -90,18 +90,19 @@ async function run() {
                 }               
                 
                 let reportJson: ScanReport = res;
+                let alerts: Array<alertitem> = reportJson.OWASPZAPReport.site.alerts.alertitem;
 
                 // Get the number of alert types                
-                for(let item of reportJson.OWASPZAPReport.site.alerts.alertitem) {
-                    if (item.riskcode === Constants.HighRisk) { 
+                for(let idx in alerts) {
+                    if (alerts[idx].riskcode == Constants.HighRisk) {
                         actualHighAlerts++; 
                     }
 
-                    if (item.riskcode === Constants.MediumRisk) {
+                    if (alerts[idx].riskcode == Constants.MediumRisk) {
                         actualMediumAlerts++;
                     }
 
-                    if (item.riskcode === Constants.LowRisk) {
+                    if (alerts[idx].riskcode == Constants.LowRisk) {
                         actualLowAlerts++;
                     }
                 }
