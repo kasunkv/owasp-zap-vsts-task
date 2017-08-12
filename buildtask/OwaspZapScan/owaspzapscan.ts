@@ -54,7 +54,7 @@ async function run() {
         .then(async res => {
             let result: ZapActiveScanResult = JSON.parse(res);
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
-
+            
             while (true) {
                 sleep(8000);
                 let scanStatus: number = await getActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
@@ -66,6 +66,14 @@ async function run() {
                 }
                 console.log(`Scan In Progress: ${scanStatus}%`);
             }
+
+            // Write the HTML report
+            let htmlReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, ReportType.HTML);
+            fs.writeFile('./report.html', htmlReport, (err) => {
+                if (err) {
+                    task.warning('Failed to generate the HTML report');
+                }
+            });
 
         })
         .error(err => {
@@ -90,6 +98,7 @@ function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string):
         qs: statusOptions
     };
 
+    task.debug('*** Get Active Scan Status ***');
     task.debug(`ZAP API Call: http://${zapApiUrl}/JSON/ascan/view/status/`);
     task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
 
