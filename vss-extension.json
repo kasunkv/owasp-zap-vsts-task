@@ -15,16 +15,13 @@
     ],
     "screenshots": [
         {
-            "path": "screenshots/screenshot-add-slack-notification-task.png"
+            "path": "screenshots/add-owasp-zap-scan.png"
         },
         {
-            "path": "screenshots/screenshot-required-options.png"
+            "path": "screenshots/zap-api-configuration.png"
         },
         {
-            "path": "screenshots/screenshot-attachment-options.png"
-        },
-        {
-            "path": "screenshots/screenshot-slack-message.PNG"
+            "path": "screenshots/configure-reports.png"
         }
     ],
     "galleryFlags": [
