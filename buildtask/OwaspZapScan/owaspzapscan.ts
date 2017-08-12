@@ -1,5 +1,3 @@
-import { ZapActiveScanOptions } from './ZapClientOptions';
-
 import task = require('vsts-task-lib');
 import path = require('path');
 import request = require('request');
@@ -46,6 +44,7 @@ async function run() {
         qs: scanOptions
     };
 
+    task.debug('*** Initiate the Active Scan ***');
     task.debug(`Target URL: http://${zapApiUrl}/JSON/ascan/action/scan/`);
     task.debug(`Scan Options: ${JSON.stringify(scanOptions)}`);
 
