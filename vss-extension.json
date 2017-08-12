@@ -15,13 +15,13 @@
     ],
     "screenshots": [
         {
-            "path": "screenshots/add-owasp-zap-scan.png"
+            "path": "screenshots/add-owasp-zap-scan.PNG"
         },
         {
-            "path": "screenshots/zap-api-configuration.png"
+            "path": "screenshots/zap-api-configuration.PNG"
         },
         {
-            "path": "screenshots/configure-reports.png"
+            "path": "screenshots/configure-reports.PNG"
         }
     ],
     "galleryFlags": [
