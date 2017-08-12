@@ -27,6 +27,34 @@ async function run() {
     let highAlertThreshold: number = parseInt(task.getInput('maxHighRiskAlerts'));
     let mediumAlertThreshold: number = parseInt(task.getInput('maxMediumRiskAlerts'));
     let lowAlertThreshold: number = parseInt(task.getInput('maxLowRiskAlerts'));
+
+    let scanOptions: ZapActiveScanOptions = {
+        zapapiformat: 'JSON',
+        apikey: zapApiKey,
+        formMethod: 'GET',        
+        url: targetUrl,
+        recurse: String(recurse),
+        inScopeOnly: String(inScopeOnly),
+        scanPolicyName: scanPolicyName,
+        method: method,
+        postData: postData,
+        contextId: contextId
+    };
+
+    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+        uri: `http://${zapApiUrl}/JSON/ascan/action/scan/`,
+        qs: scanOptions
+    };
+
+    requestPromise(requestOptions)
+        .then(async res => {
+            let result: ZapActiveScanResult = JSON.parse(res);
+            console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
+        })
+        .error(err => {
+            console.log('Active scan failed.');
+            throw new Error('Failed to initiate the active scan.');
+        });
    
 }
 
