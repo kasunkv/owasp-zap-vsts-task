@@ -1,35 +1,35 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as task from 'vsts-task-lib';
-import * as request from 'request';
-import * as requestPromise from 'request-promise';
+import * as Task from 'vsts-task-lib';
+import * as Request from 'request';
+import * as RequestPromise from 'request-promise';
 import { sleep } from 'thread-sleep';
-import * as xmlParser from 'xmljson';
+import * as XmlParser from 'xmljson';
 
 
-task.setResourcePath(path.join(__dirname, 'task.json'));
+Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run() {
     // Get the required inputs
-    let zapApiUrl: string = task.getInput('zapApiUrl', true);
-    let zapApiKey: string = task.getInput('zapApiKey', true);
-    let targetUrl: string = task.getInput('targetUrl', true);
+    let zapApiUrl: string = Task.getInput('zapApiUrl', true);
+    let zapApiKey: string = Task.getInput('zapApiKey', true);
+    let targetUrl: string = Task.getInput('targetUrl', true);
 
     // Get the optional inputs
-    let contextId: string = task.getInput('contextId');
-    let recurse: boolean = task.getBoolInput('recurse');
-    let inScopeOnly: boolean = task.getBoolInput('inScopeOnly');
-    let scanPolicyName: string = task.getInput('scanPolicyName');
-    let method: string = task.getInput('method');
-    let postData: string = task.getInput('postData');
+    let contextId: string = Task.getInput('contextId');
+    let recurse: boolean = Task.getBoolInput('recurse');
+    let inScopeOnly: boolean = Task.getBoolInput('inScopeOnly');
+    let scanPolicyName: string = Task.getInput('scanPolicyName');
+    let method: string = Task.getInput('method');
+    let postData: string = Task.getInput('postData');
     
     // Verification options
-    let enableVerifications: boolean = task.getBoolInput('enableVerifications');    
+    let enableVerifications: boolean = Task.getBoolInput('enableVerifications');    
 
     // Reporting options
-    let reportType: string = task.getInput('reportType');
-    let destinationFolder: string = task.getPathInput('reportFileDestination');
-    let reportFileName: string = task.getInput('reportFileName');
+    let reportType: string = Task.getInput('reportType');
+    let destinationFolder: string = Task.getPathInput('reportFileDestination');
+    let reportFileName: string = Task.getInput('reportFileName');
 
 
 
@@ -46,17 +46,17 @@ async function run() {
         contextId: contextId
     };
 
-    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+    let requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions = {
         uri: `http://${zapApiUrl}/JSON/ascan/action/scan/`,
         qs: scanOptions
     };
 
-    task.debug('*** Initiate the Active Scan ***');
-    task.debug(`Target URL: http://${zapApiUrl}/JSON/ascan/action/scan/`);
-    task.debug(`Scan Options: ${JSON.stringify(scanOptions)}`);
+    Task.debug('*** Initiate the Active Scan ***');
+    Task.debug(`Target URL: http://${zapApiUrl}/JSON/ascan/action/scan/`);
+    Task.debug(`Scan Options: ${JSON.stringify(scanOptions)}`);
 
 
-    requestPromise(requestOptions)
+    RequestPromise(requestOptions)
         .then(async (res: any) => {
             let hasIssues: boolean = false;
             let actualHighAlerts: number = 0;
@@ -83,11 +83,11 @@ async function run() {
 
             // Get the XML Report
             let xmlReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, ReportType.XML);
-            xmlParser.to_json(xmlReport, (err: any, res: any) => {
+            XmlParser.to_json(xmlReport, (err: any, res: any) => {
                 if (err) {
-                    task.error('Could not parse the XML report');
-                    task.error(`Error: ${err}`);
-                    task.setResult(task.TaskResult.Failed, 'Could not parse the XML report');
+                    Task.error('Could not parse the XML report');
+                    Task.error(`Error: ${err}`);
+                    Task.setResult(Task.TaskResult.Failed, 'Could not parse the XML report');
                 }               
                 
                 let reportJson: ScanReport = res;
@@ -108,37 +108,37 @@ async function run() {
                     }
                 }
 
-                task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
+                Task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
                 
                 if(enableVerifications) {
                     // Gather the thresholds
-                    let highAlertThreshold: number = parseInt(task.getInput('maxHighRiskAlerts'));
-                    let mediumAlertThreshold: number = parseInt(task.getInput('maxMediumRiskAlerts'));
-                    let lowAlertThreshold: number = parseInt(task.getInput('maxLowRiskAlerts'));
+                    let highAlertThreshold: number = parseInt(Task.getInput('maxHighRiskAlerts'));
+                    let mediumAlertThreshold: number = parseInt(Task.getInput('maxMediumRiskAlerts'));
+                    let lowAlertThreshold: number = parseInt(Task.getInput('maxLowRiskAlerts'));
 
                     // Verify alerts with in the limit
                     if (highAlertThreshold < actualHighAlerts) {
-                        task.setResult(task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
+                        Task.setResult(Task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${actualHighAlerts}`);
                     }
 
                     if (mediumAlertThreshold < actualMediumAlerts) {
-                        task.setResult(task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
+                        Task.setResult(Task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
                     }
 
                     if (lowAlertThreshold < actualLowAlerts) {
-                        task.setResult(task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
+                        Task.setResult(Task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${actualLowAlerts}`);
                     }
                 }
                 
             });
 
-            task.setResult(hasIssues ? task.TaskResult.SucceededWithIssues : task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
+            Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
             console.log(`Active Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`)
 
         })
         .error((err: any) => {
-            task.warning('Failed to initiate the active scan.');
-            task.setResult(task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
+            Task.warning('Failed to initiate the active scan.');
+            Task.setResult(Task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
         });
    
 }   
@@ -153,20 +153,20 @@ function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string):
         scanId: scanId
     };
 
-    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+    let requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions = {
         uri: `http://${zapApiUrl}/JSON/ascan/view/status/`,
         qs: statusOptions
     };
 
-    task.debug('*** Get Active Scan Status ***');
-    task.debug(`ZAP API Call: http://${zapApiUrl}/JSON/ascan/view/status/`);
-    task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
+    Task.debug('*** Get Active Scan Status ***');
+    Task.debug(`ZAP API Call: http://${zapApiUrl}/JSON/ascan/view/status/`);
+    Task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
 
     return new Promise<number>((resolve, reject) => {
-        requestPromise(requestOptions)
+        RequestPromise(requestOptions)
             .then(res => {
                 let result: ZapActiveScanStatus = JSON.parse(res);
-                task.debug(`Scan Status Result: ${JSON.stringify(result)}`);
+                Task.debug(`Scan Status Result: ${JSON.stringify(result)}`);
                 
                 resolve(result.status);
             })
@@ -189,17 +189,17 @@ function getActiveScanResults(apiKey: string, zapApiUrl: string, type: ReportTyp
         formMethod: 'GET'
     };
 
-    let requestOptions: request.UriOptions & requestPromise.RequestPromiseOptions = {
+    let requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions = {
         uri: `http://${zapApiUrl}/OTHER/core/other/${reportType}/`,
         qs: reportOptions
     };
 
-    task.debug('*** Get Active Scan Results ***');
-    task.debug(`ZAP API Call: http://${zapApiUrl}/OTHER/core/other/${reportType}/`);
-    task.debug(`Request Options: ${JSON.stringify(requestOptions)}`);
+    Task.debug('*** Get Active Scan Results ***');
+    Task.debug(`ZAP API Call: http://${zapApiUrl}/OTHER/core/other/${reportType}/`);
+    Task.debug(`Request Options: ${JSON.stringify(requestOptions)}`);
 
     return new Promise<string>((resolve, reject) => {
-        requestPromise(requestOptions)
+        RequestPromise(requestOptions)
             .then(res => {
                 resolve(res);
             })
@@ -228,14 +228,14 @@ async function generateReport(zapApiKey: string, zapApiUrl: string, reportType: 
     }
     
     let fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
-    task.debug(`Report Filename: ${fullFilePath}`);
+    Task.debug(`Report Filename: ${fullFilePath}`);
 
     let scanReport: string = await getActiveScanResults(zapApiKey, zapApiUrl, type);
     
     return new Promise<boolean>((resolve, reject) => {
         fs.writeFile(fullFilePath, scanReport, (err) => {
             if (err) {
-                task.error('Failed to generate the HTML report');
+                Task.error('Failed to generate the HTML report');
                 reject(false);
             }
             resolve(true);
