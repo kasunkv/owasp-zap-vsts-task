@@ -27,7 +27,7 @@
     "galleryFlags": [
         "Public"
     ],
-    "tags": [ "build", "release", "security", "testing", "owasp", "zaproxy", "security-scan", "security-testing", "vulnerabilities", "penetration", "penetration-testing", "scan" ],
+    "tags": [ "build", "release", "security", "testing", "owasp", "zaproxy", "security-scan", "security-testing", "vulnerabilities", "pen-testing", "penetration-testing", "scan" ],
     "icons": {
         "default": "marketplace-icon.png"        
     },
