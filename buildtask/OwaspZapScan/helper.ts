@@ -107,3 +107,18 @@ export async function generateReport(zapApiKey: string, zapApiUrl: string, repor
         });
     });    
 }
+
+export function printResult(highAlerts: number, mediumAlerts: number, lowAlerts: number): void {
+    console.log();
+    console.log('**************************');
+    console.log('*   Active Scan Result   *');
+    console.log('**************************');
+    console.log();
+    console.log('--------------------------');
+    console.log('| Alert Type   | Count   |');
+    console.log('--------------------------');
+    console.log(`  High Risk    | ${highAlerts}`);
+    console.log(`  Medium Risk  | ${mediumAlerts}`);
+    console.log(`  Low Risk     | ${highAlerts}`);
+    console.log('__________________________');
+}
