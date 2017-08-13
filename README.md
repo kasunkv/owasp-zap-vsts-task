@@ -2,7 +2,7 @@
 # OWASP Zed Attack Proxy Scan Task
 Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.
 
-# Using OWASP Zed Attack Proxy Scan Task
+## Using OWASP Zed Attack Proxy Scan Task
 
 Follow the instructions given below to add and configure OWASP Zed Attack Proxy Task in your build/release pipeline.
 
