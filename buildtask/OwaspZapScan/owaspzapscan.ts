@@ -1,10 +1,11 @@
-import task = require('vsts-task-lib');
-import path = require('path');
-import request = require('request');
-import requestPromise = require('request-promise');
-import sleep = require('thread-sleep');
-import xmlParser = require('xmljson');
-import fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as task from 'vsts-task-lib';
+import * as request from 'request';
+import * as requestPromise from 'request-promise';
+import { sleep } from 'thread-sleep';
+import * as xmlParser from 'xmljson';
+
 
 task.setResourcePath(path.join(__dirname, 'task.json'));
 
