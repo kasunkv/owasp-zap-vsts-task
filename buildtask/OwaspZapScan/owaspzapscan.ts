@@ -14,7 +14,7 @@ import * as Helper from './helper';
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
 
-async function run() {
+async function run(): Promise<void> {
     // Get the required inputs
     let zapApiUrl: string = Task.getInput('zapApiUrl', true);
     let zapApiKey: string = Task.getInput('zapApiKey', true);
@@ -74,13 +74,17 @@ async function run() {
             while (true) {
                 sleep(10000);
                 let scanStatus: number = await Helper.getActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
-                
+                let previousScanStatus: number = scanStatus;
+
                 if(scanStatus >= 100) {
                     console.log(`Scan In Progress: ${scanStatus}%`);
                     console.log('Active scan complete...');
                     break;
                 }
-                console.log(`Scan In Progress: ${scanStatus}%`);
+
+                if (previousScanStatus != scanStatus) {
+                    console.log(`Scan In Progress: ${scanStatus}%`);
+                }                
             }
 
             // Generate the Scan Report
@@ -138,8 +142,7 @@ async function run() {
             });
 
             Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
-            console.log(`Active Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`)
-
+            Helper.printResult(actualHighAlerts, actualMediumAlerts, actualLowAlerts);
         })
         .error((err: any) => {
             Task.warning('Failed to initiate the active scan.');
@@ -148,4 +151,6 @@ async function run() {
    
 }   
 
-run();
+run().catch((err: any) => {
+    Task.setResult(Task.TaskResult.Failed, err);
+});
