@@ -119,6 +119,6 @@ export function printResult(highAlerts: number, mediumAlerts: number, lowAlerts:
     console.log('--------------------------');
     console.log(`  High Risk    | ${highAlerts}`);
     console.log(`  Medium Risk  | ${mediumAlerts}`);
-    console.log(`  Low Risk     | ${highAlerts}`);
+    console.log(`  Low Risk     | ${lowAlerts}`);
     console.log('__________________________');
 }

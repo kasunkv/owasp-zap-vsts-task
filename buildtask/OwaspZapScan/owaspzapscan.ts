@@ -67,6 +67,7 @@ async function run(): Promise<void> {
             let actualHighAlerts: number = 0;
             let actualMediumAlerts: number = 0;
             let actualLowAlerts: number = 0;
+            let previousScanStatus: number = 0;
 
             let result: ZapRequest.ZapActiveScanResult = JSON.parse(res);
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
@@ -74,7 +75,6 @@ async function run(): Promise<void> {
             while (true) {
                 sleep(10000);
                 let scanStatus: number = await Helper.getActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
-                let previousScanStatus: number = scanStatus;
 
                 if(scanStatus >= 100) {
                     console.log(`Scan In Progress: ${scanStatus}%`);
@@ -84,7 +84,9 @@ async function run(): Promise<void> {
 
                 if (previousScanStatus != scanStatus) {
                     console.log(`Scan In Progress: ${scanStatus}%`);
-                }                
+                }
+
+                previousScanStatus = scanStatus;
             }
 
             // Generate the Scan Report
