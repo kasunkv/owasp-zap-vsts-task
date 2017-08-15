@@ -49,7 +49,7 @@
     ],
     "inputs": [
         {
-            "name": "zapApiUrl",
+            "name": "ZapApiUrl",
             "type": "string",
             "label": "ZAP API Url",
             "required": true,
@@ -57,7 +57,7 @@
             "helpMarkDown": "The fully qualified domain name (FQDN) with out the protocol. _(Eg. zap.example.com)_"
         },
         {
-            "name": "zapApiKey",
+            "name": "ZapApiKey",
             "type": "string",
             "label": "API Key",
             "required": true,
@@ -65,7 +65,7 @@
             "helpMarkDown": "The API key for ZAP. Details about obtaining the API can be found [here](https://github.com/zaproxy/zaproxy/wiki/FAQapikey)"
         },
         {
-            "name": "targetUrl",
+            "name": "TargetUrl",
             "type": "string",
             "label": "Target URL",
             "required": true,
@@ -73,7 +73,7 @@
             "helpMarkDown": "Target URL where the active scan is performed against."
         },
         {
-            "name": "contextId",
+            "name": "ContextId",
             "type": "string",
             "label": "Context ID",
             "required": false,
@@ -81,7 +81,7 @@
             "helpMarkDown": "Context identifier of the Scan context"
         },
         {
-            "name": "recurse",
+            "name": "Recurse",
             "type": "boolean",
             "label": "Recurse",
             "defaultValue": "true",
@@ -90,7 +90,7 @@
             "helpMarkDown": "Set recurse option to scan URLs under the given target URL"
         },
         {
-            "name": "inScopeOnly",
+            "name": "InScopeOnly",
             "type": "boolean",
             "label": "In Scope Only",
             "required": false,
@@ -98,7 +98,7 @@
             "helpMarkDown": "Set In Scope only to true to constrain the scan to URLs that are in scope (ignored if a Context is specified)"
         },
         {
-            "name": "scanPolicyName",
+            "name": "ScanPolicyName",
             "type": "string",
             "label": "Scan Policy Name",
             "required": false,
@@ -106,7 +106,7 @@
             "helpMarkDown": "Scan Policy Name allows to specify the scan policy (if none is given it uses the default scan policy)"
         },
         {
-            "name": "method",
+            "name": "Method",
             "type": "string",
             "label": "Method",
             "required": false,
@@ -114,7 +114,7 @@
             "helpMarkDown": "Allow you to select a given request in conjunction with the given URL"
         },
         {
-            "name": "postData",
+            "name": "PostData",
             "type": "multiLine",
             "label": "POST Data",
             "required": false,
@@ -126,7 +126,7 @@
             }
         },
         {
-            "name": "enableVerifications",
+            "name": "EnableVerifications",
             "type": "boolean",
             "label": "Enable Verifications",
             "required": false,
@@ -134,7 +134,7 @@
             "helpMarkDown": "Enable to add thresholds for security risk types and fail the build if the threshold is exceeded."
         },
         {
-            "name": "maxHighRiskAlerts",
+            "name": "MaxHighRiskAlerts",
             "type": "string",
             "label": "High Risk Alert Threshold",
             "required": false,
@@ -143,7 +143,7 @@
             "visibleRule": "enableVerifications = true"
         },
         {
-            "name": "maxMediumRiskAlerts",
+            "name": "MaxMediumRiskAlerts",
             "type": "string",
             "label": "Medium Risk Alert Threshold",
             "required": false,
@@ -152,7 +152,7 @@
             "visibleRule": "enableVerifications = true"
         },
         {
-            "name": "maxLowRiskAlerts",
+            "name": "MaxLowRiskAlerts",
             "type": "string",
             "label": "Low Risk Alert Threshold",
             "required": false,
@@ -161,7 +161,7 @@
             "visibleRule": "enableVerifications = true"
         },
         {
-            "name": "reportType",
+            "name": "ReportType",
             "type": "pickList",
             "label": "Report Type",
             "required": false,
@@ -175,7 +175,7 @@
             "defaultValue": "html"
         },
         {
-            "name": "reportFileDestination",
+            "name": "ReportFileDestination",
             "type": "filePath",
             "label": "Destination Folder",
             "required": false,
@@ -184,7 +184,7 @@
             "defaultValue": "$(System.DefaultWorkingDirectory)"
         },
         {
-            "name": "reportFileName",
+            "name": "ReportFileName",
             "type": "string",
             "label": "Report Filename",
             "required": false,

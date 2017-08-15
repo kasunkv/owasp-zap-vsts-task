@@ -16,25 +16,25 @@ Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run(): Promise<void> {
     // Get the required inputs
-    let zapApiUrl: string = Task.getInput('zapApiUrl', true);
-    let zapApiKey: string = Task.getInput('zapApiKey', true);
-    let targetUrl: string = Task.getInput('targetUrl', true);
+    let zapApiUrl: string = Task.getInput('ZapApiUrl', true);
+    let zapApiKey: string = Task.getInput('ZapApiKey', true);
+    let targetUrl: string = Task.getInput('TargetUrl', true);
 
     // Get the optional inputs
-    let contextId: string = Task.getInput('contextId');
-    let recurse: boolean = Task.getBoolInput('recurse');
-    let inScopeOnly: boolean = Task.getBoolInput('inScopeOnly');
-    let scanPolicyName: string = Task.getInput('scanPolicyName');
-    let method: string = Task.getInput('method');
-    let postData: string = Task.getInput('postData');
+    let contextId: string = Task.getInput('ContextId');
+    let recurse: boolean = Task.getBoolInput('Recurse');
+    let inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
+    let scanPolicyName: string = Task.getInput('ScanPolicyName');
+    let method: string = Task.getInput('Method');
+    let postData: string = Task.getInput('PostData');
     
     // Verification options
-    let enableVerifications: boolean = Task.getBoolInput('enableVerifications');    
+    let enableVerifications: boolean = Task.getBoolInput('EnableVerifications');    
 
     // Reporting options
-    let reportType: string = Task.getInput('reportType');
-    let destinationFolder: string = Task.getPathInput('reportFileDestination');
-    let reportFileName: string = Task.getInput('reportFileName');
+    let reportType: string = Task.getInput('ReportType');
+    let destinationFolder: string = Task.getPathInput('ReportFileDestination');
+    let reportFileName: string = Task.getInput('ReportFileName');
 
 
 
@@ -123,9 +123,9 @@ async function run(): Promise<void> {
                 
                 if(enableVerifications) {
                     // Gather the thresholds
-                    let highAlertThreshold: number = parseInt(Task.getInput('maxHighRiskAlerts'));
-                    let mediumAlertThreshold: number = parseInt(Task.getInput('maxMediumRiskAlerts'));
-                    let lowAlertThreshold: number = parseInt(Task.getInput('maxLowRiskAlerts'));
+                    let highAlertThreshold: number = parseInt(Task.getInput('MaxHighRiskAlerts'));
+                    let mediumAlertThreshold: number = parseInt(Task.getInput('MaxMediumRiskAlerts'));
+                    let lowAlertThreshold: number = parseInt(Task.getInput('MaxLowRiskAlerts'));
 
                     // Verify alerts with in the limit
                     if (highAlertThreshold < actualHighAlerts) {
