@@ -4,7 +4,7 @@
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
   "main": "owaspzapscan.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc tests\\_suite.ts --lib es2015 && mocha tests\\_suite.js",
     "build": "tsc owaspzapscan.ts --lib es2015"
   },
   "repository": {
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.8",
+    "@types/mocha": "^2.2.41",
     "@types/node": "^8.0.19",
     "@types/q": "^1.0.3",
     "@types/request": "^2.0.0",
