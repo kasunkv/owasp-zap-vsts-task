@@ -20,7 +20,13 @@ async function run(): Promise<void> {
     let zapApiKey: string = Task.getInput('ZapApiKey', true);
     let targetUrl: string = Task.getInput('TargetUrl', true);
 
-    // Get the optional inputs
+    // Spider Scan Options
+    let executeSpiderScan: boolean = Task.getBoolInput('ExecuteSpiderScan');
+    let recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
+    let subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
+    let maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
+
+    // Active Scan Options inputs
     let contextId: string = Task.getInput('ContextId');
     let recurse: boolean = Task.getBoolInput('Recurse');
     let inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
