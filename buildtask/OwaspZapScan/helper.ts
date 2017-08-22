@@ -1,8 +1,10 @@
+import { triggerAsyncId } from 'async_hooks';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
 import * as Request from 'request';
 import * as RequestPromise from 'request-promise';
+import * as sleep from 'thread-sleep';
 
 import { ReportType } from './enums';
 import { Constants } from './constants';
@@ -39,6 +41,41 @@ export function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: s
                 reject(-1);
             });
     });
+}
+
+export async function checkActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string): Promise<boolean>{
+    let previousScanStatus: number = 0;
+    let scanCompleted: boolean = false;
+
+    return new Promise<boolean>(async (resolve, reject) => {
+        try {
+            while (true) {
+                sleep(10000);
+                let scanStatus: number = await getActiveScanStatus(scanId, apiKey, zapApiUrl);
+
+                if(scanStatus >= 100) {
+                    console.log(`Scan In Progress: ${scanStatus}%`);
+                    console.log('Active scan complete...');
+                    scanCompleted = true;
+                    break;
+                }
+
+                if (previousScanStatus != scanStatus) {
+                    console.log(`Scan In Progress: ${scanStatus}%`);
+                    scanCompleted = false;
+                }
+
+                previousScanStatus = scanStatus;
+            }
+
+            resolve(scanCompleted);
+
+        } catch (error) {
+            reject(scanCompleted);
+        }
+    });
+
+    
 }
 
 export function getActiveScanResults(apiKey: string, zapApiUrl: string, type: ReportType = ReportType.XML): Promise<string> {
