@@ -73,26 +73,17 @@ async function run(): Promise<void> {
             let actualHighAlerts: number = 0;
             let actualMediumAlerts: number = 0;
             let actualLowAlerts: number = 0;
-            let previousScanStatus: number = 0;
 
             let result: ZapRequest.ZapActiveScanResult = JSON.parse(res);
             console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
+
+            // Check active scan status.
+            let activeScanComplete: boolean = await Helper.checkActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
             
-            while (true) {
-                sleep(10000);
-                let scanStatus: number = await Helper.getActiveScanStatus(result.scan, zapApiKey, zapApiUrl);
-
-                if(scanStatus >= 100) {
-                    console.log(`Scan In Progress: ${scanStatus}%`);
-                    console.log('Active scan complete...');
-                    break;
-                }
-
-                if (previousScanStatus != scanStatus) {
-                    console.log(`Scan In Progress: ${scanStatus}%`);
-                }
-
-                previousScanStatus = scanStatus;
+            if (!activeScanComplete) {
+                Task.warning('Active Scan did not complete.');
+                Task.setResult(Task.TaskResult.Failed, `Failed to confirm if active scan was completed.`);
+                return;
             }
 
             // Generate the Scan Report
