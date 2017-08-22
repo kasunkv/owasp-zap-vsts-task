@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 1,
-        "Minor": 12,
+        "Minor": 14,
         "Patch": 0
     },
     "demands": [
@@ -101,6 +101,15 @@
             "required": false,
             "groupName": "spiderScanOptions",
             "helpMarkDown": "Enable to restrict the spider under the target url subtree.",
+            "visibleRule": "ExecuteSpiderScan = true"
+        },
+        {
+            "name": "ContextName",
+            "type": "string",
+            "label": "Context Name",
+            "required": false,
+            "groupName": "spiderScanOptions",
+            "helpMarkDown": "Set to constrain the scan to a Context.",
             "visibleRule": "ExecuteSpiderScan = true"
         },
         {

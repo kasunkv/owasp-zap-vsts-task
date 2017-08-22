@@ -25,6 +25,7 @@ async function run(): Promise<void> {
     let recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
     let subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
     let maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
+    let contextName: string = Task.getInput('ContextName');
 
     // Active Scan Options inputs
     let contextId: string = Task.getInput('ContextId');
