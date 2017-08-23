@@ -1,4 +1,3 @@
-import { triggerAsyncId } from 'async_hooks';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';

@@ -19,6 +19,18 @@ export interface ZapActiveScanStatusOptions extends ZapScanOptionsBase {
     scanId: number;
 }
 
+export interface ZapSpiderScanOptions extends ZapScanOptionsBase {
+    url: string;
+    maxChildren?: string;
+    recurse?: string;
+    contextName?: string;
+    subtreeOnly?: string;
+}
+
+export interface ZapSpiderScanStatusOptions extends ZapScanOptionsBase {
+    scanId: number;
+}
+
 export interface ZapScanReportOptions {
     formMethod: string;
     apikey: string;
@@ -30,4 +42,12 @@ export interface ZapActiveScanResult {
 
 export interface ZapActiveScanStatus {
     status: number;
+}
+
+export interface ZapScanStatus {
+    status: number;
+}
+
+export interface ZapScanResult {
+    scan: number;
 }
