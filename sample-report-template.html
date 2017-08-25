@@ -1,0 +1,1255 @@
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ZAP Scanning Report</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <style>
+        .legend {
+            font-size: 1.0em; 
+            color: #fff
+        }
+        
+        .legend a, .alert-header-link {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .legend a:hover, .alert-header-link:hover {
+            color: #222222;
+            text-decoration: none;
+        }
+
+        .attribute {
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .alert-header {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="container-fluid" style="padding: 0 3em">
+    <div style="padding: 32px 0;">
+        <h1 class="display-3">ZAP Scanning Report</h1>
+        <p class="lead" >Project : <em>-------------------------</em></p>
+        <p class="lead" style="margin-top: -20px">Build Definition       : <em>------------------------------</em></p>
+        <p class="lead" style="margin-top: -20px">Completed on           : <em>Sat Aug 26 2017 00:20:55 GMT+0530 (Sri Lanka Standard Time)</em></p>
+        <hr class="my-4">
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Summary of Alerts</h2>
+            <hr>
+            <table class="table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Risk Level</th>
+                        <th>Number of Alerts</th>
+                    </tr>
+                </thead>
+                <tr class="bg-danger legend">
+                    <td><a href="#high">High</a></td>
+                    <td>0</td>
+                </tr>
+                <tr class="bg-warning legend">
+                    <td><a href="#medium">Medium</a></td>
+                    <td>2</td>
+                </tr>
+                <tr class="bg-info legend">
+                    <td><a href="#low">Low</a></td>
+                    <td>3</td>
+                </tr>
+                <tr class="bg-success legend">
+                    <td><a href="#info">Informational</a></td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+                <h2>Alert Detail</h2>
+                <hr>
+
+            <table class="table">
+                <tr class="bg-warning" height="24">
+                    <td width="20%"><p class="alert-header"><a name="medium" class="alert-header-link" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample" >Medium (Medium)</a></p></td>
+                    <td width="80%"><p class="alert-header">Application Error Disclosure</p></td>
+                </tr>
+
+                <tbody class="collapse" id="collapseExample1" role="tabpanel">
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Description</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">This page contains an error/warning message that may disclose sensitive information like the location
+                                    of the file that produced the unhandled exception. This information can be used to launch further
+                                    attacks against the web application. The alert could be a false positive if the error message is
+                                found inside a documentation page.</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">POST</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Evidence</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">HTTP/1.1 500 Internal Server Error</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Login</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">POST</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Evidence</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">HTTP/1.1 500 Internal Server Error</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Instances</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">2</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Solution</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Review the source code of this page. Implement custom error pages. Consider implementing a mechanism
+                                    to provide a unique error reference/identifier to the client (browser) while logging the details
+                                on the server side and not exposing them to the user.</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Reference</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead"></p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">CWE Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">200</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">WASC Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">13</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Source ID</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table">
+                <tr class="bg-warning" height="24">
+                    <td width="20%"><p class="alert-header"><a name="medium" class="alert-header-link" data-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" >Medium (Medium)</a></p></td>
+                    <td width="80%"><p class="alert-header">X-Frame-Options Header Not Set</p></td>
+                </tr>
+                
+                <tbody class="collapse" id="collapseExample2" role="tabpanel">
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Description</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">X-Frame-Options header is not included in the HTTP response to protect against 'ClickJacking' attacks.
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/Contact</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Frame-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Frame-Options</p>
+                        </td>
+                    </tr>
+                        
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/About</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Frame-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Instances</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Solution</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it's set on all web pages returned
+                                    by your site (if you expect the page to be framed only by pages on your server (e.g. it's part of
+                                    a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed,
+                                you should use DENY. ALLOW-FROM allows specific websites to frame the web page in supported web browsers).</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Reference</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://blogs.msdn.com/b/ieinternals/archive/2010/03/30/combating-clickjacking-with-x-frame-options.aspx</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">CWE Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">16</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">WASC Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">15</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Source ID</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+                </tbody>            
+            </table>
+
+            <table class="table">
+                <tr class="bg-info" height="24">
+                    <a name="low"></a>
+                    <td width="20%"><p class="alert-header"><a name="low" class="alert-header-link" data-toggle="collapse" href="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">Low (Low)</a></p></td>
+                    <td width="80%"><p class="alert-header">Web Browser XSS Protection Not Enabled</p></td>
+                </tr>
+                <tbody class="collapse" id="collapseExample3" role="tabpanel">
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Description</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Web Browser XSS Protection is not enabled, or is disabled by the configuration of the 'X-XSS-Protection'
+                                HTTP response header on the web server</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/sitemap.xml</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/Contact</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/robots.txt</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Login</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/About</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">POST</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Login</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">POST</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-XSS-Protection</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Instances</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">9</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Solution</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Ensure that the web browser's XSS filter is enabled, by setting the X-XSS-Protection HTTP response header
+                                to '1'.</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Other information</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">
+                                    <p>The X-XSS-Protection HTTP response header allows the web server to enable or disable the web browser's
+                                        XSS protection mechanism. The following values would attempt to enable it: </p>
+                                    <p>X-XSS-Protection: 1; mode=block</p>
+                                    <p>X-XSS-Protection: 1; report=http://www.example.com/xss</p>
+                                    <p>The following values would disable it:</p>
+                                    <p>X-XSS-Protection: 0</p>
+                                    <p>The X-XSS-Protection HTTP response header is currently supported on Internet Explorer, Chrome and
+                                        Safari (WebKit).</p>
+                                    <p>Note that this alert is only raised if the response body could potentially contain an XSS payload
+                                        (with a text-based content type, with a non-zero length).</p>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Reference</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet</p>
+                            <p>https://blog.veracode.com/2014/03/guidelines-for-setting-security-headers/</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">CWE Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">933</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">WASC Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">14</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Source ID</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+                </tbody>            
+            </table>
+
+            <table class="table">
+                <tr class="bg-info" height="24">
+                    <a name="low"></a>
+                    <td width="20%"><p class="alert-header"><a name="low" class="alert-header-link" data-toggle="collapse" href="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">Low (Low)</a></p></td>
+                    <td width="80%"><p class="alert-header">X-Content-Type-Options Header Missing</p></td>
+                </tr>
+                <tbody class="collapse" id="collapseExample4" role="tabpanel">
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Description</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">The Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions
+                                    of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing
+                                    the response body to be interpreted and displayed as a content type other than the declared content
+                                    type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if
+                                one is set), rather than performing MIME-sniffing.</p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/bundles/jquery?v=FVs3ACwOLIVInrAl5sdzR2jrCDmVOWFbZMY6g6Q0ulE1</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/bundles/jqueryval?v=hEGG8cMxk9p0ncdRUOJ-CnKN7NezhnPnWIvn6REucZo1</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+                        
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/bundles/bootstrap?v=2Fz3B0iizV2NnnamQFrx-NbYJNTFeBJ2GM05SilbtQU1</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/About</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Login</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Home/Contact</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Content/css?v=MDbdFKJHBa_ctS5x4He1bMV0_RjRq8jpcIAvPpKiN6U1</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">X-Content-Type-Options</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Instances</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">10</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Solution</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the
+                                    X-Content-Type-Options header to 'nosniff' for all web pages.</p>
+                                <p>If possible, ensure that the end user uses a standards-compliant and modern web browser that does not
+                                    perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform
+                                MIME-sniffing.</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Other information</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">
+                                    <p>This issue still applies to error type pages (401, 403, 500, etc) as those pages are often still
+                                        affected by injection issues, in which case there is still concern for browsers sniffing pages
+                                        away from their actual content type.
+                                    </p>
+                                    <p>At "High" threshold this scanner will not alert on client or server error responses.</p>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Reference</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx</p>
+                            <p>https://www.owasp.org/index.php/List_of_useful_HTTP_headers</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">CWE Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">16</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">WASC Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">15</p>
+                        </td>
+                    </tr>
+            
+                    <tr>
+                        <td width="20%">
+                            <p class="lead attribute">Source ID</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+                </tbody>        
+            </table>
+
+            <table class="table">
+                <tr class="bg-info" height="24">
+                    <a name="low"></a>
+                    <td width="20%"><p class="alert-header"><a name="low" class="alert-header-link" data-toggle="collapse" href="#collapseExample5" aria-expanded="false" aria-controls="collapseExample">Low (Low)</a></p></td>
+                    <td width="80%"><p class="alert-header">Password Autocomplete in Browser</p></td>
+                </tr>
+
+                <tbody class="collapse" id="collapseExample5" role="tabpanel">
+                    <tr>
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">Password</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Evidence</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">&lt;input class="form-control" data-val="true" data-val-length="The Password must be at least 6 characters
+                                    long." data-val-length-max="100" data-val-length-min="6" data-val-required="The Password field is
+                                required." id="Password" name="Password" type="password" /&gt;</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Register</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">ConfirmPassword</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Evidence</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">&lt;input class="form-control" data-val="true" data-val-equalto="The password and confirmation password
+                                    do not match." data-val-equalto-other="*.Password" id="ConfirmPassword" name="ConfirmPassword" type="password"
+                                /&gt;</p>
+                        </td>
+                    </tr>
+
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">URL</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">http://k2vowasptestsite.azurewebsites.net/Account/Login</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Method</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">GET</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Parameter</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">Password</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead font-italic">&nbsp;&nbsp;&nbsp;&nbsp;Evidence</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">&lt;input class="form-control" data-val="true" data-val-required="The Password field is required." id="Password"
+                                name="Password" type="password" /&gt;</p>
+                        </td>
+                    </tr>
+                    
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">Instances</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">Solution</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">Turn off the AUTOCOMPLETE attribute in forms or individual input elements containing password inputs
+                                by using AUTOCOMPLETE='OFF'.</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">Reference</p>
+                        </td>
+                        <td width="80%">
+                                <p class="lead">http://www.w3schools.com/tags/att_input_autocomplete.asp</p>
+                            <p>https://msdn.microsoft.com/en-us/library/ms533486%28v=vs.85%29.aspx</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">CWE Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">525</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">WASC Id</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">15</p>
+                        </td>
+                    </tr>
+            
+                    <tr valign="top">
+                        <td width="20%">
+                            <p class="lead attribute">Source ID</p>
+                        </td>
+                        <td width="80%">
+                            <p class="lead">3</p>
+                        </td>
+                    </tr>
+                </tbody>            
+            </table>
+            
+        </div>
+    </div>
+</body>
+</html>
