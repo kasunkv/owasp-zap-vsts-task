@@ -5,8 +5,10 @@ import * as sleep from 'thread-sleep';
 
 import * as ZapRequest from './zapRequest';
 import { IZapScan } from './IZapScan';
+import { ScanResult } from './scanResult';
 
 export class ActiveScan implements IZapScan {    
+    public ScanType: string = 'Active Scan';
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
     scanOptions: ZapRequest.ZapActiveScanOptions;
 
@@ -42,29 +44,33 @@ export class ActiveScan implements IZapScan {
         };
     }
 
-    ExecuteScan(): Promise<boolean> {
-        let isSuccess: boolean = false;
+    ExecuteScan(): Promise<ScanResult> {
+        let scanResult: ScanResult = { Success: false };
 
         Task.debug('*** Initiate the Active Scan ***');
         Task.debug(`Target URL: ${this.requestOptions.uri}`);
         Task.debug(`Scan Options: ${JSON.stringify(this.scanOptions)}`);
 
-        return new Promise<boolean> ((resolve, reject) => {
+        return new Promise<ScanResult> ((resolve, reject) => {
             RequestPromise(this.requestOptions)
                 .then(async (res: any) => {
 
                     let result: ZapRequest.ZapScanResult = JSON.parse(res);
                     console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
                     
-                    isSuccess = await this.checkSpiderScanStatus(result.scan);
-                    if (!isSuccess) {
-                        throw new Error('Failed to check active scan status');
+                    scanResult.Success = await this.checkSpiderScanStatus(result.scan);
+                    if (!scanResult.Success) {
+                        scanResult.Message = 'Active Scan status check failed.';
+                        reject(scanResult);
                     }
 
-                    resolve(isSuccess);
+                    resolve(scanResult);
                 })
                 .error((err: any) => {
-                    reject(false);
+                    scanResult.Success = false;
+                    scanResult.Message = err.message || err;
+
+                    reject(scanResult);
                 });
 
         });
