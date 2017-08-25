@@ -1,3 +1,6 @@
+import { ScanResult } from './scanResult';
+
 export interface IZapScan {
-    ExecuteScan(): Promise<boolean>;
+    ScanType: string;
+    ExecuteScan(): Promise<ScanResult>;
 }
