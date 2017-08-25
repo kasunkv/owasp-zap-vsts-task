@@ -1,15 +1,12 @@
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
-import * as Request from 'request';
-import * as RequestPromise from 'request-promise';
-import * as sleep from 'thread-sleep';
-import * as XmlParser from 'xmljson';
 
-import { ReportType } from './enums';
-import { Constants } from './constants';
-import * as ZapRequest from './zapRequest';
-import * as ZapReport from './zapReporting';
-import * as Helper from './helper';
+import { ScanResult } from './scanResult';
+import { IZapScan } from './IZapScan';
+import { ActiveScan } from './ActiveScan';
+import { SpiderScan } from './SpiderScan';
+import { Report } from './Reports';
+import { Verify } from './Verify';
 
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
@@ -36,15 +33,51 @@ async function run(): Promise<void> {
     let postData: string = Task.getInput('PostData');
     
     // Verification options
-    let enableVerifications: boolean = Task.getBoolInput('EnableVerifications');    
+    //let enableVerifications: boolean = Task.getBoolInput('EnableVerifications');    
 
     // Reporting options
     let reportType: string = Task.getInput('ReportType');
     let destinationFolder: string = Task.getPathInput('ReportFileDestination');
     let reportFileName: string = Task.getInput('ReportFileName');
 
+    let scanStatus: ScanResult = { Success: false };
+    let reports: Report = new Report(zapApiUrl, zapApiKey);
 
+    let selectedScans: Array<IZapScan> = new Array<IZapScan>();
 
+    if (executeSpiderScan) {
+        let spiderScan: SpiderScan = new SpiderScan(zapApiUrl, zapApiKey, targetUrl, subtreeOnly, recurseSpider, maxChildrenToCrawl, contextName);
+        selectedScans.push(spiderScan);
+    }
+
+    let activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
+    selectedScans.push(activeScan);
+
+    for (let i: number = 0; i < selectedScans.length; i++) {
+        let scan: IZapScan = selectedScans[i];
+        scanStatus = await scan.ExecuteScan();
+        
+        if (!scanStatus.Success) {
+            throw new Error(`The ${scan.ScanType} failed with the Error: ${scanStatus.Success}`)
+        }
+    }
+
+    // If all scans are successful: 1). Generate the Report 2). Perform the Verifications
+    if (scanStatus.Success) {
+
+        // Generate the report
+        console.log('Generating the report...');
+        let reportFileCreated: boolean = await reports.GenerateReport(reportType, destinationFolder, reportFileName);
+
+        // Perform the Verifications and Print the report
+        let verify: Verify = new Verify(zapApiUrl, zapApiKey);
+        verify.Assert();
+
+    } else {
+        console.log('Can not generate the report');
+    }
+
+    /*
     let scanOptions: ZapRequest.ZapActiveScanOptions = {
         zapapiformat: 'JSON',
         apikey: zapApiKey,
@@ -62,12 +95,7 @@ async function run(): Promise<void> {
         uri: `http://${zapApiUrl}/JSON/ascan/action/scan/`,
         qs: scanOptions
     };
-
-    Task.debug('*** Initiate the Active Scan ***');
-    Task.debug(`Target URL: http://${zapApiUrl}/JSON/ascan/action/scan/`);
-    Task.debug(`Scan Options: ${JSON.stringify(scanOptions)}`);
-
-
+    
     RequestPromise(requestOptions)
         .then(async (res: any) => {
             let hasIssues: boolean = false;
@@ -148,9 +176,10 @@ async function run(): Promise<void> {
             Task.warning('Failed to initiate the active scan.');
             Task.setResult(Task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err}`);
         });
-   
+        
+        */
 }   
 
 run().catch((err: any) => {
-    Task.setResult(Task.TaskResult.Failed, err);
+    Task.setResult(Task.TaskResult.Failed, err.message || err);
 });
