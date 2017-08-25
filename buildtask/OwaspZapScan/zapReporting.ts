@@ -4,7 +4,7 @@ export interface ScanReport {
 }
 
 export interface OWASPZAPReport {
-    site: site;
+    site: Array<site>;
     $: { version: string, generated: string };
 }
 

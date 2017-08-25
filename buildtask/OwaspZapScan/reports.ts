@@ -1,4 +1,3 @@
-import { generateReport } from './helper';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
@@ -6,17 +5,16 @@ import * as Request from 'request';
 import * as RequestPromise from 'request-promise';
 import * as sleep from 'thread-sleep';
 
-import { ReportType } from './enums';
-import { Constants } from './constants';
 import * as ZapRequest from './zapRequest';
 import * as ZapReport from './zapReporting';
-
+import { ReportType } from './enums';
+import { Constants } from './constants';
 
 export class Report {
     reportOptions: ZapRequest.ZapScanReportOptions;
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
 
-    constructor(public zapApiKey: string, public zapApiUrl: string) {
+    constructor(public zapApiUrl: string, public zapApiKey: string) {
         // Report Options
         this.reportOptions = {
             apikey: zapApiKey,
