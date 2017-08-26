@@ -1,3 +1,4 @@
+import { AlertResult } from './zapRequest';
 import * as Task from 'vsts-task-lib';
 import * as XmlParser from 'xmljson';
 
@@ -5,6 +6,7 @@ import * as ZapReport from './zapReporting';
 import { ReportType } from './enums';
 import { Constants } from './constants';
 import { Report } from './Reports';
+import { Helpers } from './Helpers';
 
 export class Verify {
     private _highAlertThreshold: number;
@@ -14,6 +16,7 @@ export class Verify {
     private _targetUrl: string;
 
     private _reports: Report;
+    private _helper: Helpers;
 
     constructor(public zapApiUrl: string, public zapApiKey: string) {
         this._reports = new Report(zapApiUrl, zapApiKey);
@@ -22,73 +25,41 @@ export class Verify {
     }
 
     async Assert(): Promise<void> {
-        let actualHighAlerts: number = 0;
-        let actualMediumAlerts: number = 0;
-        let actualLowAlerts: number = 0;
-        let alerts: ZapReport.alertitem[];
-
+        /* Get the Scan Result */
         let xmlReport: string = await this._reports.GetScanResults(ReportType.XML);
+        /* Sort and Count the Alerts */
+        let alertResult: AlertResult = this._helper.ProcessAlerts(xmlReport, this._targetUrl);
 
-        XmlParser.to_json(xmlReport, (err: any, res: any) => {
-            if (err) {
-                Task.error('Could not parse the XML report');
-                Task.error(`Error: ${err.message || err}`);
-                Task.setResult(Task.TaskResult.Failed, 'Could not parse the XML report');
-                return;
-            }               
-            
-            let reportJson: ZapReport.ScanReport = res;
-            let sites: ZapReport.site[] = reportJson.OWASPZAPReport.site;
+        Task.debug(`
+            Scan Result: 
+              High Risk Alerts: ${alertResult.HighAlerts}
+              Medium Risk Alerts: ${alertResult.MediumAlerts}
+              Low Risk Alerts: ${alertResult.LowAlerts}
+              Informational Risk Alerts: ${alertResult.InformationalAlerts}`);
+        
+        /* Print the Scan Report */
+        this._reports.PrintResult(alertResult.HighAlerts, alertResult.MediumAlerts, alertResult.LowAlerts, alertResult.InformationalAlerts);
+        
+        /* If Verifications are enabled. */
+        if(this._enableVerifications) {
 
-            for(let idx in sites) {
-                if (sites[idx].$.name == this._targetUrl) {
-                    alerts = sites[idx].alerts.alertitem;
-                    Task.debug(`Target Site Found: ${sites[idx].$.host}`);
-                }
+            /* Get the threshold values */
+            this._highAlertThreshold = parseInt(Task.getInput('MaxHighRiskAlerts'));
+            this._mediumAlertThreshold = parseInt(Task.getInput('MaxMediumRiskAlerts'));
+            this._lowAlertThreshold = parseInt(Task.getInput('MaxLowRiskAlerts'));
+
+            /* Verify alerts with in the limit */
+            if (this._highAlertThreshold < alertResult.HighAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${this._highAlertThreshold}, Actual: ${alertResult.HighAlerts}`);
             }
 
-            // Get the number of alert types                
-            for(let idx in alerts) {
-                if (alerts[idx].riskcode == Constants.HighRisk) {
-                    actualHighAlerts++; 
-                }
-
-                if (alerts[idx].riskcode == Constants.MediumRisk) {
-                    actualMediumAlerts++;
-                }
-
-                if (alerts[idx].riskcode == Constants.LowRisk) {
-                    actualLowAlerts++;
-                }
+            if (this._mediumAlertThreshold < alertResult.MediumAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${this._mediumAlertThreshold}, Actual: ${alertResult.MediumAlerts}`);
             }
 
-            Task.debug(`Scan Result: High Risk Alerts: ${actualHighAlerts}, Medium Risk Alerts: ${actualMediumAlerts}, Low Risk Alerts: ${actualLowAlerts}`);
-            
-            // Print the Scan Report
-            this._reports.PrintResult(actualHighAlerts, actualMediumAlerts, actualLowAlerts);
-            
-            // If Verifications are enabled.
-            if(this._enableVerifications) {
-
-                // Get the threshold values
-                this._highAlertThreshold = parseInt(Task.getInput('MaxHighRiskAlerts'));
-                this._mediumAlertThreshold = parseInt(Task.getInput('MaxMediumRiskAlerts'));
-                this._lowAlertThreshold = parseInt(Task.getInput('MaxLowRiskAlerts'));
-
-                // Verify alerts with in the limit
-                if (this._highAlertThreshold < actualHighAlerts) {
-                    Task.setResult(Task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${this._highAlertThreshold}, Actual: ${actualHighAlerts}`);
-                }
-
-                if (this._mediumAlertThreshold < actualMediumAlerts) {
-                    Task.setResult(Task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${this._mediumAlertThreshold}, Actual: ${actualMediumAlerts}`);
-                }
-
-                if (this._lowAlertThreshold < actualLowAlerts) {
-                    Task.setResult(Task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${this._lowAlertThreshold}, Actual: ${actualLowAlerts}`);
-                }
+            if (this._lowAlertThreshold < alertResult.LowAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${this._lowAlertThreshold}, Actual: ${alertResult.LowAlerts}`);
             }
-            
-        });
+        }
     }
 }
