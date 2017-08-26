@@ -92,7 +92,8 @@ export class ActiveScan implements IZapScan {
 
                     if(scanStatus >= 100) {
                         console.log(`Active Scan In Progress: ${scanStatus}%`);
-                        console.log('Active Scan Complete...');
+                        console.log('Active Scan Complete.');
+                        console.log('---------------------------------------');
                         scanCompleted = true;
                         break;
                     }
@@ -126,15 +127,13 @@ export class ActiveScan implements IZapScan {
             qs: statusOptions
         };
 
-        Task.debug('*** Get Active Scan Status ***');
-        Task.debug(`ZAP API Call: ${this.requestOptions.uri}`);
-        Task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
+        Task.debug(`${this.ScanType} | ZAP API Call: ${this.requestOptions.uri} | Request Options: ${JSON.stringify(statusOptions)}`);
 
         return new Promise<number>((resolve, reject) => {
             RequestPromise(requestOptions)
                 .then((res: any) => {
                     let result: ZapRequest.ZapScanStatus = JSON.parse(res);
-                    Task.debug(`Spider Scan Status Result: ${JSON.stringify(res)}`);                    
+                    Task.debug(`${this.ScanType} | Status Result: ${JSON.stringify(res)}`);                    
                     resolve(result.status);
                 })
                 .error((err: any) => {
