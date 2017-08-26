@@ -88,14 +88,18 @@ export class Report {
         Task.debug(`Report Filename: ${fullFilePath}`);
 
         if (type == ReportType.HTML) {
+            /* Get the Scan Result */
             let xmlResult: string = await this.GetScanResults(ReportType.XML);
+            /* Sort and Count the Alerts */
             let processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
+            /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
 
         } else {
             scanReport = await this.GetScanResults(type);
         }        
         
+        /* Write the File */
         return new Promise<boolean>((resolve, reject) => {
             fs.writeFile(fullFilePath, scanReport, (err: any) => {
                 if (err) {
@@ -194,19 +198,19 @@ export class Report {
                                 </tr>
                             </thead>
                             <tr class="bg-danger legend">
-                                <td><a href="#high">High</a></td>
+                                <td><a href="#3">High</a></td>
                                 <td>${alertResult.HighAlerts}</td>
                             </tr>
                             <tr class="bg-warning legend">
-                                <td><a href="#medium">Medium</a></td>
+                                <td><a href="#2">Medium</a></td>
                                 <td>${alertResult.MediumAlerts}</td>
                             </tr>
                             <tr class="bg-info legend">
-                                <td><a href="#low">Low</a></td>
+                                <td><a href="#1">Low</a></td>
                                 <td>${alertResult.LowAlerts}</td>
                             </tr>
                             <tr class="bg-success legend">
-                                <td><a href="#info">Informational</a></td>
+                                <td><a href="#0">Informational</a></td>
                                 <td>${alertResult.InformationalAlerts}</td>
                             </tr>
                         </table>
@@ -216,6 +220,7 @@ export class Report {
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Alert Detail</h2>
+                        <p class="lead">Click on the risk type header to expand the details panel for the risk</p>
                         <hr>                
                         ${alertHtmlTables}
                     </div>
@@ -272,7 +277,7 @@ export class Report {
         let htmlString: string = `
         <table class="table">
             <tr class="${cssClass}" height="24">
-                <td width="20%"><p class="alert-header"><a name="medium" class="alert-header-link" data-toggle="collapse" href="#collapseBlock${collapseId}" aria-expanded="false" aria-controls="collapseExample" >${alert.riskdesc}</a></p></td>
+                <td width="20%"><p class="alert-header"><a name="${alert.riskcode}" class="alert-header-link" data-toggle="collapse" href="#collapseBlock${collapseId}" aria-expanded="false" aria-controls="collapseExample" >${alert.riskdesc}</a></p></td>
                 <td width="80%"><p class="alert-header">${alert.name}</p></td>
             </tr>
             <tbody class="collapse" id="collapseBlock${collapseId}">
