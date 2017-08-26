@@ -43,9 +43,7 @@ export class SpiderScan implements IZapScan {
     ExecuteScan(): Promise<ScanResult> {
         let scanResult: ScanResult = { Success: false };
 
-        Task.debug('*** Initiate the Active Scan ***');
-        Task.debug(`Target URL: ${this.requestOptions.uri}`);
-        Task.debug(`Scan Options: ${JSON.stringify(this.scanOptions)}`);
+        Task.debug(`${this.ScanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this.scanOptions)}`);
 
         return new Promise<ScanResult>((resolve, reject) => {
             RequestPromise(this.requestOptions)
@@ -87,7 +85,8 @@ export class SpiderScan implements IZapScan {
 
                     if(scanStatus >= 100) {
                         console.log(`Spider Scan In Progress: ${scanStatus}%`);
-                        console.log('Spider Scan Complete...');
+                        console.log('Spider Scan Complete.');
+                        console.log('----------------------------------------');
                         scanCompleted = true;
                         break;
                     }
@@ -121,15 +120,13 @@ export class SpiderScan implements IZapScan {
             qs: statusOptions
         };
 
-        Task.debug('*** Get Spider Scan Status ***');
-        Task.debug(`ZAP API Call: ${this.requestOptions.uri}`);
-        Task.debug(`Request Options: ${JSON.stringify(statusOptions)}`);
+        Task.debug(`${this.ScanType} | ZAP API Call: ${this.requestOptions.uri} | Request Options: ${JSON.stringify(statusOptions)}`);
 
         return new Promise<number>((resolve, reject) => {
             RequestPromise(requestOptions)
                 .then((res: any) => {
                     let result: ZapRequest.ZapScanStatus = JSON.parse(res);
-                    Task.debug(`Spider Scan Status Result: ${JSON.stringify(result)}`);
+                    Task.debug(`${this.ScanType} | Status Result: ${JSON.stringify(result)}`);
                     
                     resolve(result.status);
                 })
