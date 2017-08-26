@@ -21,7 +21,6 @@ export class Verify {
         this._targetUrl = Task.getInput('TargetUrl', true);
     }
 
-
     async Assert(): Promise<void> {
         let actualHighAlerts: number = 0;
         let actualMediumAlerts: number = 0;
@@ -42,8 +41,9 @@ export class Verify {
             let sites: ZapReport.site[] = reportJson.OWASPZAPReport.site;
 
             for(let idx in sites) {
-                if (sites[idx].$.host == this._targetUrl) {
+                if (sites[idx].$.name == this._targetUrl) {
                     alerts = sites[idx].alerts.alertitem;
+                    Task.debug(`Target Site Found: ${sites[idx].$.host}`);
                 }
             }
 
