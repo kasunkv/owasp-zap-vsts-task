@@ -1,4 +1,4 @@
-import { ScanResult } from './scanResult';
+import { ScanResult } from "../types/ScanResult";
 
 export interface IZapScan {
     ScanType: string;

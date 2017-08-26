@@ -6,14 +6,15 @@ import * as RequestPromise from 'request-promise';
 import * as sleep from 'thread-sleep';
 import * as XmlParser from 'xmljson';
 
-import * as ZapRequest from './zapRequest';
-import { AlertItem } from './zapReporting';
-import { AlertRowType, ReportType } from './enums';
+import { AlertItem } from './../interfaces/types/ZapReport';
+import { AlertRowType, ReportType } from './../enums/Enums';
 import { Constants } from './constants';
-import { Helpers } from './Helpers';
+import { Helpers } from './../classes/Helper';
+import { AlertResult } from './../interfaces/types/AlertResult';
+import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
 
 export class Report {
-    reportOptions: ZapRequest.ZapScanReportOptions;
+    reportOptions: ZapScanReportOptions;
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
     private _targetUrl: string;
     private _projectName: string;
@@ -28,13 +29,13 @@ export class Report {
 
         this._helper = new Helpers();
 
-        // Report Options
+        /* Report Options */
         this.reportOptions = {
             apikey: zapApiKey,
             formMethod: 'GET'
         };
 
-        // Report Request Options
+        /* Report Request Options */
         this.requestOptions = {
             uri: `http://${this.zapApiUrl}/OTHER/core/other`,
             qs: this.reportOptions
@@ -44,7 +45,7 @@ export class Report {
     GetScanResults(type: ReportType): Promise<string> {
         let reportType: string = 'xmlreport';
 
-        // Set report type
+        /* Set report type */
         if (type == ReportType.XML) { reportType = Constants.XmlReport; }
         if (type == ReportType.HTML) { reportType = Constants.HtmlReport; } 
         if (type == ReportType.MD) { reportType = Constants.MdReport; }
@@ -88,7 +89,7 @@ export class Report {
 
         if (type == ReportType.HTML) {
             let xmlResult: string = await this.GetScanResults(ReportType.XML);
-            let processedAlerts: ZapRequest.AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
+            let processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
             scanReport = this.createCustomHtmlReport(processedAlerts);
 
         } else {
@@ -122,7 +123,7 @@ export class Report {
         console.log('__________________________');
     }
 
-    private createCustomHtmlReport(alertResult: ZapRequest.AlertResult): string {
+    private createCustomHtmlReport(alertResult: AlertResult): string {
         let alertHtmlTables: string = '';
 
         for (let idx in alertResult.Alerts) {

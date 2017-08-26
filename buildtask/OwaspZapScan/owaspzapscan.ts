@@ -1,15 +1,15 @@
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
 
-import { ScanResult } from './scanResult';
-import { IZapScan } from './IZapScan';
-import { ActiveScan } from './ActiveScan';
-import { SpiderScan } from './SpiderScan';
-import { Report } from './Reports';
-import { Verify } from './Verify';
+import { ScanResult } from './interfaces/types/ScanResult';
+import { IZapScan } from './interfaces/contracts/IZapScan';
+import { ActiveScan } from './classes/ActiveScan';
+import { SpiderScan } from './classes/SpiderScan';
+import { Report } from './classes/Reports';
+import { Verify } from './classes/Verify';
 
 
-Task.setResourcePath(path.join(__dirname, 'task.json'));
+Task.setResourcePath(path.join(__dirname, '../task.json'));
 
 async function run(): Promise<void> {
     /* Get the required inputs */

@@ -1,9 +1,9 @@
 import * as Task from 'vsts-task-lib';
 
-import { ReportType } from './enums';
-import { Report } from './Reports';
-import { Helpers } from './Helpers';
-import { AlertResult } from './zapRequest';
+import { ReportType } from './../enums/Enums';
+import { Report } from './../classes/Reports';
+import { Helpers } from './../classes/Helper';
+import { AlertResult } from './../interfaces/types/AlertResult';
 
 export class Verify {
     private _highAlertThreshold: number;

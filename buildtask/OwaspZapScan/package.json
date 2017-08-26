@@ -2,10 +2,10 @@
   "name": "owasp-zap-scan",
   "version": "1.0.0",
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
-  "main": "owaspzapscan.js",
+  "main": "dist\\owaspzapscan.js",
   "scripts": {
     "test": "tsc tests\\_suite.ts --lib es2015 && mocha tests\\_suite.js",
-    "build": "tsc owaspzapscan.ts --lib es2015"
+    "build": "tsc owaspzapscan.ts --lib es2015 --outdir dist"
   },
   "repository": {
     "type": "git",

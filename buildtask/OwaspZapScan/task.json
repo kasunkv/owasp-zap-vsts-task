@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 1,
-        "Minor": 48,
+        "Minor": 50,
         "Patch": 0
     },
     "demands": [
@@ -245,7 +245,7 @@
     "instanceNameFormat": "OWASP ZAP Active Scan",
     "execution": {
         "Node": {
-            "target": "owaspzapscan.js",
+            "target": "dist\\owaspzapscan.js",
             "argumentFormat": ""
         }
     },

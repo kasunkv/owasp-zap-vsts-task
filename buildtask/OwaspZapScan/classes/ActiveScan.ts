@@ -3,14 +3,14 @@ import * as RequestPromise from 'request-promise';
 import * as Task from 'vsts-task-lib';
 import * as sleep from 'thread-sleep';
 
-import * as ZapRequest from './zapRequest';
-import { IZapScan } from './IZapScan';
-import { ScanResult } from './scanResult';
+import { ScanResult } from './../interfaces/types/ScanResult';
+import { ZapActiveScanOptions, ZapScanResult, ZapActiveScanStatusOptions, ZapScanStatus } from './../interfaces/types/ZapScan';
+import { IZapScan } from './../interfaces/contracts/IZapScan';
 
 export class ActiveScan implements IZapScan {    
     public ScanType: string = 'Active Scan';
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
-    scanOptions: ZapRequest.ZapActiveScanOptions;
+    scanOptions: ZapActiveScanOptions;
 
     constructor(
         public zapApiUrl: string,
@@ -23,7 +23,7 @@ export class ActiveScan implements IZapScan {
         public method: string,
         public postData: string
     ) {
-        // Active Scan Options
+        /* Active Scan Options */
         this.scanOptions = {
             apikey: zapApiKey,
             url: targetUrl,
@@ -37,7 +37,7 @@ export class ActiveScan implements IZapScan {
             formMethod: 'GET'
         };
 
-        // Scan Request Options
+        /* Scan Request Options */
         this.requestOptions = {
             uri: `http://${zapApiUrl}/JSON/ascan/action/scan/`,
             qs: this.scanOptions
@@ -55,7 +55,7 @@ export class ActiveScan implements IZapScan {
             RequestPromise(this.requestOptions)
                 .then(async (res: any) => {
 
-                    let result: ZapRequest.ZapScanResult = JSON.parse(res);
+                    let result: ZapScanResult = JSON.parse(res);
                     console.log(`OWASP ZAP Active Scan Initiated. ID: ${result.scan}`);
                     
                     scanResult.Success = await this.checkSpiderScanStatus(result.scan);
@@ -115,7 +115,7 @@ export class ActiveScan implements IZapScan {
     }
 
     private getActiveScanStatus(scanId: number): Promise<number> {
-        let statusOptions: ZapRequest.ZapActiveScanStatusOptions = {
+        let statusOptions: ZapActiveScanStatusOptions = {
             zapapiformat: 'JSON',
             apikey: this.zapApiKey,
             formMethod: 'GET',
@@ -132,7 +132,7 @@ export class ActiveScan implements IZapScan {
         return new Promise<number>((resolve, reject) => {
             RequestPromise(requestOptions)
                 .then((res: any) => {
-                    let result: ZapRequest.ZapScanStatus = JSON.parse(res);
+                    let result: ZapScanStatus = JSON.parse(res);
                     Task.debug(`${this.ScanType} | Status Result: ${JSON.stringify(res)}`);                    
                     resolve(result.status);
                 })

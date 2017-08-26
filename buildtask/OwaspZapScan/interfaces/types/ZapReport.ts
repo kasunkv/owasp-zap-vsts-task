@@ -1,4 +1,4 @@
-// ZAP Report interfaces
+/* ZAP Report interfaces */
 export interface ScanReport {
     OWASPZAPReport: OwaspZapReport
 }
