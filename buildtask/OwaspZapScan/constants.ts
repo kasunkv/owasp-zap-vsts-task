@@ -13,4 +13,5 @@ export class Constants {
     static HighRisk: string = '3';
     static MediumRisk: string = '2';
     static LowRisk: string = '1';
+    static InfoRisk: string = '0';
 }

@@ -30,7 +30,7 @@ export interface alertitem {
     confidence: string;
     riskdesc: string;
     desc: string;
-    instances: instances;
+    instances: instanceList;
     count: string;
     solution: string;
     reference: string;
@@ -40,9 +40,13 @@ export interface alertitem {
     otherinfo: string;
 }
 
-export interface instances {
-    instance: Array<instance>
+export interface instanceList {
+    instance: Array<instance>;
 }
+
+// export interface instances {
+//     instance: Array<instance>
+// }
 
 export interface instance {
     uri: string;

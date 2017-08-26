@@ -3,3 +3,8 @@ export enum ReportType {
     HTML,
     MD
 }
+
+export enum AlertRowType {
+    InstanceRow, 
+    AlertRow
+}
