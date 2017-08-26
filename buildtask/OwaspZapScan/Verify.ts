@@ -1,12 +1,9 @@
-import { AlertResult } from './zapRequest';
 import * as Task from 'vsts-task-lib';
-import * as XmlParser from 'xmljson';
 
-import * as ZapReport from './zapReporting';
 import { ReportType } from './enums';
-import { Constants } from './constants';
 import { Report } from './Reports';
 import { Helpers } from './Helpers';
+import { AlertResult } from './zapRequest';
 
 export class Verify {
     private _highAlertThreshold: number;
@@ -19,9 +16,11 @@ export class Verify {
     private _helper: Helpers;
 
     constructor(public zapApiUrl: string, public zapApiKey: string) {
-        this._reports = new Report(zapApiUrl, zapApiKey);
         this._enableVerifications = Task.getBoolInput('EnableVerifications');
         this._targetUrl = Task.getInput('TargetUrl', true);
+
+        this._reports = new Report(zapApiUrl, zapApiKey);
+        this._helper = new Helpers();
     }
 
     async Assert(): Promise<void> {

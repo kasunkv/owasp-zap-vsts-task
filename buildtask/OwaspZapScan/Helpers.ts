@@ -1,25 +1,25 @@
 import * as XmlParser from 'xmljson';
 
 import { AlertResult } from './zapRequest';
-import { alertitem, ScanReport, site } from './zapReporting';
+import { AlertItem, ScanReport, Site } from './zapReporting';
 import { Constants } from './constants';
 
 export class Helpers {
     constructor () {}
 
     ProcessAlerts(xmlResult: string, targetUrl: string): AlertResult {
-        let high: Array<alertitem> = new Array<alertitem>();
-        let mid: Array<alertitem> = new Array<alertitem>();
-        let low: Array<alertitem> = new Array<alertitem>();
-        let info: Array<alertitem> = new Array<alertitem>();
+        let high: Array<AlertItem> = new Array<AlertItem>();
+        let mid: Array<AlertItem> = new Array<AlertItem>();
+        let low: Array<AlertItem> = new Array<AlertItem>();
+        let info: Array<AlertItem> = new Array<AlertItem>();
 
-        let alerts: alertitem[];
+        let alerts: AlertItem[];
         let alertResult: AlertResult = {
             HighAlerts: 0,
             MediumAlerts: 0,
             LowAlerts: 0,
             InformationalAlerts: 0,
-            Alerts: new Array<alertitem>()
+            Alerts: new Array<AlertItem>()
         };
 
         XmlParser.to_json(xmlResult, (err: any, res: any) => {
@@ -28,7 +28,7 @@ export class Helpers {
             }
 
             let reportJson: ScanReport = res;
-            let sites: site[] = reportJson.OWASPZAPReport.site;
+            let sites: Site[] = reportJson.OWASPZAPReport.site;
 
             for(let idx in sites) {
                 if (sites[idx].$.name == targetUrl) {
@@ -58,7 +58,7 @@ export class Helpers {
                 }
             }
 
-            let sorted: Array<alertitem> = high.concat(mid).concat(low).concat(info);
+            let sorted: Array<AlertItem> = high.concat(mid).concat(low).concat(info);
             alertResult.Alerts = sorted;
         });
 

@@ -1,4 +1,4 @@
-import { alertitem } from './zapReporting';
+import { AlertItem } from './zapReporting';
 
 // ZAP Request Interfaces
 export interface ZapScanOptionsBase {
@@ -59,5 +59,5 @@ export interface AlertResult {
     MediumAlerts: number;
     LowAlerts: number;
     InformationalAlerts: number;
-    Alerts: alertitem[];
+    Alerts: AlertItem[];
 }

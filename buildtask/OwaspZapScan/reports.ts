@@ -7,7 +7,7 @@ import * as sleep from 'thread-sleep';
 import * as XmlParser from 'xmljson';
 
 import * as ZapRequest from './zapRequest';
-import * as ZapReport from './zapReporting';
+import { AlertItem } from './zapReporting';
 import { AlertRowType, ReportType } from './enums';
 import { Constants } from './constants';
 import { Helpers } from './Helpers';
@@ -226,7 +226,7 @@ export class Report {
         return htmlLayout;
     }
 
-    private createAlertTable(alert: ZapReport.alertitem): string {
+    private createAlertTable(alert: AlertItem): string {
         let cssClass: string = 'bg-success';
         let collapseId: string = String(Math.floor(Math.random() * 10000));
         let tableRows: string = '';

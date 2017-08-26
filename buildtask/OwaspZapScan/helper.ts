@@ -8,7 +8,6 @@ import * as sleep from 'thread-sleep';
 import { ReportType } from './enums';
 import { Constants } from './constants';
 import * as ZapRequest from './zapRequest';
-import * as ZapReport from './zapReporting';
 
 
 export function getActiveScanStatus(scanId: number, apiKey: string, zapApiUrl: string): Promise<number> {

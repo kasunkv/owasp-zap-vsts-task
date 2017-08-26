@@ -1,28 +1,28 @@
 // ZAP Report interfaces
 export interface ScanReport {
-    OWASPZAPReport: OWASPZAPReport
+    OWASPZAPReport: OwaspZapReport
 }
 
-export interface OWASPZAPReport {
-    site: Array<site>;
+export interface OwaspZapReport {
+    site: Array<Site>;
     $: { version: string, generated: string };
 }
 
-export interface site {
+export interface Site {
     $: {
         name: string,
         host: string,
         port: string,
         ssl: string,
     };
-    alerts: alerts;
+    alerts: Alerts;
 }
 
-export interface alerts {
-    alertitem: Array<alertitem>;
+export interface Alerts {
+    alertitem: Array<AlertItem>;
 }
 
-export interface alertitem {
+export interface AlertItem {
     pluginid: string;
     alert: string;
     name: string;
@@ -30,7 +30,7 @@ export interface alertitem {
     confidence: string;
     riskdesc: string;
     desc: string;
-    instances: instanceList;
+    instances: InstanceList;
     count: string;
     solution: string;
     reference: string;
@@ -40,15 +40,11 @@ export interface alertitem {
     otherinfo: string;
 }
 
-export interface instanceList {
-    instance: Array<instance>;
+export interface InstanceList {
+    instance: Array<Instance>;
 }
 
-// export interface instances {
-//     instance: Array<instance>
-// }
-
-export interface instance {
+export interface Instance {
     uri: string;
     method: string;
     evidence: string;
