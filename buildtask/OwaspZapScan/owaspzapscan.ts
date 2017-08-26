@@ -12,19 +12,19 @@ import { Verify } from './Verify';
 Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run(): Promise<void> {
-    // Get the required inputs
+    /* Get the required inputs */
     let zapApiUrl: string = Task.getInput('ZapApiUrl', true);
     let zapApiKey: string = Task.getInput('ZapApiKey', true);
     let targetUrl: string = Task.getInput('TargetUrl', true);
 
-    // Spider Scan Options
+    /* Spider Scan Options */
     let executeSpiderScan: boolean = Task.getBoolInput('ExecuteSpiderScan');
     let recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
     let subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
     let maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
     let contextName: string = Task.getInput('ContextName');
 
-    // Active Scan Options inputs
+    /* Active Scan Options inputs */
     let contextId: string = Task.getInput('ContextId');
     let recurse: boolean = Task.getBoolInput('Recurse');
     let inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
@@ -32,7 +32,7 @@ async function run(): Promise<void> {
     let method: string = Task.getInput('Method');
     let postData: string = Task.getInput('PostData');
     
-    // Reporting options
+    /* Reporting options */
     let reportType: string = Task.getInput('ReportType');
     let destinationFolder: string = Task.getPathInput('ReportFileDestination');
     let reportFileName: string = Task.getInput('ReportFileName');
@@ -43,17 +43,17 @@ async function run(): Promise<void> {
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;
 
-    // Add Spider Scan is selected
+    /* Add Spider Scan is selected */
     if (executeSpiderScan) {
         let spiderScan: SpiderScan = new SpiderScan(zapApiUrl, zapApiKey, targetUrl, subtreeOnly, recurseSpider, maxChildrenToCrawl, contextName);
         selectedScans.push(spiderScan);
     }
 
-    // Add the Active Scan
+    /* Add the Active Scan */
     let activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
     selectedScans.push(activeScan);
 
-    // Execute the Scans
+    /* Execute the Scans */
     for (let i: number = 0; i < selectedScans.length; i++) {
         let scan: IZapScan = selectedScans[i];
         scanStatus = await scan.ExecuteScan();
@@ -65,10 +65,10 @@ async function run(): Promise<void> {
         }
     }
 
-    // If all scans are successful: 1). Generate the Report 2). Perform the Verifications
+    /* If all scans are successful: 1). Generate the Report 2). Perform the Verifications */
     if (scanStatus.Success) {
 
-        // Generate the report
+        /* Generate the report */
         console.log('Generating the report...');
         let isSuccess: boolean = await reports.GenerateReport(reportType, destinationFolder, reportFileName);
         
@@ -76,7 +76,7 @@ async function run(): Promise<void> {
             hasIssues = isSuccess;
         }
 
-        // Perform the Verifications and Print the report
+        /* Perform the Verifications and Print the report */
         let verify: Verify = new Verify(zapApiUrl, zapApiKey);
         verify.Assert();
 

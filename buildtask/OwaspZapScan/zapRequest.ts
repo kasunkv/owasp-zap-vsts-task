@@ -1,3 +1,5 @@
+import { alertitem } from './zapReporting';
+
 // ZAP Request Interfaces
 export interface ZapScanOptionsBase {
     zapapiformat: string;
@@ -50,4 +52,12 @@ export interface ZapScanStatus {
 
 export interface ZapScanResult {
     scan: number;
+}
+
+export interface AlertResult {
+    HighAlerts: number;
+    MediumAlerts: number;
+    LowAlerts: number;
+    InformationalAlerts: number;
+    Alerts: alertitem[];
 }
