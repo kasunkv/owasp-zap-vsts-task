@@ -25,6 +25,7 @@ async function run(): Promise<void> {
     let contextName: string = Task.getInput('ContextName');
 
     /* Active Scan Options inputs */
+    let executeActiveScan: boolean = Task.getBoolInput('ExecuteActiveScan');
     let contextId: string = Task.getInput('ContextId');
     let recurse: boolean = Task.getBoolInput('Recurse');
     let inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
@@ -50,8 +51,10 @@ async function run(): Promise<void> {
     }
 
     /* Add the Active Scan */
-    let activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
-    selectedScans.push(activeScan);
+    if (executeActiveScan) {
+        let activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
+        selectedScans.push(activeScan);
+    }    
 
     /* Execute the Scans */
     for (let i: number = 0; i < selectedScans.length; i++) {

@@ -120,14 +120,23 @@
             "groupName": "spiderScanOptions",
             "helpMarkDown": "Set to limit the number of children scanned.",
             "visibleRule": "ExecuteSpiderScan = true"
-        },     
+        },
+        {
+            "name": "ExecuteActiveScan",
+            "type": "boolean",
+            "label": "Execute Active Scan",
+            "required": false,
+            "groupName": "activeScanOptions",
+            "helpMarkDown": "Enable to run a active scan on the target."
+        },
         {
             "name": "ContextId",
             "type": "string",
             "label": "Context ID",
             "required": false,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Context identifier of the Scan context"
+            "helpMarkDown": "Context identifier of the Scan context",
+            "visibleRule": "ExecuteActiveScan = true"
         },
         {
             "name": "Recurse",
@@ -136,7 +145,8 @@
             "defaultValue": "true",
             "required": false,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Set recurse option to scan URLs under the given target URL"
+            "helpMarkDown": "Set recurse option to scan URLs under the given target URL",
+            "visibleRule": "ExecuteActiveScan = true"
         },
         {
             "name": "InScopeOnly",
@@ -144,7 +154,8 @@
             "label": "In Scope Only",
             "required": false,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Set In Scope only to true to constrain the scan to URLs that are in scope (ignored if a Context is specified)"
+            "helpMarkDown": "Set In Scope only to true to constrain the scan to URLs that are in scope (ignored if a Context is specified)",
+            "visibleRule": "ExecuteActiveScan = true"
         },
         {
             "name": "ScanPolicyName",
@@ -152,7 +163,8 @@
             "label": "Scan Policy Name",
             "required": false,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Scan Policy Name allows to specify the scan policy (if none is given it uses the default scan policy)"
+            "helpMarkDown": "Scan Policy Name allows to specify the scan policy (if none is given it uses the default scan policy)",
+            "visibleRule": "ExecuteActiveScan = true"
         },
         {
             "name": "Method",
@@ -160,7 +172,8 @@
             "label": "Method",
             "required": false,
             "groupName": "activeScanOptions",
-            "helpMarkDown": "Allow you to select a given request in conjunction with the given URL"
+            "helpMarkDown": "Allow you to select a given request in conjunction with the given URL",
+            "visibleRule": "ExecuteActiveScan = true"
         },
         {
             "name": "PostData",
@@ -169,6 +182,7 @@
             "required": false,
             "groupName": "activeScanOptions",
             "helpMarkDown": "Allow you to select a given request in conjunction with the given URL",
+            "visibleRule": "ExecuteActiveScan = true",
             "properties": {
                 "resizable": true,
                 "rows" : "10"
