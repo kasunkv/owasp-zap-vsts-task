@@ -38,9 +38,7 @@ export class Report {
 
         this.requestOptions.uri = `${this.requestOptions.uri}/${reportType}/`;
 
-        Task.debug('*** Get Active Scan Results ***');
-        Task.debug(`ZAP API Call: ${this.requestOptions.uri}`);
-        Task.debug(`Request Options: ${JSON.stringify(this.requestOptions)}`);
+        Task.debug(`Active Scan Results | ZAP API Call: ${this.requestOptions.uri} | Request Options: ${JSON.stringify(this.requestOptions)}`);
 
         return new Promise<string>((resolve, reject) => {
             RequestPromise(this.requestOptions)
