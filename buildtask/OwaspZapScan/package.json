@@ -1,6 +1,5 @@
 {
   "name": "owasp-zap-scan",
-  "version": "1.1.0",
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
   "main": "dist\\owaspzapscan.js",
   "scripts": {
