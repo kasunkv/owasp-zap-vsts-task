@@ -1,5 +1,6 @@
 {
   "name": "owasp-zap-scan",
+  "version": "0.0.0-sementic-release",
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
   "main": "dist\\owaspzapscan.js",
   "scripts": {
@@ -10,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kasunkv/owasp-zap-vsts-task.git"
+    "url": "https://github.com/kasunkv/owasp-zap-vsts-task.git"
   },
   "keywords": [
     "owasp",
