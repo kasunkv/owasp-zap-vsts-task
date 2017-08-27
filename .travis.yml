@@ -12,6 +12,7 @@ before_install:
   - npm i -g npm@^2.0.0
 install:
   - npm install -g typescript
+  - npm install
 before_script:
 script:
   - npm run build
