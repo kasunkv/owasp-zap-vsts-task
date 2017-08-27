@@ -8,11 +8,11 @@ notifications:
 node_js:
   - '4'
 before_install:
+  - cd buildtask\OwaspZapScan
   - npm i -g npm@^2.0.0
 install:
   - npm install -g typescript
 before_script:
-  - npm prune
 script:
   - npm run build
 after_success:
