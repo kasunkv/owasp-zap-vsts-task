@@ -2,7 +2,7 @@ import * as XmlParser from 'xmljson';
 
 import { AlertResult } from './../interfaces/types/AlertResult';
 import { AlertItem, ScanReport, Site } from './../interfaces/types/ZapReport';
-import { Constants } from './constants';
+import { Constants } from './Constants';
 
 export class Helpers {
     constructor () {}

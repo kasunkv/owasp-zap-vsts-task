@@ -8,7 +8,7 @@ import * as XmlParser from 'xmljson';
 
 import { AlertItem } from './../interfaces/types/ZapReport';
 import { AlertRowType, ReportType } from './../enums/Enums';
-import { Constants } from './constants';
+import { Constants } from './Constants';
 import { Helpers } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
 import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
