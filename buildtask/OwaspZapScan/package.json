@@ -1,11 +1,13 @@
 {
   "name": "owasp-zap-scan",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "OWASP ZAP Scanning in Visual Studio Team Services for Build & Release",
   "main": "dist\\owaspzapscan.js",
   "scripts": {
+    "commit": "git cz",
     "test": "tsc tests\\_suite.ts --lib es2015 && mocha tests\\_suite.js",
-    "build": "tsc owaspzapscan.ts --lib es2015 --outdir dist"
+    "build": "tsc owaspzapscan.ts --lib es2015 --outdir dist",
+    "semantic-release": "semantic-release pre && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,11 @@
     "url": "https://github.com/kasunkv/owasp-zap-vsts-task/issues"
   },
   "homepage": "https://github.com/kasunkv/owasp-zap-vsts-task#readme",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
@@ -40,6 +47,10 @@
     "@types/node": "^8.0.19",
     "@types/q": "^1.0.3",
     "@types/request": "^2.0.0",
-    "@types/request-promise": "^4.1.36"
+    "@types/request-promise": "^4.1.36",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "husky": "^0.14.3",
+    "semantic-release": "^7.0.2"
   }
 }
