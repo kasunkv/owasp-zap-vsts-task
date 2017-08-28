@@ -1,6 +1,6 @@
 Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.
 
-# Using OWASP Zed Attack Proxy Scan Task
+## Using OWASP Zed Attack Proxy Scan Task
 
 Follow the instructions given below to add and configure OWASP Zed Attack Proxy Task in your build/release pipeline.
 
@@ -16,7 +16,7 @@ Install the OWASP Zed Attack Proxy Scan Task in to your Visual Studio Team Servi
 ## Required Configuration
 OWASP Zed Attack Proxy Scan task has some required configuration options that needed to be provided.
 
-These configurations are found in the _**ZAP API Configuration**_ section and _**Active Scan Options**_ section.
+These configurations are found in the _**ZAP API Configuration**_ section.
 
 ![Required Configuration Options](https://raw.githubusercontent.com/kasunkv/owasp-zap-vsts-task/master/screenshots/task-added-3-configs-required.PNG)
 
@@ -25,13 +25,26 @@ These configurations are found in the _**ZAP API Configuration**_ section and _*
 * **API Key** : The API key for ZAP. Details about obtaining the API can be found on the [Official Documentation](https://github.com/zaproxy/zaproxy/wiki/FAQapikey)
 * **Target URL** : Target URL where the active scan is performed against.
 
+
+## Spider Scan Options
+This configuration section includes the parameters that need to be sent to perform the active scan against the target.
+
+![Spider Scan Options](https://raw.githubusercontent.com/kasunkv/owasp-zap-vsts-task/master/screenshots/spider-scan-options.png)
+
+### Available Options
+* **Execute Spider Scan** : Enable to run a spider scan on the target.
+* **Recurse** : _(Optional)_ Enable to use the nodes underneath the one specified target to seed the spider.
+* **Subtree Only** : _(Optional)_ Enable to restrict the spider under the target url subtree.
+* **Context Name** : _(Optional)_ Set to constrain the scan to a Context.
+* **Max Children To Crawl** : _(Optional)_ Set to limit the number of children scanned.
+
 ## Active Scan Options
 This configuration section includes the parameters that need to be sent to perform the active scan against the target.
 
 ![Active Scan Options](https://raw.githubusercontent.com/kasunkv/owasp-zap-vsts-task/master/screenshots/active-scan-options.PNG)
 
 ### Available Options
-* **Target URL** : _(Required)_ Target URL where the active scan is performed against.
+* **Execute Active Scan** : Enable to run a active scan on the target.
 * **Context ID** : _(Optional)_ Context identifier of the Scan context.
 * **Recurse** : _(Optional)_ Set recurse option to scan URLs under the given target URL.
 * **In Scope Only** : _(Optional)_ Set In Scope only to true to constrain the scan to URLs that are in scope (ignored if a Context is specified).
@@ -61,4 +74,3 @@ This configuration section includes the parameters that need to be sent to perfo
 * **Report Type** : Select the type of report you want generated. Available types are _**HTML**_, _**XML**_ & _**Markdown**_.
 * **Destination Folder** : The destination folder that the report file is created. You can use [variables](https://go.microsoft.com/fwlink/?LinkID=550988). Eg. _$(agent.builddirectory)_.
 * **Report Filename** : Name of the report file, without the extension. Extension is determined by the _**Report Type**_. Eg. _OWASP-ZAP-Report-2017-00-00_.
-
