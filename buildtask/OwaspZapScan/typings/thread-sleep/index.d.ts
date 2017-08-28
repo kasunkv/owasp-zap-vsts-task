@@ -1,3 +1,4 @@
+declare function sleep(milliseconds:number): number;
 declare module 'thread-sleep' {
-    function sleep(milliseconds:number): number;
+    export = sleep;
 }
