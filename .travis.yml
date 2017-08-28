@@ -6,21 +6,20 @@ cache:
 notifications:
   email: false
 node_js:
-- '4'
+  - '4'
 before_install:
-- cd ./buildtask/OwaspZapScan
-- npm i -g npm@^2.0.0
+  - npm i -g npm@^2.0.0
 install:
-- npm install -g typescript
-- npm install
+  - npm install -g typescript
+  - npm install
 before_script:
-- npm prune
-- curl -Lo travis_after_all.py https://git.io/vLSON
+  - npm prune
+  - curl -Lo travis_after_all.py https://git.io/vLSON
 script:
-- npm run compile
+  - npm run compile
 after_success:
-- python travis_after_all.py
-- npm run semantic-release
+  - python travis_after_all.py
+  - npm run semantic-release
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
