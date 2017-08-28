@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as Task from 'vsts-task-lib';
 import * as Request from 'request';
 import * as RequestPromise from 'request-promise';
-import * as sleep from 'thread-sleep';
 import * as XmlParser from 'xmljson';
 
 import { AlertItem } from './../interfaces/types/ZapReport';

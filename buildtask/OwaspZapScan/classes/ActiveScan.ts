@@ -1,7 +1,5 @@
-import * as Request from 'request';
 import * as RequestPromise from 'request-promise';
 import * as Task from 'vsts-task-lib';
-import * as sleep from 'thread-sleep';
 
 import { ZapScanBase } from './ZapScanBase';
 import { ScanResult } from './../interfaces/types/ScanResult';
