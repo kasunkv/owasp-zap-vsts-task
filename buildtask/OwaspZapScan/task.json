@@ -18,7 +18,7 @@
     "author": "Kasun Kodagoda",
     "version": {
         "Major": 1,
-        "Minor": 53,
+        "Minor": 54,
         "Patch": 0
     },
     "demands": [
@@ -39,7 +39,7 @@
         {
             "name": "activeScanOptions",
             "displayName": "Active Scan Options",
-            "isExpanded": true
+            "isExpanded": false
         },
         {
             "name": "verificationConfig",

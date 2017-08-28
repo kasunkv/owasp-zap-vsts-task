@@ -17,7 +17,7 @@ before_script:
 - npm prune
 - curl -Lo travis_after_all.py https://git.io/vLSON
 script:
-- npm run build
+- npm run compile
 after_success:
 - python travis_after_all.py
 - npm run semantic-release
