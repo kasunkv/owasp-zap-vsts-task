@@ -63,7 +63,7 @@
     },
     "files": [
         {
-            "path": "buildtask"
+            "path": "dist/BuildTask"
         },
         {
             "path": "screenshots",
@@ -78,7 +78,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "buildtask/OwaspZapScan"
+                "name": "dist/BuildTask/OwaspZapScan"
             }
         }
     ],

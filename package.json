@@ -6,12 +6,13 @@
   "scripts": {
     "commit": "git cz",
     "clean": "rimraf dist",
+    "lint": "tslint -c tslint.json BuildTask\\OwaspZapScan\\**\\*.ts",
     "compile": "tsc --project ./BuildTask",
     "move:npm": "mkdirp dist/BuildTask/OwaspZapScan && copyfiles \"./node_modules/**\" dist/BuildTask/OwaspZapScan",
     "move:task": "copyfiles \"./BuildTask/OwaspZapScan/**/!(*.ts)\" dist",
     "test": "tsc BuildTask\\tests\\_suite.ts --lib es2015 && mocha tests\\_suite.js",
-    "build": "npm run move:npm && npm run compile && npm run move:task",
-    "publish:local": "tfx build tasks upload --task-path dist\\BuildTask\\OwaspZapScan",
+    "build": "npm run move:npm && npm run lint && npm run compile && npm run move:task",
+    "publish:local": "tfx build tasks upload --task-path ./dist/BuildTask/OwaspZapScan",
     "semantic-release": "semantic-release pre && semantic-release post"
   },
   "repository": {
@@ -59,6 +60,10 @@
     "husky": "^0.14.3",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.1",
-    "semantic-release": "^7.0.2"
+    "semantic-release": "^7.0.2",
+    "tslint": "^5.7.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "tslint-microsoft-contrib": "^5.0.1",
+    "typescript": "^2.4.2"
   }
 }

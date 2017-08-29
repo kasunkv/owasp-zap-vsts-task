@@ -1,0 +1,167 @@
+{
+    "defaultSeverity": "error",
+    /*
+    "extends": [
+        "tslint:recommended"
+    ],
+    */
+    "jsRules": {},
+    "rulesDirectory": [
+        "node_modules/tslint-eslint-rules/dist/rules",
+        "node_modules/tslint-microsoft-contrib"
+    ],
+    "rules": {
+        "adjacent-overload-signatures": true,
+        "align": [false, "parameters", "arguments", "statements"],
+        "arrow-parens": [true, "ban-single-arg-parens"],
+        "arrow-return-shorthand": [true /*, "multiline"*/],
+        //"await-promise": true,
+        "class-name": true,
+        "curly": true,
+        "eofline": false,
+        "forin": true,
+        "import-blacklist": [true, "q", "globalize", "adra-jsutils", "jquery", "jquery-ui", "pikaday", "toastr"],
+        "import-spacing": true, 
+        "indent": [true, "spaces"],
+        "jsdoc-format": true,
+        "label-position": true,
+        "max-file-line-count": [true, 4500],
+        "max-line-length": [false, 300],
+        "member-access": false,
+        "member-ordering": [false, { 
+          "order":  [
+            "constructor", 
+            "public-static-field", 
+            "protected-static-field",
+            "private-static-field",
+            "public-instance-field",
+            "protected-instance-field",
+            "private-instance-field",
+            "public-static-method",
+            "protected-static-method",
+            "private-static-method",
+            "public-instance-method",
+            "protected-instance-method",
+            "private-instance-method"
+          ]}
+        ],
+        "new-parens": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-console": [ true, "debug", "dir", "error", "group", "groupCollapsed", "groupEnd", "info", "profile", "profileEnd", "time", "timeEnd", "trace", "warn"/*, "log"*/ ],
+        "no-construct": true,
+        "no-debugger": true,
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-invalid-this": true,
+        "no-internal-module": true,
+        "no-misused-new": true,
+        "no-require-imports": true,
+        "no-reference": true,
+        "no-shadowed-variable": true,
+        "no-string-throw": true,
+        "no-switch-case-fall-through": true,
+        "no-unnecessary-initializer": true,
+        "no-unused-expression": [true /*,"allow-fast-null-checks"*/],
+        "no-unused-new": true,
+        "no-var-keyword": true,
+        // "no-var-requires": true, /* Disabled due to the issue of importing thread-sleep module */
+        "object-literal-key-quotes": [true, "as-needed"],
+        "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+        "one-line": [true, "check-open-brace", "check-catch", "check-whitespace" /*, "check-else" */],
+        "prefer-const": true,
+        "prefer-method-signature": true,
+        "quotemark": [ true, "single" ],
+        "radix": true,
+        "semicolon": [true, "always"],
+        "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+        "triple-equals": [ true ], 
+        "typedef": [ true, "call-signature", /*"arrow-call-signature",*/ "parameter", /*"arrow-parameter",*/ "property-declaration", /*"variable-declaration",*/ "member-variable-declaration"],
+        "typedef-whitespace": [
+          true,
+          {
+            "call-signature": "nospace",
+            "index-signature": "nospace",
+            "parameter": "nospace",
+            "property-declaration": "nospace",
+            "variable-declaration": "nospace"
+          }
+        ],
+        "typeof-compare": true,
+        "unified-signatures": true,
+        "use-isnan": true,
+        "variable-name": [true, "allow-leading-underscore"],
+        "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-module", "check-separator", "check-type", "check-preblock" /*, "check-typecast"*/], 
+    
+        /* TSLINT-ESLINT-RULES rules */ 
+        "no-constant-condition": true,  
+        "no-control-regex": true,
+        "no-duplicate-case": true,
+        "no-empty-character-class": true,
+        "no-extra-boolean-cast": true,
+        "no-extra-semi": true,
+        "no-inner-declarations": true,
+        "no-invalid-regexp": true,
+        "no-irregular-whitespace": true,
+        "no-regex-spaces": true,
+        "no-sparse-arrays": true,
+        "no-unsafe-finally": true,
+        "valid-jsdoc": true,
+        "valid-typeof": true,
+        "handle-callback-err": true,
+        
+        /* TSLINT-MICROSOFT-CONTRIB [SECURITY] rules */
+        "no-var-self": true,
+        "insecure-random": true,
+        "no-banned-terms": true,
+        //"no-cookies": true,
+        "no-delete-expression": true,
+        "no-disable-auto-sanitization": true,
+        "no-document-domain": true,
+        "no-document-write": true,
+        "no-exec-script": true,
+        "no-function-constructor-with-string-args": true,
+        "no-http-string": [true, "http://www.example.com/?.*", "http://www.examples.com/?.*"],
+        "no-inner-html": true,
+        "no-octal-literal": true,
+        "no-string-based-set-immediate": true,
+        "no-string-based-set-interval": true,
+        "no-string-based-set-timeout": true,
+        "possible-timing-attack": true,
+
+        /* TSLINT-MICROSOFT-CONTRIB [BUGS AND CORRECTNESS] rules */
+        "jquery-deferred-must-complete": true,
+        "mocha-avoid-only": true,
+        "mocha-no-side-effect-code": true,
+        "no-jquery-raw-elements": true,
+        "no-stateless-class": false,
+        "no-unnecessary-bind": true,
+        "no-with-statement": true,
+        "promise-must-complete": true,
+        "use-named-parameter": true,
+    
+        /* TSLINT-MICROSOFT-CONTRIB [CODE CLARITY] rules */
+        "function-name": [
+          false,
+          {
+            "method-regex": "^[a-z][\\w\\d]+$", // "^[a-z][\\w\\d]+$"
+            "private-method-regex": "^[_a-z][\\w\\d]+$", // changed from default: "^[a-z][\\w\\d]+$"
+            "protected-method-regex": "^[a-z][\\w\\d]+$",
+            "static-method-regex": "^[a-z][\\w\\d]+$", // changed from default: "^[A-Z_\\d]+$"
+            "function-regex": "^[a-z][\\w\\d]+$"
+          }
+        ],
+        "max-func-body-length": [true, 1000, {"ignore-parameters-to-function-regex": "describe"}],
+        "mocha-unneeded-done": true,
+        // "no-for-in": true, /* Disabling for later refactor */
+        "no-multiline-string": true,
+        "no-typeof-undefined": true,
+        "no-unnecessary-field-initialization": true,
+        "no-unsupported-browser-code": true,
+        "underscore-consistent-invocation": true,
+    
+        /* TSLINT-MICROSOFT-CONTRIB [WHITESPACE] rules */
+        "no-unnecessary-semicolons": true
+    }
+}
