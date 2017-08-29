@@ -1,8 +1,8 @@
-import { ScanResult } from "../types/ScanResult";
-import { ZapScanType } from "../../enums/Enums";
+import { ScanResult } from '../types/ScanResult';
+import { ZapScanType } from '../../enums/Enums';
 
 export interface IZapScan {
-    ScanType: string;
-    ZapScanType: ZapScanType;
+    scanType: string;
+    zapScanType: ZapScanType;
     ExecuteScan(): Promise<ScanResult>;
 }

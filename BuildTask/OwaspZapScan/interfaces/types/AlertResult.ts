@@ -1,4 +1,4 @@
-import { AlertItem } from "./ZapReport";
+import { AlertItem } from './ZapReport';
 
 export interface AlertResult {
     HighAlerts: number;

@@ -8,13 +8,13 @@ export class Helpers {
     constructor () {}
 
     ProcessAlerts(xmlResult: string, targetUrl: string): AlertResult {
-        let high: Array<AlertItem> = new Array<AlertItem>();
-        let mid: Array<AlertItem> = new Array<AlertItem>();
-        let low: Array<AlertItem> = new Array<AlertItem>();
-        let info: Array<AlertItem> = new Array<AlertItem>();
+        const high: Array<AlertItem> = new Array<AlertItem>();
+        const mid: Array<AlertItem> = new Array<AlertItem>();
+        const low: Array<AlertItem> = new Array<AlertItem>();
+        const info: Array<AlertItem> = new Array<AlertItem>();
 
         let alerts: AlertItem[];
-        let alertResult: AlertResult = {
+        const alertResult: AlertResult = {
             HighAlerts: 0,
             MediumAlerts: 0,
             LowAlerts: 0,
@@ -27,38 +27,40 @@ export class Helpers {
                 return;
             }
 
-            let reportJson: ScanReport = res;
-            let sites: Site[] = reportJson.OWASPZAPReport.site;
+            const reportJson: ScanReport = res;
+            const sites: Site[] = reportJson.OWASPZAPReport.site;
 
-            for(let idx in sites) {
-                if (sites[idx].$.name == targetUrl) {
+            for (const idx in sites) {
+                if (sites[idx].$.name === targetUrl) {
                     alerts = sites[idx].alerts.alertitem;
                 }
             }
 
-            for(let idx in alerts) {
-                if (alerts[idx].riskcode == Constants.HighRisk) {
-                    high.push(alerts[idx]); 
+            for (const idx of Object.keys(alerts)) {
+                const i: number = Number(idx);
+
+                if (alerts[i].riskcode === Constants.HIGH_RISK) {
+                    high.push(alerts[i]); 
                     alertResult.HighAlerts++; 
                 }
 
-                if (alerts[idx].riskcode == Constants.MediumRisk) {
-                    mid.push(alerts[idx]);
+                if (alerts[i].riskcode === Constants.MEDIUM_RISK) {
+                    mid.push(alerts[i]);
                     alertResult.MediumAlerts++;
                 }
 
-                if (alerts[idx].riskcode == Constants.LowRisk) {
-                    low.push(alerts[idx]);
+                if (alerts[i].riskcode === Constants.LOW_RISK) {
+                    low.push(alerts[i]);
                     alertResult.LowAlerts++;
                 }
 
-                if (alerts[idx].riskcode == Constants.InfoRisk) {
-                    info.push(alerts[idx]);
+                if (alerts[i].riskcode === Constants.INFO_RISK) {
+                    info.push(alerts[i]);
                     alertResult.InformationalAlerts++;
                 }
             }
 
-            let sorted: Array<AlertItem> = high.concat(mid).concat(low).concat(info);
+            const sorted: Array<AlertItem> = high.concat(mid).concat(low).concat(info);
             alertResult.Alerts = sorted;
         });
 

@@ -13,58 +13,58 @@ Task.setResourcePath(path.join(__dirname, '../task.json'));
 
 async function run(): Promise<void> {
     /* Get the required inputs */
-    let zapApiUrl: string = Task.getInput('ZapApiUrl', true);
-    let zapApiKey: string = Task.getInput('ZapApiKey', true);
-    let targetUrl: string = Task.getInput('TargetUrl', true);
+    const zapApiUrl: string = Task.getInput('ZapApiUrl', true);
+    const zapApiKey: string = Task.getInput('ZapApiKey', true);
+    const targetUrl: string = Task.getInput('TargetUrl', true);
 
     /* Spider Scan Options */
-    let executeSpiderScan: boolean = Task.getBoolInput('ExecuteSpiderScan');
-    let recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
-    let subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
-    let maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
-    let contextName: string = Task.getInput('ContextName');
+    const executeSpiderScan: boolean = Task.getBoolInput('ExecuteSpiderScan');
+    const recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
+    const subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
+    const maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
+    const contextName: string = Task.getInput('ContextName');
 
     /* Active Scan Options inputs */
-    let executeActiveScan: boolean = Task.getBoolInput('ExecuteActiveScan');
-    let contextId: string = Task.getInput('ContextId');
-    let recurse: boolean = Task.getBoolInput('Recurse');
-    let inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
-    let scanPolicyName: string = Task.getInput('ScanPolicyName');
-    let method: string = Task.getInput('Method');
-    let postData: string = Task.getInput('PostData');
+    const executeActiveScan: boolean = Task.getBoolInput('ExecuteActiveScan');
+    const contextId: string = Task.getInput('ContextId');
+    const recurse: boolean = Task.getBoolInput('Recurse');
+    const inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
+    const scanPolicyName: string = Task.getInput('ScanPolicyName');
+    const method: string = Task.getInput('Method');
+    const postData: string = Task.getInput('PostData');
     
     /* Reporting options */
-    let reportType: string = Task.getInput('ReportType');
-    let destinationFolder: string = Task.getPathInput('ReportFileDestination');
-    let reportFileName: string = Task.getInput('ReportFileName');
+    const reportType: string = Task.getInput('ReportType');
+    const destinationFolder: string = Task.getPathInput('ReportFileDestination');
+    const reportFileName: string = Task.getInput('ReportFileName');
 
     
-    let reports: Report = new Report(zapApiUrl, zapApiKey);
-    let selectedScans: Array<IZapScan> = new Array<IZapScan>();
+    const reports: Report = new Report(zapApiUrl, zapApiKey);
+    const selectedScans: Array<IZapScan> = new Array<IZapScan>();
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;
 
     /* Add Spider Scan is selected */
     if (executeSpiderScan) {
-        let spiderScan: SpiderScan = new SpiderScan(zapApiUrl, zapApiKey, targetUrl, subtreeOnly, recurseSpider, maxChildrenToCrawl, contextName);
+        const spiderScan: SpiderScan = new SpiderScan(zapApiUrl, zapApiKey, targetUrl, subtreeOnly, recurseSpider, maxChildrenToCrawl, contextName);
         selectedScans.push(spiderScan);
     }
 
     /* Add the Active Scan */
     if (executeActiveScan) {
-        let activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
+        const activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
         selectedScans.push(activeScan);
     }    
 
     /* Execute the Scans */
     for (let i: number = 0; i < selectedScans.length; i++) {
-        let scan: IZapScan = selectedScans[i];
+        const scan: IZapScan = selectedScans[i];
         scanStatus = await scan.ExecuteScan();
         
         if (!scanStatus.Success) {
-            let message: string = `The ${scan.ScanType} failed with the Error: ${scanStatus.Success}`;
-            Task.error(message)
-            throw new Error(message)
+            const message: string = `The ${scan.scanType} failed with the Error: ${scanStatus.Success}`;
+            Task.error(message);
+            throw new Error(message);
         }
     }
 
@@ -73,14 +73,14 @@ async function run(): Promise<void> {
 
         /* Generate the report */
         console.log('Generating the report...');
-        let isSuccess: boolean = await reports.GenerateReport(reportType, destinationFolder, reportFileName);
+        const isSuccess: boolean = await reports.GenerateReport(reportType, destinationFolder, reportFileName);
         
         if (!isSuccess) {
             hasIssues = isSuccess;
         }
 
         /* Perform the Verifications and Print the report */
-        let verify: Verify = new Verify(zapApiUrl, zapApiKey);
+        const verify: Verify = new Verify(zapApiUrl, zapApiKey);
         verify.Assert();
 
         Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');

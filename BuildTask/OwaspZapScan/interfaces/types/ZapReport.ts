@@ -1,6 +1,6 @@
 /* ZAP Report interfaces */
 export interface ScanReport {
-    OWASPZAPReport: OwaspZapReport
+    OWASPZAPReport: OwaspZapReport;
 }
 
 export interface OwaspZapReport {

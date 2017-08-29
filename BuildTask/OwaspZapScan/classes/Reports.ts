@@ -36,6 +36,7 @@ export class Report {
 
         /* Report Request Options */
         this.requestOptions = {
+            // tslint:disable-next-line:no-http-string
             uri: `http://${this.zapApiUrl}/OTHER/core/other`,
             qs: this.reportOptions
         };
@@ -45,9 +46,9 @@ export class Report {
         let reportType: string = 'xmlreport';
 
         /* Set report type */
-        if (type == ReportType.XML) { reportType = Constants.XmlReport; }
-        if (type == ReportType.HTML) { reportType = Constants.HtmlReport; } 
-        if (type == ReportType.MD) { reportType = Constants.MdReport; }
+        if (type === ReportType.XML) { reportType = Constants.XML_REPORT; }
+        if (type === ReportType.HTML) { reportType = Constants.HTML_REPORT; } 
+        if (type === ReportType.MD) { reportType = Constants.MD_REPORT; }
 
         this.requestOptions.uri = `${this.requestOptions.uri}/${reportType}/`;
 
@@ -59,7 +60,7 @@ export class Report {
                     resolve(res);
                 })
                 .error((err: any) => {
-                    reject("");
+                    reject(err.message || err);
                 });
         });
     }
@@ -69,28 +70,28 @@ export class Report {
         let ext: string;
         let scanReport: string;
 
-        fileName = fileName == '' ? 'OWASP-ZAP-Report' :  fileName;
-        destination = destination == '' ? './' : destination;
+        fileName = fileName === '' ? 'OWASP-ZAP-Report' :  fileName;
+        destination = destination === '' ? './' : destination;
 
-        if (reportType == Constants.Xml) {
+        if (reportType === Constants.XML) {
             type = ReportType.XML;
-            ext = Constants.Xml;
-        } else if (reportType == Constants.Markdown) {
+            ext = Constants.XML;
+        } else if (reportType === Constants.MARKDOWN) {
             type = ReportType.MD;
-            ext = Constants.Markdown;
+            ext = Constants.MARKDOWN;
         } else {
             type = ReportType.HTML;
-            ext = Constants.Html;
+            ext = Constants.HTML;
         }
         
-        let fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
+        const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
         Task.debug(`Report Filename: ${fullFilePath}`);
 
-        if (type == ReportType.HTML) {
+        if (type === ReportType.HTML) {
             /* Get the Scan Result */
-            let xmlResult: string = await this.GetScanResults(ReportType.XML);
+            const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
-            let processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
+            const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
             /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
 
@@ -129,14 +130,14 @@ export class Report {
     private createCustomHtmlReport(alertResult: AlertResult): string {
         let alertHtmlTables: string = '';
 
-        for (let idx in alertResult.Alerts) {
+        for (const idx of Object.keys(alertResult.Alerts)) {
             alertHtmlTables += `
-                ${this.createAlertTable(alertResult.Alerts[idx])}
+                ${this.createAlertTable(alertResult.Alerts[Number(idx)])}
 
             `;
         }
 
-        let htmlLayout: string = `
+        const htmlLayout: string = `
             <html>
             <head>
                 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -233,31 +234,33 @@ export class Report {
 
     private createAlertTable(alert: AlertItem): string {
         let cssClass: string = 'bg-success';
-        let collapseId: string = String(Math.floor(Math.random() * 10000));
+        // tslint:disable-next-line:insecure-random
+        const collapseId: string = String(Math.floor(Math.random() * 10000));
         let tableRows: string = '';
         let instanceRows: string = '';
 
         switch (alert.riskcode) {
-            case Constants.HighRisk:
+            case Constants.HIGH_RISK:
                 cssClass = 'bg-danger';
                 break;
-            case Constants.MediumRisk:
+            case Constants.MEDIUM_RISK:
                 cssClass = 'bg-warning';
                 break;
-            case Constants.LowRisk:
+            case Constants.LOW_RISK:
                 cssClass = 'bg-info';
                 break;
         
-            case Constants.InfoRisk:
+            case Constants.INFO_RISK:
                 cssClass = 'bg-danger';
                 break;
         }
 
-        for(let idx in alert.instances.instance) {
+        for (const idx of Object.keys(alert.instances.instance)) {
+            const i: number = Number(idx);
             instanceRows += `
-                ${this.createAlertRow('URL', alert.instances.instance[idx].uri, AlertRowType.InstanceRow)}
-                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Method', alert.instances.instance[idx].method, AlertRowType.InstanceRow)}
-                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Evidence', alert.instances.instance[idx].evidence, AlertRowType.InstanceRow)}
+                ${this.createAlertRow('URL', alert.instances.instance[i].uri, AlertRowType.InstanceRow)}
+                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Method', alert.instances.instance[i].method, AlertRowType.InstanceRow)}
+                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Evidence', alert.instances.instance[i].evidence, AlertRowType.InstanceRow)}
             `; 
         }
 
@@ -273,7 +276,7 @@ export class Report {
             ${this.createAlertRow('Source ID', alert.sourceid)}
         `;
 
-        let htmlString: string = `
+        const htmlString: string = `
         <table class="table">
             <tr class="${cssClass}" height="24">
                 <td width="20%"><p class="alert-header"><a name="${alert.riskcode}" class="alert-header-link" data-toggle="collapse" href="#collapseBlock${collapseId}" aria-expanded="false" aria-controls="collapseExample" >${alert.riskdesc}</a></p></td>
@@ -291,11 +294,11 @@ export class Report {
     private createAlertRow(header: string, value: string, rowType: AlertRowType = AlertRowType.AlertRow): string {
         let cssClass: string = 'attribute';
 
-        if (rowType == AlertRowType.InstanceRow) {
+        if (rowType === AlertRowType.InstanceRow) {
             cssClass = 'font-italic';
         }
 
-        let htmlString: string = `
+        const htmlString: string = `
         <tr>
             <td width="20%">
                 <p class="lead ${cssClass}" style="font-size: 1.1em;">${header}</p>

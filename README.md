@@ -1,4 +1,6 @@
 ![Visual Studio Team Services](https://kasunkodagoda.visualstudio.com/_apis/public/build/definitions/a6819d70-02f9-4711-8ff6-ae44bb52a8d1/30/badge)
+[![Build Status](https://travis-ci.org/kasunkv/owasp-zap-vsts-task.svg?branch=master)](https://travis-ci.org/kasunkv/owasp-zap-vsts-task)
+[![Best Practices](https://bestpractices.coreinfrastructure.org/projects/1188/badge)](https://bestpractices.coreinfrastructure.org/projects/1188)
 # OWASP Zed Attack Proxy Scan Task
 Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.
 

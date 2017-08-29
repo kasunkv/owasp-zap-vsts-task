@@ -25,9 +25,9 @@ export class Verify {
 
     async Assert(): Promise<void> {
         /* Get the Scan Result */
-        let xmlReport: string = await this._reports.GetScanResults(ReportType.XML);
+        const xmlReport: string = await this._reports.GetScanResults(ReportType.XML);
         /* Sort and Count the Alerts */
-        let alertResult: AlertResult = this._helper.ProcessAlerts(xmlReport, this._targetUrl);
+        const alertResult: AlertResult = this._helper.ProcessAlerts(xmlReport, this._targetUrl);
 
         Task.debug(`
             Scan Result: 
@@ -40,12 +40,12 @@ export class Verify {
         this._reports.PrintResult(alertResult.HighAlerts, alertResult.MediumAlerts, alertResult.LowAlerts, alertResult.InformationalAlerts);
         
         /* If Verifications are enabled. */
-        if(this._enableVerifications) {
+        if (this._enableVerifications) {
 
             /* Get the threshold values */
-            this._highAlertThreshold = parseInt(Task.getInput('MaxHighRiskAlerts'));
-            this._mediumAlertThreshold = parseInt(Task.getInput('MaxMediumRiskAlerts'));
-            this._lowAlertThreshold = parseInt(Task.getInput('MaxLowRiskAlerts'));
+            this._highAlertThreshold = parseInt(Task.getInput('MaxHighRiskAlerts'), 10);
+            this._mediumAlertThreshold = parseInt(Task.getInput('MaxMediumRiskAlerts'), 10);
+            this._lowAlertThreshold = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
 
             /* Verify alerts with in the limit */
             if (this._highAlertThreshold < alertResult.HighAlerts) {

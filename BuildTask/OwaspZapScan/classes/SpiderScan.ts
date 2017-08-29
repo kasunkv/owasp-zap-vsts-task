@@ -4,11 +4,11 @@ import * as Task from 'vsts-task-lib';
 import { ZapScanBase } from './ZapScanBase';
 import { IZapScan } from './../interfaces/contracts/IZapScan';
 import { ScanResult } from './../interfaces/types/ScanResult';
-import { ZapSpiderScanOptions, ZapScanResult, ZapScanStatus } from "../interfaces/types/ZapScan";
-import { ZapScanType } from "../enums/Enums";
+import { ZapSpiderScanOptions, ZapScanResult, ZapScanStatus } from '../interfaces/types/ZapScan';
+import { ZapScanType } from '../enums/Enums';
 
 export class SpiderScan extends ZapScanBase {
-    private zapScanType: ZapScanType = ZapScanType.Spider;
+    zapScanType: ZapScanType = ZapScanType.Spider;
     private scanOptions: ZapSpiderScanOptions;
 
     constructor(
@@ -23,7 +23,7 @@ export class SpiderScan extends ZapScanBase {
         super(zapApiUrl, zapApiKey);
 
         /* Set Scan Type for Logging */
-        this.ScanType = 'Spider Scan';
+        this.scanType = 'Spider Scan';
 
         /* Spider Scan Options */
         this.scanOptions = {
@@ -39,21 +39,22 @@ export class SpiderScan extends ZapScanBase {
 
         /* Scan Request Options */
         this.requestOptions = {
+            // tslint:disable-next-line:no-http-string
             uri: `http://${zapApiUrl}/JSON/spider/action/scan/`,
             qs: this.scanOptions
         };   
     }
     
     ExecuteScan(): Promise<ScanResult> {
-        let scanResult: ScanResult = { Success: false };
+        const scanResult: ScanResult = { Success: false };
 
-        Task.debug(`${this.ScanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this.scanOptions)}`);
+        Task.debug(`${this.scanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this.scanOptions)}`);
 
         return new Promise<ScanResult>((resolve, reject) => {
             RequestPromise(this.requestOptions)
                 .then(async (res: any) => {
 
-                    let result: ZapScanResult = JSON.parse(res);
+                    const result: ZapScanResult = JSON.parse(res);
                     console.log(`OWASP ZAP Spider Scan Initiated. ID: ${result.scan}`);
 
                     scanResult.Success = await this.CheckScanStatus(result.scan, this.zapScanType);
