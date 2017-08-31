@@ -9,7 +9,7 @@ import { Report } from './classes/Reports';
 import { Verify } from './classes/Verify';
 
 
-Task.setResourcePath(path.join(__dirname, '../task.json'));
+Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run(): Promise<void> {
     /* Get the required inputs */
