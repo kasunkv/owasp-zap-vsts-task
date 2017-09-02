@@ -175,6 +175,10 @@ export class Report {
                         font-weight: 100;
                         color: #fff;
                     }
+
+                    .bg-low {
+                        background-color: #f0dc4e!important;
+                    }
                 </style>
             </head>
             
@@ -205,7 +209,7 @@ export class Report {
                                 <td><a href="#2">Medium</a></td>
                                 <td>${alertResult.MediumAlerts}</td>
                             </tr>
-                            <tr class="bg-info legend">
+                            <tr class="bg-low legend">
                                 <td><a href="#1">Low</a></td>
                                 <td>${alertResult.LowAlerts}</td>
                             </tr>
@@ -247,11 +251,10 @@ export class Report {
                 cssClass = 'bg-warning';
                 break;
             case Constants.LOW_RISK:
-                cssClass = 'bg-info';
-                break;
-        
+                cssClass = 'bg-low';
+                break;        
             case Constants.INFO_RISK:
-                cssClass = 'bg-danger';
+                cssClass = 'bg-success';
                 break;
         }
 
