@@ -256,7 +256,7 @@
             "defaultValue": "OWASP-ZAP-Report-$(Build.BuildId)"
         }
     ],
-    "instanceNameFormat": "OWASP ZAP Active Scan",
+    "instanceNameFormat": "OWASP ZAP Scan",
     "execution": {
         "Node": {
             "target": "owaspzapscan.js",

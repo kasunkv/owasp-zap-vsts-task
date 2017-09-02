@@ -257,11 +257,15 @@ export class Report {
 
         for (const idx of Object.keys(alert.instances.instance)) {
             const i: number = Number(idx);
-            instanceRows += `
-                ${this.createAlertRow('URL', alert.instances.instance[i].uri, AlertRowType.InstanceRow)}
-                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Method', alert.instances.instance[i].method, AlertRowType.InstanceRow)}
-                ${this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Evidence', alert.instances.instance[i].evidence, AlertRowType.InstanceRow)}
-            `; 
+
+            if (alert.instances.instance[i]) {
+                instanceRows += `
+                    ${alert.instances.instance[i].uri ? this.createAlertRow('URL', alert.instances.instance[i].uri, AlertRowType.InstanceRow) : ''}
+                    ${alert.instances.instance[i].method ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Method', alert.instances.instance[i].method, AlertRowType.InstanceRow) : ''}
+                    ${alert.instances.instance[i].evidence ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Evidence', alert.instances.instance[i].evidence, AlertRowType.InstanceRow) : ''}
+                    ${alert.instances.instance[i].param ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Parameters', alert.instances.instance[i].param, AlertRowType.InstanceRow) : ''}
+                `; 
+            }            
         }
 
         tableRows = `
