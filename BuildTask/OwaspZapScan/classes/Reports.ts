@@ -177,7 +177,7 @@ export class Report {
                     }
 
                     .bg-low {
-                        background-color: #f0dc4e!important;
+                        background-color: #d8c226!important;
                     }
                 </style>
             </head>
