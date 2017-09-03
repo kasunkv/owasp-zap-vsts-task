@@ -3,7 +3,7 @@
 [![devDependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/dev-status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![Best Practices](https://bestpractices.coreinfrastructure.org/projects/1188/badge)](https://bestpractices.coreinfrastructure.org/projects/1188)
-[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/kasunkv/owasp-zap-vsts-task.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/releases/latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/blob/master/LICENSE.md)
 [![Visual Studio Marketplace](https://img.shields.io/badge/Visual%20Studio%20Marketplace-install-brightgreen.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=kasunkodagoda.owasp-zap-scan)
 # OWASP Zed Attack Proxy Scan Task
