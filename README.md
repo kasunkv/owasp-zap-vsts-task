@@ -1,6 +1,11 @@
-![Visual Studio Team Services](https://kasunkodagoda.visualstudio.com/_apis/public/build/definitions/a6819d70-02f9-4711-8ff6-ae44bb52a8d1/30/badge)
-[![Build Status](https://travis-ci.org/kasunkv/owasp-zap-vsts-task.svg?branch=master)](https://travis-ci.org/kasunkv/owasp-zap-vsts-task)
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)](https://travis-ci.org/kasunkv/owasp-zap-vsts-task.svg?branch=master)
+[![dependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task)
+[![devDependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/dev-status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task?type=dev)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![Best Practices](https://bestpractices.coreinfrastructure.org/projects/1188/badge)](https://bestpractices.coreinfrastructure.org/projects/1188)
+[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/releases/latest)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/blob/master/LICENSE.md)
+[![Visual Studio Marketplace](https://img.shields.io/badge/Visual%20Studio%20Marketplace-install-brightgreen.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=kasunkodagoda.owasp-zap-scan)
 # OWASP Zed Attack Proxy Scan Task
 Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.
 
