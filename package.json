@@ -6,12 +6,13 @@
   "scripts": {
     "commit": "git cz",
     "clean": "rimraf dist",
+    "pretest": "rimraf BuildTask/tests/coverage",
     "lint": "tslint -c tslint.json BuildTask\\OwaspZapScan\\**\\*.ts",
     "compile": "tsc --project ./BuildTask",
     "move:npm": "mkdirp dist/BuildTask/OwaspZapScan && copyfiles \"./package.json\" dist/BuildTask/OwaspZapScan",
     "move:task": "copyfiles \"./BuildTask/OwaspZapScan/**/!(*.ts)\" dist",
     "restore:prod": "pushd \"dist/BuildTask/OwaspZapScan\" && npm install --only=production && popd",
-    "test": "tsc BuildTask\\tests\\_suite.ts --lib es2015 && mocha BuildTask\\tests\\_suite.js",
+    "test": "npm run pretest && nyc mocha BuildTask/tests/_suite.ts",
     "build": "npm run move:npm && npm run restore:prod && npm run lint && npm run compile && npm run move:task",
     "build:clean": "npm run clean && npm run build",
     "publish:local": "tfx build tasks upload --task-path ./dist/BuildTask/OwaspZapScan",
@@ -42,6 +43,25 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "nyc": {
+    "check-coverage": true,
+    "report-dir": "./BuildTask/tests/coverage",
+    "include": [
+      "./BuildTask/OwaspZapScan/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "source-map-support/register",
+      "ts-node/register"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
   "dependencies": {
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
@@ -62,9 +82,13 @@
     "cz-conventional-changelog": "^2.0.0",
     "expect": "^1.20.2",
     "husky": "^0.14.3",
+    "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
+    "nyc": "^11.1.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^7.0.2",
+    "source-map-support": "^0.4.17",
+    "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-microsoft-contrib": "^5.0.1",
