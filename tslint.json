@@ -64,7 +64,6 @@
         "no-switch-case-fall-through": true,
         "no-unnecessary-initializer": true,
         "no-unused-expression": [true /*,"allow-fast-null-checks"*/],
-        "no-unused-new": true,
         "no-var-keyword": true,
         // "no-var-requires": true, /* Disabled due to the issue of importing thread-sleep module */
         "object-literal-key-quotes": [true, "as-needed"],

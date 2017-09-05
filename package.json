@@ -7,7 +7,7 @@
     "commit": "git cz",
     "clean": "rimraf dist",
     "lint": "tslint -c tslint.json BuildTask\\OwaspZapScan\\**\\*.ts",
-    "compile": "tsc --project ./BuildTask",
+    "compile": "npm run lint && tsc --project ./BuildTask",
     "move-npm": "mkdirp dist/BuildTask/OwaspZapScan && copyfiles \"./package.json\" dist/BuildTask/OwaspZapScan",
     "move-task": "copyfiles \"./BuildTask/OwaspZapScan/**/!(*.ts)\" dist",
     "restore-prod": "pushd \"dist/BuildTask/OwaspZapScan\" && npm install --only=production && popd",
