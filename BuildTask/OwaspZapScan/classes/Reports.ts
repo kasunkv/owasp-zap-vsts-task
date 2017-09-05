@@ -21,10 +21,10 @@ export class Report {
     private _helper: Helpers;
 
 
-    constructor(public zapApiUrl: string, public zapApiKey: string) {
-        this._targetUrl = Task.getInput('TargetUrl', true);
-        this._projectName = Task.getVariable('Build.Repository.Name');
-        this._buildDefinitionName = Task.getVariable('Build.DefinitionName');
+    constructor(public zapApiUrl: string, public zapApiKey: string, targetUrl: string, projectName: string, buildDefinitionName: string) {
+        this._targetUrl = targetUrl;
+        this._projectName = projectName;
+        this._buildDefinitionName = buildDefinitionName;
 
         this._helper = new Helpers();
 

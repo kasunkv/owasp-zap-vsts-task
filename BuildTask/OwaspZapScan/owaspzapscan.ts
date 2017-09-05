@@ -37,9 +37,11 @@ async function run(): Promise<void> {
     const reportType: string = Task.getInput('ReportType');
     const destinationFolder: string = Task.getPathInput('ReportFileDestination');
     const reportFileName: string = Task.getInput('ReportFileName');
+    const projectName: string = Task.getVariable('Build.Repository.Name');
+    const buildDefinitionName: string = Task.getVariable('Build.DefinitionName');
 
     
-    const reports: Report = new Report(zapApiUrl, zapApiKey);
+    const reports: Report = new Report(zapApiUrl, zapApiKey, targetUrl, projectName, buildDefinitionName);
     const selectedScans: Array<IZapScan> = new Array<IZapScan>();
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;
