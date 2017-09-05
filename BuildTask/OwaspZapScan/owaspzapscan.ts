@@ -40,6 +40,12 @@ async function run(): Promise<void> {
     const projectName: string = Task.getVariable('Build.Repository.Name');
     const buildDefinitionName: string = Task.getVariable('Build.DefinitionName');
 
+    /* Verification Options */
+    const enableVerifications: boolean = Task.getBoolInput('EnableVerifications');
+    const highAlertThreshold: number = parseInt(Task.getInput('MaxHighRiskAlerts'), 10);
+    const mediumAlertThreshold: number = parseInt(Task.getInput('MaxMediumRiskAlerts'), 10);
+    const lowAlertThreshold: number = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
+
     
     const reports: Report = new Report(zapApiUrl, zapApiKey, targetUrl, projectName, buildDefinitionName);
     const selectedScans: Array<IZapScan> = new Array<IZapScan>();
@@ -82,8 +88,8 @@ async function run(): Promise<void> {
         }
 
         /* Perform the Verifications and Print the report */
-        const verify: Verify = new Verify(zapApiUrl, zapApiKey);
-        verify.Assert();
+        const verify: Verify = new Verify(zapApiUrl, zapApiKey, enableVerifications, targetUrl);
+        verify.Assert(highAlertThreshold, mediumAlertThreshold, lowAlertThreshold);
 
         Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
     } else {
