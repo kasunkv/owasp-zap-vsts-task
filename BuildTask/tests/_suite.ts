@@ -17,7 +17,7 @@ describe('OWASP Zap Scan Helpers', function() {
     
         before(() => {
             helper = new Helpers();
-            let xmlPath = path.join(__dirname, 'testData/report.xml');
+            let xmlPath = path.join(__dirname, 'report.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, validTargetUrl);
         });
@@ -63,7 +63,7 @@ describe('OWASP Zap Scan Helpers', function() {
     
         before(() => {
             helper = new Helpers();
-            let xmlPath = path.join(__dirname, 'testData/report.xml');
+            let xmlPath = path.join(__dirname, 'report.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, invalidTargetUrl);
         });
@@ -109,7 +109,7 @@ describe('OWASP Zap Scan Helpers', function() {
     
         before(() => {
             helper = new Helpers();
-            let xmlPath = path.join(__dirname, 'testData/invalid.xml');
+            let xmlPath = path.join(__dirname, 'invalid.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, validTargetUrl);
         });
