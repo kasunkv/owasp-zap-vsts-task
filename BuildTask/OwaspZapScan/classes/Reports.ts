@@ -16,12 +16,12 @@ export class Report {
     reportOptions: ZapScanReportOptions;
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
     private _targetUrl: string;
-    private _projectName: string;
-    private _buildDefinitionName: string;
+    private _projectName: string | undefined;
+    private _buildDefinitionName: string | undefined;
     private _helper: Helpers;
 
 
-    constructor(public zapApiUrl: string, public zapApiKey: string, targetUrl: string, projectName: string, buildDefinitionName: string) {
+    constructor(public zapApiUrl: string, public zapApiKey: string, targetUrl: string, projectName?: string, buildDefinitionName?: string) {
         this._targetUrl = targetUrl;
         this._projectName = projectName;
         this._buildDefinitionName = buildDefinitionName;
@@ -185,8 +185,8 @@ export class Report {
             <body class="container-fluid" style="padding: 0 3em">
                 <div style="padding: 32px 0;">
                     <h1 class="display-3">ZAP Scanning Report</h1>
-                    <p class="lead" >Project : <em>${this._projectName}</em></p>
-                    <p class="lead" >Build Definition : <em>${this._buildDefinitionName}</em></p>
+                    <p class="lead" >Project : <em>${this._projectName || ''}</em></p>
+                    <p class="lead" >Build Definition : <em>${this._buildDefinitionName || ''}</em></p>
                     <p class="lead" >Completed on : <em>${new Date().toUTCString()}</em></p>
                     <hr class="my-4">
                 </div>
