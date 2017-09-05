@@ -36,6 +36,10 @@ export class Helpers {
                 }
             }
 
+            if (!alerts) {
+                return;
+            }
+
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
 
