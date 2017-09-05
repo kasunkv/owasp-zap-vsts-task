@@ -8,6 +8,13 @@ import { Helpers } from '../OwaspZapScan/classes/Helper';
 import { AlertResult } from './../OwaspZapScan/interfaces/types/AlertResult';
 
 describe('OWASP Zap Scan Helpers', function() {
+    describe('When a valid xmlReport and a url is passed, the helper', () => {
+        it('Should not be undefined or null', () => {            
+            let helper = new Helpers();
+            expect(helper).toNotBe(undefined).toNotBe(null);
+        });
+    });
+
     describe('When a valid xmlReport and a url is passed, the return value', () => {
         let helper: Helpers;
         let xmlString: string;
@@ -38,8 +45,8 @@ describe('OWASP Zap Scan Helpers', function() {
             expect(result.Alerts.length).toBeGreaterThan(0);
         });
 
-        it('Should have 0 high risk alerts', () => {
-            expect(result.HighAlerts).toBe(0);
+        it('Should have 1 high risk alerts', () => {
+            expect(result.HighAlerts).toBe(1);
         });
 
         it('Should have 2 medium risk alerts', () => {
@@ -50,8 +57,8 @@ describe('OWASP Zap Scan Helpers', function() {
             expect(result.LowAlerts).toBe(3);
         });
 
-        it('Should have 0 info risk alerts', () => {
-            expect(result.InformationalAlerts).toBe(0);
+        it('Should have 1 info risk alerts', () => {
+            expect(result.InformationalAlerts).toBe(1);
         });
     });
 
