@@ -17,9 +17,11 @@ before_script:
 #  - curl -Lo travis_after_all.py https://git.io/vLSON
 script:
   - npm run compile
+  - npm run test-ci
 after_success:
 #  - python travis_after_all.py
   - npm run semantic-release
+  - npm run coverage-publish
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
