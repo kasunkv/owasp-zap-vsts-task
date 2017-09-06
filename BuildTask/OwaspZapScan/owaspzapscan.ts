@@ -7,6 +7,7 @@ import { ActiveScan } from './classes/ActiveScan';
 import { SpiderScan } from './classes/SpiderScan';
 import { Report } from './classes/Reports';
 import { Verify } from './classes/Verify';
+import { Helpers } from './classes/Helper';
 
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
@@ -47,7 +48,7 @@ async function run(): Promise<void> {
     const lowAlertThreshold: number = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
 
     
-    const reports: Report = new Report(zapApiUrl, zapApiKey, targetUrl, projectName, buildDefinitionName);
+    const reports: Report = new Report(new Helpers(), zapApiUrl, zapApiKey, targetUrl, projectName, buildDefinitionName);
     const selectedScans: Array<IZapScan> = new Array<IZapScan>();
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;

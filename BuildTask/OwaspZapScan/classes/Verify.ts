@@ -16,8 +16,8 @@ export class Verify {
         this._enableVerifications = enableVerifications;
         this._targetUrl = targetUrl;
 
-        this._reports = new Report(zapApiUrl, zapApiKey, targetUrl);
         this._helper = new Helpers();
+        this._reports = new Report(this._helper, zapApiUrl, zapApiKey, targetUrl);        
     }
 
     async Assert(highAlertThreshold: number, mediumAlertThreshold: number, lowAlertThreshold: number): Promise<void> {
