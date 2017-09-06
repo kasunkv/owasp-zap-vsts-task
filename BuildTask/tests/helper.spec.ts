@@ -1,7 +1,5 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import * as assert from 'assert';
-import * as mock from 'vsts-task-lib/mock-test';
 import * as expect from 'expect';
 
 import { Helpers } from '../OwaspZapScan/classes/Helper';
