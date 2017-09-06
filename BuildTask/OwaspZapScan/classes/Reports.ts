@@ -13,32 +13,34 @@ import { AlertResult } from './../interfaces/types/AlertResult';
 import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
 
 export class Report {
-    reportOptions: ZapScanReportOptions;
-    requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
+    private _reportOptions: ZapScanReportOptions;
+    private _requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
+    private _zapApiUrl: string;
     private _targetUrl: string;
     private _projectName: string | undefined;
     private _buildDefinitionName: string | undefined;
+
     private _helper: Helpers;
 
-
-    constructor(public zapApiUrl: string, public zapApiKey: string, targetUrl: string, projectName?: string, buildDefinitionName?: string) {
+    constructor(helper: Helpers, zapApiUrl: string, zapApiKey: string, targetUrl: string, projectName?: string, buildDefinitionName?: string) {
+        this._zapApiUrl = zapApiUrl;
         this._targetUrl = targetUrl;
         this._projectName = projectName;
         this._buildDefinitionName = buildDefinitionName;
 
-        this._helper = new Helpers();
+        this._helper = helper;
 
         /* Report Options */
-        this.reportOptions = {
+        this._reportOptions = {
             apikey: zapApiKey,
             formMethod: 'GET'
         };
 
         /* Report Request Options */
-        this.requestOptions = {
+        this._requestOptions = {
             // tslint:disable-next-line:no-http-string
-            uri: `http://${this.zapApiUrl}/OTHER/core/other`,
-            qs: this.reportOptions
+            uri: `http://${this._zapApiUrl}/OTHER/core/other`,
+            qs: this._reportOptions
         };
     }
 
@@ -50,12 +52,12 @@ export class Report {
         if (type === ReportType.HTML) { reportType = Constants.HTML_REPORT; } 
         if (type === ReportType.MD) { reportType = Constants.MD_REPORT; }
 
-        this.requestOptions.uri = `${this.requestOptions.uri}/${reportType}/`;
+        this._requestOptions.uri = `${this._requestOptions.uri}/${reportType}/`;
 
-        Task.debug(`Active Scan Results | ZAP API Call: ${this.requestOptions.uri} | Request Options: ${JSON.stringify(this.requestOptions)}`);
+        Task.debug(`Active Scan Results | ZAP API Call: ${this._requestOptions.uri} | Request Options: ${JSON.stringify(this._requestOptions)}`);
 
         return new Promise<string>((resolve, reject) => {
-            RequestPromise(this.requestOptions)
+            RequestPromise(this._requestOptions)
                 .then((res: any) => {
                     resolve(res);
                 })
