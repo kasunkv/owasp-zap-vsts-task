@@ -11,35 +11,29 @@ import { Constants } from './Constants';
 import { Helpers } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
 import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
+import { TaskInputs } from './../interfaces/types/TaskInputs';
 
 export class Report {
     private _reportOptions: ZapScanReportOptions;
-    private _requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
-    private _zapApiUrl: string;
-    private _targetUrl: string;
-    private _projectName: string | undefined;
-    private _buildDefinitionName: string | undefined;
+    private _requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;  
 
-    private _helper: Helpers;
+    private _helpers: Helpers;    
+    private _taskInputs: TaskInputs;
 
-    constructor(helper: Helpers, zapApiUrl: string, zapApiKey: string, targetUrl: string, projectName?: string, buildDefinitionName?: string) {
-        this._zapApiUrl = zapApiUrl;
-        this._targetUrl = targetUrl;
-        this._projectName = projectName;
-        this._buildDefinitionName = buildDefinitionName;
-
-        this._helper = helper;
+    constructor(helpers: Helpers, configInputs: TaskInputs) {
+        this._helpers = helpers;
+        this._taskInputs = configInputs;
 
         /* Report Options */
         this._reportOptions = {
-            apikey: zapApiKey,
+            apikey: this._taskInputs.ZapApiKey,
             formMethod: 'GET'
         };
 
         /* Report Request Options */
         this._requestOptions = {
             // tslint:disable-next-line:no-http-string
-            uri: `http://${this._zapApiUrl}/OTHER/core/other`,
+            uri: `http://${this._taskInputs.ZapApiUrl}/OTHER/core/other`,
             qs: this._reportOptions
         };
     }
@@ -67,18 +61,18 @@ export class Report {
         });
     }
 
-    async GenerateReport(reportType: string, destination: string, fileName: string): Promise<boolean> {
+    async GenerateReport(): Promise<boolean> {
         let type: ReportType;
         let ext: string;
         let scanReport: string;
 
-        fileName = fileName === '' ? 'OWASP-ZAP-Report' :  fileName;
-        destination = destination === '' ? './' : destination;
+        const fileName = this._taskInputs.ReportFileName === '' ? 'OWASP-ZAP-Report' :  this._taskInputs.ReportFileName;
+        const destination = this._taskInputs.ReportFileDestination === '' ? './' : this._taskInputs.ReportFileDestination;
 
-        if (reportType === Constants.XML) {
+        if (this._taskInputs.ReportType === Constants.XML) {
             type = ReportType.XML;
             ext = Constants.XML;
-        } else if (reportType === Constants.MARKDOWN) {
+        } else if (this._taskInputs.ReportType === Constants.MARKDOWN) {
             type = ReportType.MD;
             ext = Constants.MARKDOWN;
         } else {
@@ -93,7 +87,7 @@ export class Report {
             /* Get the Scan Result */
             const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
-            const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._targetUrl);
+            const processedAlerts: AlertResult = this._helpers.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
             /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
 
@@ -187,8 +181,7 @@ export class Report {
             <body class="container-fluid" style="padding: 0 3em">
                 <div style="padding: 32px 0;">
                     <h1 class="display-3">ZAP Scanning Report</h1>
-                    <p class="lead" >Project : <em>${this._projectName || ''}</em></p>
-                    <p class="lead" >Build Definition : <em>${this._buildDefinitionName || ''}</em></p>
+                    <p class="lead" >Project : <em>${this._taskInputs.BuildDefinitionName || ''}</em></p>
                     <p class="lead" >Completed on : <em>${new Date().toUTCString()}</em></p>
                     <hr class="my-4">
                 </div>
