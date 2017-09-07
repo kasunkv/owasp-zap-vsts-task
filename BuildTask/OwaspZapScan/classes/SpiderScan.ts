@@ -6,33 +6,26 @@ import { IZapScan } from './../interfaces/contracts/IZapScan';
 import { ScanResult } from './../interfaces/types/ScanResult';
 import { ZapSpiderScanOptions, ZapScanResult, ZapScanStatus } from '../interfaces/types/ZapScan';
 import { ZapScanType } from '../enums/Enums';
+import { TaskInputs } from './../interfaces/types/TaskInputs';
 
 export class SpiderScan extends ZapScanBase {
     zapScanType: ZapScanType = ZapScanType.Spider;
-    private scanOptions: ZapSpiderScanOptions;
+    private _scanOptions: ZapSpiderScanOptions;    
 
-    constructor(
-        public zapApiUrl: string,
-        public zapApiKey: string,
-        public targetUrl: string,
-        public subTreeOnly: boolean, 
-        public recurse: boolean, 
-        public maxChildrenToCrawl: string,
-        public contextName: string
-    ) {
-        super(zapApiUrl, zapApiKey);
+    constructor(taskInputs: TaskInputs) {
+        super(taskInputs);
 
         /* Set Scan Type for Logging */
         this.scanType = 'Spider Scan';
 
         /* Spider Scan Options */
-        this.scanOptions = {
-            apikey: zapApiKey,
-            url: targetUrl,        
-            maxChildren: maxChildrenToCrawl,
-            recurse: String(recurse),
-            subtreeOnly: String(subTreeOnly),
-            contextName: contextName,
+        this._scanOptions = {
+            apikey: this.taskInputs.ZapApiKey,
+            url: this.taskInputs.TargetUrl,        
+            maxChildren: this.taskInputs.MaxChildrenToCrawl,
+            recurse: String(this.taskInputs.RecurseSpider),
+            subtreeOnly: String(this.taskInputs.SubTreeOnly),
+            contextName: this.taskInputs.ContextName,
             formMethod: 'GET',
             zapapiformat: 'JSON'
         };
@@ -40,15 +33,15 @@ export class SpiderScan extends ZapScanBase {
         /* Scan Request Options */
         this.requestOptions = {
             // tslint:disable-next-line:no-http-string
-            uri: `http://${zapApiUrl}/JSON/spider/action/scan/`,
-            qs: this.scanOptions
+            uri: `http://${this.taskInputs.ZapApiUrl}/JSON/spider/action/scan/`,
+            qs: this._scanOptions
         };   
     }
     
     ExecuteScan(): Promise<ScanResult> {
         const scanResult: ScanResult = { Success: false };
 
-        Task.debug(`${this.scanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this.scanOptions)}`);
+        Task.debug(`${this.scanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this._scanOptions)}`);
 
         return new Promise<ScanResult>((resolve, reject) => {
             RequestPromise(this.requestOptions)
