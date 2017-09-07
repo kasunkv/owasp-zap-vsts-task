@@ -5,7 +5,9 @@
   "main": "dist\\owaspzapscan.js",
   "scripts": {
     "commit": "git cz",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && npm run test-clean && npm run clean-js && npm run clean-map",
+    "clean-js": "rimraf BuildTask/**/*.js",
+    "clean-map": "rimraf BuildTask/**/*.map",
     "lint": "tslint -c tslint.json BuildTask\\OwaspZapScan\\**\\*.ts",
     "compile": "npm run lint && tsc --project ./BuildTask",
     "move-npm": "mkdirp dist/BuildTask/OwaspZapScan && copyfiles \"./package.json\" dist/BuildTask/OwaspZapScan",
