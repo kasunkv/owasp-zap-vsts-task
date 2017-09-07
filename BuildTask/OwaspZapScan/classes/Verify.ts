@@ -4,27 +4,24 @@ import { ReportType } from './../enums/Enums';
 import { Report } from './../classes/Reports';
 import { Helpers } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
+import { TaskInputs } from './../interfaces/types/TaskInputs';
 
-export class Verify {
-    private _enableVerifications: boolean;
-    private _targetUrl: string;
-
+export class Verify {    
     private _reports: Report;
-    private _helper: Helpers;
+    private _helpers: Helpers;
+    private _taskInputs: TaskInputs;
 
-    constructor(public zapApiUrl: string, public zapApiKey: string, enableVerifications: boolean, targetUrl: string) {
-        this._enableVerifications = enableVerifications;
-        this._targetUrl = targetUrl;
-
-        this._helper = new Helpers();
-        this._reports = new Report(this._helper, zapApiUrl, zapApiKey, targetUrl);        
+    constructor(helpers: Helpers, report: Report, configInputs: TaskInputs) {
+        this._taskInputs = configInputs;
+        this._helpers = helpers;
+        this._reports = report;        
     }
 
-    async Assert(highAlertThreshold: number, mediumAlertThreshold: number, lowAlertThreshold: number): Promise<void> {
+    async Assert(): Promise<void> {
         /* Get the Scan Result */
         const xmlReport: string = await this._reports.GetScanResults(ReportType.XML);
         /* Sort and Count the Alerts */
-        const alertResult: AlertResult = this._helper.ProcessAlerts(xmlReport, this._targetUrl);
+        const alertResult: AlertResult = this._helpers.ProcessAlerts(xmlReport, this._taskInputs.TargetUrl);
 
         Task.debug(`
             Scan Result: 
@@ -37,19 +34,19 @@ export class Verify {
         this._reports.PrintResult(alertResult.HighAlerts, alertResult.MediumAlerts, alertResult.LowAlerts, alertResult.InformationalAlerts);
         
         /* If Verifications are enabled. */
-        if (this._enableVerifications) {           
+        if (this._taskInputs.EnableVerifications) {           
 
             /* Verify alerts with in the limit */
-            if (highAlertThreshold < alertResult.HighAlerts) {
-                Task.setResult(Task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${highAlertThreshold}, Actual: ${alertResult.HighAlerts}`);
+            if (this._taskInputs.MaxHighRiskAlerts < alertResult.HighAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `High Risk Alert Threshold Exceeded. Threshold: ${this._taskInputs.MaxHighRiskAlerts}, Actual: ${alertResult.HighAlerts}`);
             }
 
-            if (mediumAlertThreshold < alertResult.MediumAlerts) {
-                Task.setResult(Task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${mediumAlertThreshold}, Actual: ${alertResult.MediumAlerts}`);
+            if (this._taskInputs.MaxMediumRiskAlerts < alertResult.MediumAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `Medium Risk Alert Threshold Exceeded. Threshold: ${this._taskInputs.MaxMediumRiskAlerts}, Actual: ${alertResult.MediumAlerts}`);
             }
 
-            if (lowAlertThreshold < alertResult.LowAlerts) {
-                Task.setResult(Task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${lowAlertThreshold}, Actual: ${alertResult.LowAlerts}`);
+            if (this._taskInputs.MaxLowRiskAlerts < alertResult.LowAlerts) {
+                Task.setResult(Task.TaskResult.Failed, `Low Alert Risk Threshold Exceeded. Threshold: ${this._taskInputs.MaxLowRiskAlerts}, Actual: ${alertResult.LowAlerts}`);
             }
         }
     }
