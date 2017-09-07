@@ -8,60 +8,64 @@ import { SpiderScan } from './classes/SpiderScan';
 import { Report } from './classes/Reports';
 import { Verify } from './classes/Verify';
 import { Helpers } from './classes/Helper';
+import { TaskInputs } from './interfaces/types/TaskInputs';
 
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run(): Promise<void> {
-    /* Get the required inputs */
-    const zapApiUrl: string = Task.getInput('ZapApiUrl', true);
-    const zapApiKey: string = Task.getInput('ZapApiKey', true);
-    const targetUrl: string = Task.getInput('TargetUrl', true);
 
-    /* Spider Scan Options */
-    const executeSpiderScan: boolean = Task.getBoolInput('ExecuteSpiderScan');
-    const recurseSpider: boolean = Task.getBoolInput('RecurseSpider');
-    const subtreeOnly: boolean = Task.getBoolInput('SubtreeOnly');
-    const maxChildrenToCrawl: string = Task.getInput('MaxChildrenToCrawl');
-    const contextName: string = Task.getInput('ContextName');
+    const taskInputs: TaskInputs = {
+        /* Get the required inputs */
+        ZapApiUrl: Task.getInput('ZapApiUrl', true),
+        ZapApiKey: Task.getInput('ZapApiKey', true),
+        TargetUrl: Task.getInput('TargetUrl', true),
 
-    /* Active Scan Options inputs */
-    const executeActiveScan: boolean = Task.getBoolInput('ExecuteActiveScan');
-    const contextId: string = Task.getInput('ContextId');
-    const recurse: boolean = Task.getBoolInput('Recurse');
-    const inScopeOnly: boolean = Task.getBoolInput('InScopeOnly');
-    const scanPolicyName: string = Task.getInput('ScanPolicyName');
-    const method: string = Task.getInput('Method');
-    const postData: string = Task.getInput('PostData');
-    
-    /* Reporting options */
-    const reportType: string = Task.getInput('ReportType');
-    const destinationFolder: string = Task.getPathInput('ReportFileDestination');
-    const reportFileName: string = Task.getInput('ReportFileName');
-    const projectName: string = Task.getVariable('Build.Repository.Name');
-    const buildDefinitionName: string = Task.getVariable('Build.DefinitionName');
+        /* Spider Scan Options */
+        ExecuteSpiderScan: Task.getBoolInput('ExecuteSpiderScan'),
+        RecurseSpider: Task.getBoolInput('RecurseSpider'),
+        SubTreeOnly: Task.getBoolInput('SubtreeOnly'),
+        MaxChildrenToCrawl: Task.getInput('MaxChildrenToCrawl'),
+        ContextName: Task.getInput('ContextName'),
 
-    /* Verification Options */
-    const enableVerifications: boolean = Task.getBoolInput('EnableVerifications');
-    const highAlertThreshold: number = parseInt(Task.getInput('MaxHighRiskAlerts'), 10);
-    const mediumAlertThreshold: number = parseInt(Task.getInput('MaxMediumRiskAlerts'), 10);
-    const lowAlertThreshold: number = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
+        /* Active Scan Options inputs */
+        ExecuteActiveScan: Task.getBoolInput('ExecuteActiveScan'),
+        ContextId: Task.getInput('ContextId'),
+        Recurse: Task.getBoolInput('Recurse'),
+        InScopeOnly: Task.getBoolInput('InScopeOnly'),
+        ScanPolicyName: Task.getInput('ScanPolicyName'),
+        Method: Task.getInput('Method'),
+        PostData: Task.getInput('PostData'),
 
-    
-    const reports: Report = new Report(new Helpers(), zapApiUrl, zapApiKey, targetUrl, projectName, buildDefinitionName);
+        /* Reporting options */
+        ReportType: Task.getInput('ReportType'),
+        ReportFileDestination: Task.getPathInput('ReportFileDestination'),
+        ReportFileName: Task.getInput('ReportFileName'),
+        ProjectName: Task.getVariable('Build.Repository.Name'),
+        BuildDefinitionName: Task.getVariable('Build.DefinitionName'),
+
+        /* Verification Options */
+        EnableVerifications: Task.getBoolInput('EnableVerifications'),
+        MaxHighRiskAlerts: parseInt(Task.getInput('MaxHighRiskAlerts'), 10),
+        MaxMediumRiskAlerts: parseInt(Task.getInput('MaxMediumRiskAlerts'), 10),
+        MaxLowRiskAlerts: parseInt(Task.getInput('MaxLowRiskAlerts'), 10)
+    };
+
+    const helpers: Helpers = new Helpers();
+    const reports: Report = new Report(helpers, taskInputs);
     const selectedScans: Array<IZapScan> = new Array<IZapScan>();
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;
 
     /* Add Spider Scan is selected */
-    if (executeSpiderScan) {
-        const spiderScan: SpiderScan = new SpiderScan(zapApiUrl, zapApiKey, targetUrl, subtreeOnly, recurseSpider, maxChildrenToCrawl, contextName);
+    if (taskInputs.ExecuteSpiderScan) {
+        const spiderScan: SpiderScan = new SpiderScan(taskInputs);
         selectedScans.push(spiderScan);
     }
 
     /* Add the Active Scan */
-    if (executeActiveScan) {
-        const activeScan: ActiveScan = new ActiveScan(zapApiUrl, zapApiKey, targetUrl, contextId, recurse, inScopeOnly, scanPolicyName, method, postData);
+    if (taskInputs.ExecuteActiveScan) {
+        const activeScan: ActiveScan = new ActiveScan(taskInputs);
         selectedScans.push(activeScan);
     }    
 
@@ -82,15 +86,15 @@ async function run(): Promise<void> {
 
         /* Generate the report */
         console.log('Generating the report...');
-        const isSuccess: boolean = await reports.GenerateReport(reportType, destinationFolder, reportFileName);
+        const isSuccess: boolean = await reports.GenerateReport();
         
         if (!isSuccess) {
             hasIssues = isSuccess;
         }
 
         /* Perform the Verifications and Print the report */
-        const verify: Verify = new Verify(zapApiUrl, zapApiKey, enableVerifications, targetUrl);
-        verify.Assert(highAlertThreshold, mediumAlertThreshold, lowAlertThreshold);
+        const verify: Verify = new Verify(helpers, reports, taskInputs);
+        verify.Assert();
 
         Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');
     } else {
