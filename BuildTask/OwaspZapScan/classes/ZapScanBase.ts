@@ -8,13 +8,17 @@ import { IZapScan } from './../interfaces/contracts/IZapScan';
 import { ScanResult } from '../interfaces/types/ScanResult';
 import { ZapScanResult, ZapScanStatus, ZapActiveScanOptions, ZapScanStatusOptions } from '../interfaces/types/ZapScan';
 import { ZapScanType } from './../enums/Enums';
+import { TaskInputs } from './../interfaces/types/TaskInputs';
 
 export abstract class ZapScanBase implements IZapScan {
     zapScanType: ZapScanType;
     scanType: string;    
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
+    protected taskInputs: TaskInputs;
 
-    constructor(public zapApiUrl: string, public zapApiKey: string) { }
+    constructor(taskInputs: TaskInputs) {
+        this.taskInputs = taskInputs;
+    }
 
     ExecuteScan(): Promise<ScanResult> {
         throw new Error('Not implemented yet.');
@@ -63,7 +67,7 @@ export abstract class ZapScanBase implements IZapScan {
         let zapScanType: string = '';
         const statusOptions: ZapScanStatusOptions = {
             zapapiformat: 'JSON',
-            apikey: this.zapApiKey,
+            apikey: this.taskInputs.ZapApiKey,
             formMethod: 'GET',
             scanId: scanId
         };
@@ -74,7 +78,7 @@ export abstract class ZapScanBase implements IZapScan {
 
         const requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions = {
             // tslint:disable-next-line:no-http-string
-            uri: `http://${this.zapApiUrl}/JSON/${zapScanType}/view/status/`,
+            uri: `http://${this.taskInputs.ZapApiUrl}/JSON/${zapScanType}/view/status/`,
             qs: statusOptions
         };
 
