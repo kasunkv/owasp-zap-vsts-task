@@ -21,7 +21,29 @@ export abstract class ZapScanBase implements IZapScan {
     }
 
     ExecuteScan(): Promise<ScanResult> {
-        throw new Error('Not implemented yet.');
+        Task.debug(`${this.scanType} | Target URL: ${this.requestOptions.uri} | Scan Options: ${JSON.stringify(this.requestOptions.qs)}`);
+        
+        const scanResult: ScanResult = { Success: false };
+        
+        return new Promise<ScanResult>((resolve, reject) => {
+            RequestPromise(this.requestOptions)
+                .then(async (res: any) => {
+                    const result: ZapScanResult = JSON.parse(res);
+                    console.log(`OWASP ZAP ${this.scanType} Initiated. ID: ${result.scan}`);
+
+                    scanResult.Success = await this.CheckScanStatus(result.scan, this.zapScanType);
+                    if (!scanResult.Success) {
+                        scanResult.Message = `${this.scanType} status check failed.`;
+                        reject(scanResult);
+                    }                    
+                    resolve(scanResult);
+                })
+                .error((err: any) => {
+                    scanResult.Success = false;
+                    scanResult.Message = err.message || err;
+                    reject(scanResult);
+                }); 
+        });
     }
 
     protected CheckScanStatus(scanId: number, scanType: ZapScanType): Promise<boolean> {
