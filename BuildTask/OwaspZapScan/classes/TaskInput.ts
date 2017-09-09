@@ -9,6 +9,7 @@ export class TaskInput {
         if (this._zapApiKey) {
             return this._zapApiKey;
         }
+        /* istanbul ignore next */
         throw new Error('The ZAP API Key is required but not set.');
     }
 
@@ -22,6 +23,7 @@ export class TaskInput {
         if (this._zapApiUrl) {
             return this._zapApiUrl;
         }
+        /* istanbul ignore next */
         throw new Error('The ZAP API URL is required but not set.');
     }
 
@@ -35,6 +37,7 @@ export class TaskInput {
         if (this._targetUrl) {
             return this._targetUrl;
         }
+        /* istanbul ignore next */
         throw new Error('The Target URL is required but not set.');
     }
 

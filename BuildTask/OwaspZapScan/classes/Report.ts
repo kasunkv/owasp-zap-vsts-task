@@ -51,7 +51,10 @@ export class Report {
 
         this._requestOptions.uri = `${this._requestOptions.uri}/${reportType}/`;
 
-        Task.debug(`Active Scan Results | ZAP API Call: ${this._requestOptions.uri} | Request Options: ${JSON.stringify(this._requestOptions)}`);
+        /* istanbul ignore if */
+        if (process.env.NODE_ENV !== 'test') {
+            Task.debug(`Active Scan Results | ZAP API Call: ${this._requestOptions.uri} | Request Options: ${JSON.stringify(this._requestOptions)}`);
+        }
 
         return this._requestService.ExecuteScanResultQuery(this._requestOptions);
     }
@@ -76,7 +79,11 @@ export class Report {
         }
         
         const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
-        Task.debug(`Report Filename: ${fullFilePath}`);
+        
+        /* istanbul ignore if */
+        if (process.env.NODE_ENV !== 'test') { 
+            Task.debug(`Report Filename: ${fullFilePath}`);
+        }       
 
         if (type === ReportType.HTML) {
             /* Get the Scan Result */
@@ -103,19 +110,22 @@ export class Report {
     }
 
     PrintResult(highAlerts: number, mediumAlerts: number, lowAlerts: number, infoAlerts: number): void {
-        console.log();
-        console.log('**************************');
-        console.log('*   Active Scan Result   *');
-        console.log('**************************');
-        console.log();
-        console.log('--------------------------');
-        console.log('| Alert Type   | Count   |');
-        console.log('--------------------------');
-        console.log(`  High Risk    | ${highAlerts}`);
-        console.log(`  Medium Risk  | ${mediumAlerts}`);
-        console.log(`  Low Risk     | ${lowAlerts}`);
-        console.log(`  Info Risk    | ${infoAlerts}`);
-        console.log('__________________________');
+        /* istanbul ignore if */
+        if (process.env.NODE_ENV !== 'test') { 
+            console.log();
+            console.log('**************************');
+            console.log('*   Active Scan Result   *');
+            console.log('**************************');
+            console.log();
+            console.log('--------------------------');
+            console.log('| Alert Type   | Count   |');
+            console.log('--------------------------');
+            console.log(`  High Risk    | ${highAlerts}`);
+            console.log(`  Medium Risk  | ${mediumAlerts}`);
+            console.log(`  Low Risk     | ${lowAlerts}`);
+            console.log(`  Info Risk    | ${infoAlerts}`);
+            console.log('__________________________');
+        }        
     }
 
     private createCustomHtmlReport(alertResult: AlertResult): string {
