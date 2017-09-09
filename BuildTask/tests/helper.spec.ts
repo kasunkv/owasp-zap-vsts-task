@@ -1,28 +1,29 @@
+require('dotenv').config();
 import * as path from 'path';
 import * as fs from 'fs';
 import * as expect from 'expect';
 
-import { Helpers } from '../OwaspZapScan/classes/Helper';
+import { Helper } from '../OwaspZapScan/classes/Helper';
 import { AlertResult } from './../OwaspZapScan/interfaces/types/AlertResult';
 
 describe('OWASP Zap Scan Helpers', function() {
     describe('When a valid xmlReport and a url is passed, the helper', () => {
         it('Should not be undefined or null', () => {            
-            let helper = new Helpers();
+            let helper = new Helper();
             expect(helper).toNotBe(undefined).toNotBe(null);
         });
     });
 
     describe('When a valid xmlReport and a url is passed, the return value', () => {
-        let helper: Helpers;
+        let helper: Helper;
         let xmlString: string;
         let result: AlertResult;
         const validTargetUrl: string = 'http://k2vowasptestsite.azurewebsites.net';
         const invalidTargetUrl: string = 'http://k2vowasptestsite-invalid.azurewebsites.net';
     
         before(() => {
-            helper = new Helpers();
-            let xmlPath = path.join(__dirname, 'report.xml');
+            helper = new Helper();
+            let xmlPath = path.join(__dirname, 'valid.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, validTargetUrl);
         });
@@ -47,12 +48,12 @@ describe('OWASP Zap Scan Helpers', function() {
             expect(result.HighAlerts).toBe(1);
         });
 
-        it('Should have 2 medium risk alerts', () => {
-            expect(result.MediumAlerts).toBe(2);
+        it('Should have 1 medium risk alerts', () => {
+            expect(result.MediumAlerts).toBe(1);
         });
 
-        it('Should have 3 low risk alerts', () => {
-            expect(result.LowAlerts).toBe(3);
+        it('Should have 1 low risk alerts', () => {
+            expect(result.LowAlerts).toBe(1);
         });
 
         it('Should have 1 info risk alerts', () => {
@@ -61,14 +62,14 @@ describe('OWASP Zap Scan Helpers', function() {
     });
 
     describe('When a valid xmlReport and an invalid url is passed, the return value', () => {
-        let helper: Helpers;
+        let helper: Helper;
         let xmlString: string;
         let result: AlertResult;
         const invalidTargetUrl: string = 'http://k2vowasptestsite-invalid.azurewebsites.net';
     
         before(() => {
-            helper = new Helpers();
-            let xmlPath = path.join(__dirname, 'report.xml');
+            helper = new Helper();
+            let xmlPath = path.join(__dirname, 'valid.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, invalidTargetUrl);
         });
@@ -107,13 +108,13 @@ describe('OWASP Zap Scan Helpers', function() {
     });
 
     describe('When an invalid xmlReport and a valid url is passed, the return value', () => {
-        let helper: Helpers;
+        let helper: Helper;
         let xmlString: string;
         let result: AlertResult;
         const validTargetUrl: string = 'http://k2vowasptestsite.azurewebsites.net';
     
         before(() => {
-            helper = new Helpers();
+            helper = new Helper();
             let xmlPath = path.join(__dirname, 'invalid.xml');
             xmlString = fs.readFileSync(xmlPath, 'utf8');
             result = helper.ProcessAlerts(xmlString, validTargetUrl);
