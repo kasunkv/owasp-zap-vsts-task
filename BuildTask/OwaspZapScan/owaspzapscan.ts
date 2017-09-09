@@ -1,3 +1,4 @@
+import { RequestService } from './classes/RequestService';
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
 
@@ -7,52 +8,53 @@ import { ActiveScan } from './classes/ActiveScan';
 import { SpiderScan } from './classes/SpiderScan';
 import { Report } from './classes/Report';
 import { Verify } from './classes/Verify';
-import { TaskInputs } from './interfaces/types/TaskInputs';
 import { Helper } from './classes/Helper';
+import { TaskInput } from './classes/TaskInput';
 
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
 
 async function run(): Promise<void> {
+    const taskInputs: TaskInput = new TaskInput();
+    /* Get the required inputs */
+    taskInputs.ZapApiUrl = Task.getInput('ZapApiUrl', true);
+    taskInputs.ZapApiKey = Task.getInput('ZapApiKey', true);
+    taskInputs.TargetUrl = Task.getInput('TargetUrl', true);
 
-    const taskInputs: TaskInputs = {
-        /* Get the required inputs */
-        ZapApiUrl: Task.getInput('ZapApiUrl', true),
-        ZapApiKey: Task.getInput('ZapApiKey', true),
-        TargetUrl: Task.getInput('TargetUrl', true),
+    /* Spider Scan Options */
+    taskInputs.ExecuteSpiderScan = Task.getBoolInput('ExecuteSpiderScan');
+    taskInputs.RecurseSpider = Task.getBoolInput('RecurseSpider');
+    taskInputs.SubTreeOnly = Task.getBoolInput('SubtreeOnly');
+    taskInputs.MaxChildrenToCrawl = Task.getInput('MaxChildrenToCrawl');
+    taskInputs.ContextName = Task.getInput('ContextName');
+    
+    /* Active Scan Options inputs */
+    taskInputs.ExecuteActiveScan = Task.getBoolInput('ExecuteActiveScan');
+    taskInputs.ContextId = Task.getInput('ContextId');
+    taskInputs.Recurse = Task.getBoolInput('Recurse');
+    taskInputs.InScopeOnly = Task.getBoolInput('InScopeOnly');
+    taskInputs.ScanPolicyName = Task.getInput('ScanPolicyName');
+    taskInputs.Method = Task.getInput('Method');
+    taskInputs.PostData = Task.getInput('PostData');
+    
+    /* Reporting options */
+    taskInputs.ReportType = Task.getInput('ReportType');
+    taskInputs.ReportFileDestination = Task.getPathInput('ReportFileDestination');
+    taskInputs.ReportFileName = Task.getInput('ReportFileName');
+    taskInputs.ProjectName = Task.getVariable('Build.Repository.Name');
+    taskInputs.BuildDefinitionName = Task.getVariable('Build.DefinitionName');
+    
+    /* Verification Options */
+    taskInputs.EnableVerifications = Task.getBoolInput('EnableVerifications');
+    taskInputs.MaxHighRiskAlerts = parseInt(Task.getInput('MaxHighRiskAlerts'), 10);
+    taskInputs.MaxMediumRiskAlerts = parseInt(Task.getInput('MaxMediumRiskAlerts'), 10);
+    taskInputs.MaxLowRiskAlerts = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
 
-        /* Spider Scan Options */
-        ExecuteSpiderScan: Task.getBoolInput('ExecuteSpiderScan'),
-        RecurseSpider: Task.getBoolInput('RecurseSpider'),
-        SubTreeOnly: Task.getBoolInput('SubtreeOnly'),
-        MaxChildrenToCrawl: Task.getInput('MaxChildrenToCrawl'),
-        ContextName: Task.getInput('ContextName'),
-
-        /* Active Scan Options inputs */
-        ExecuteActiveScan: Task.getBoolInput('ExecuteActiveScan'),
-        ContextId: Task.getInput('ContextId'),
-        Recurse: Task.getBoolInput('Recurse'),
-        InScopeOnly: Task.getBoolInput('InScopeOnly'),
-        ScanPolicyName: Task.getInput('ScanPolicyName'),
-        Method: Task.getInput('Method'),
-        PostData: Task.getInput('PostData'),
-
-        /* Reporting options */
-        ReportType: Task.getInput('ReportType'),
-        ReportFileDestination: Task.getPathInput('ReportFileDestination'),
-        ReportFileName: Task.getInput('ReportFileName'),
-        ProjectName: Task.getVariable('Build.Repository.Name'),
-        BuildDefinitionName: Task.getVariable('Build.DefinitionName'),
-
-        /* Verification Options */
-        EnableVerifications: Task.getBoolInput('EnableVerifications'),
-        MaxHighRiskAlerts: parseInt(Task.getInput('MaxHighRiskAlerts'), 10),
-        MaxMediumRiskAlerts: parseInt(Task.getInput('MaxMediumRiskAlerts'), 10),
-        MaxLowRiskAlerts: parseInt(Task.getInput('MaxLowRiskAlerts'), 10)
-    };
-
-    const helpers: Helpers = new Helpers();
-    const reports: Report = new Report(helpers, taskInputs);
+    
+    const requestService: RequestService = new RequestService();
+    const helper: Helper = new Helper();    
+    const report: Report = new Report(helper, requestService, taskInputs);
+    
     const selectedScans: Array<IZapScan> = new Array<IZapScan>();
     let scanStatus: ScanResult = { Success: false };
     let hasIssues: boolean = false;
