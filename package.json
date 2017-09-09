@@ -21,7 +21,7 @@
     "test-copy": "copyfiles -f \"./BuildTask/tests/testData/*.*\" spec/tests",
     "test-build": "npm run test-clean && tsc --project ./BuildTask/tests && npm run test-copy",
     "test-spec": "mocha spec/**/*.spec.js -R spec --bail",
-    "test-cov": "istanbul cover --include-all-sources --report lcovonly --dir ./spec/coverage node_modules/mocha/bin/_mocha -- spec/**/*.spec.js -R spec --bail",
+    "test-cov": "istanbul cover --include-all-sources --root ./spec --report lcovonly --dir ./spec/coverage node_modules/mocha/bin/_mocha -- spec/**/*.spec.js -R spec --bail",
     "test-remap": "remap-istanbul -i spec/coverage/coverage.json -o spec/coverage/report -t html -e dist,typings,node_modules",
     "test": "npm run test-build && npm run test-cov && npm run test-remap",
     "test-dev": "npm run test-build && npm run test-spec",
