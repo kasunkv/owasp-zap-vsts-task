@@ -4,7 +4,7 @@ import { AlertResult } from './../interfaces/types/AlertResult';
 import { AlertItem, ScanReport, Site } from './../interfaces/types/ZapReport';
 import { Constants } from './Constants';
 
-export class Helpers {
+export class Helper {
     constructor () {}
 
     ProcessAlerts(xmlResult: string, targetUrl: string): AlertResult {

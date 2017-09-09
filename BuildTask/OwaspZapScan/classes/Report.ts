@@ -8,24 +8,24 @@ import * as XmlParser from 'xmljson';
 import { AlertItem } from './../interfaces/types/ZapReport';
 import { AlertRowType, ReportType } from './../enums/Enums';
 import { Constants } from './Constants';
-import { Helpers } from './../classes/Helper';
+import { Helper } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
 import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
-import { TaskInputs } from './../interfaces/types/TaskInputs';
+import { TaskInput } from './TaskInput';
 import { RequestService } from './RequestService';
 
 export class Report {
     private _reportOptions: ZapScanReportOptions;
     private _requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;  
 
-    private _helpers: Helpers;    
+    private _helper: Helper;    
     private _requestService: RequestService;
-    private _taskInputs: TaskInputs;
+    private _taskInputs: TaskInput;
 
-    constructor(helpers: Helpers, requestService: RequestService, configInputs: TaskInputs) {
-        this._helpers = helpers;
+    constructor(helper: Helper, requestService: RequestService, taskInputs: TaskInput) {
+        this._helper = helper;
         this._requestService = requestService;
-        this._taskInputs = configInputs;
+        this._taskInputs = taskInputs;
 
         /* Report Options */
         this._reportOptions = {
@@ -82,7 +82,7 @@ export class Report {
             /* Get the Scan Result */
             const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
-            const processedAlerts: AlertResult = this._helpers.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
+            const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
             /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
 
