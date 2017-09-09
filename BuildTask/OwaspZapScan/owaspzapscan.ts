@@ -5,10 +5,10 @@ import { ScanResult } from './interfaces/types/ScanResult';
 import { IZapScan } from './interfaces/contracts/IZapScan';
 import { ActiveScan } from './classes/ActiveScan';
 import { SpiderScan } from './classes/SpiderScan';
-import { Report } from './classes/Reports';
+import { Report } from './classes/Report';
 import { Verify } from './classes/Verify';
-import { Helpers } from './classes/Helper';
 import { TaskInputs } from './interfaces/types/TaskInputs';
+import { Helper } from './classes/Helper';
 
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
@@ -86,14 +86,14 @@ async function run(): Promise<void> {
 
         /* Generate the report */
         console.log('Generating the report...');
-        const isSuccess: boolean = await reports.GenerateReport();
+        const isSuccess: boolean = await report.GenerateReport();
         
         if (!isSuccess) {
             hasIssues = isSuccess;
         }
 
         /* Perform the Verifications and Print the report */
-        const verify: Verify = new Verify(helpers, reports, taskInputs);
+        const verify: Verify = new Verify(helper, report, taskInputs);
         verify.Assert();
 
         Task.setResult(hasIssues ? Task.TaskResult.SucceededWithIssues : Task.TaskResult.Succeeded, 'OWASP ZAP Active Scan Complete. Result is within the expected thresholds.');

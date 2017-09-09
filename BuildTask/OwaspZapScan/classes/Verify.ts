@@ -1,19 +1,19 @@
 import * as Task from 'vsts-task-lib';
 
 import { ReportType } from './../enums/Enums';
-import { Report } from './../classes/Reports';
-import { Helpers } from './../classes/Helper';
+import { Report } from './../classes/Report';
+import { Helper } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
-import { TaskInputs } from './../interfaces/types/TaskInputs';
+import { TaskInput } from './TaskInput';
 
 export class Verify {    
     private _reports: Report;
-    private _helpers: Helpers;
-    private _taskInputs: TaskInputs;
+    private _helper: Helper;
+    private _taskInputs: TaskInput;
 
-    constructor(helpers: Helpers, report: Report, configInputs: TaskInputs) {
+    constructor(helper: Helper, report: Report, configInputs: TaskInput) {
         this._taskInputs = configInputs;
-        this._helpers = helpers;
+        this._helper = helper;
         this._reports = report;        
     }
 
@@ -21,7 +21,7 @@ export class Verify {
         /* Get the Scan Result */
         const xmlReport: string = await this._reports.GetScanResults(ReportType.XML);
         /* Sort and Count the Alerts */
-        const alertResult: AlertResult = this._helpers.ProcessAlerts(xmlReport, this._taskInputs.TargetUrl);
+        const alertResult: AlertResult = this._helper.ProcessAlerts(xmlReport, this._taskInputs.TargetUrl);
 
         Task.debug(`
             Scan Result: 

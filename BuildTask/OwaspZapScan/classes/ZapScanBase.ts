@@ -8,15 +8,15 @@ import { IZapScan } from './../interfaces/contracts/IZapScan';
 import { ScanResult } from '../interfaces/types/ScanResult';
 import { ZapScanResult, ZapScanStatus, ZapActiveScanOptions, ZapScanStatusOptions } from '../interfaces/types/ZapScan';
 import { ZapScanType } from './../enums/Enums';
-import { TaskInputs } from './../interfaces/types/TaskInputs';
+import { TaskInput } from './TaskInput';
 
 export abstract class ZapScanBase implements IZapScan {
     zapScanType: ZapScanType;
     scanType: string;    
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
-    protected taskInputs: TaskInputs;
+    protected taskInputs: TaskInput;
 
-    constructor(taskInputs: TaskInputs) {
+    constructor(taskInputs: TaskInput) {
         this.taskInputs = taskInputs;
     }
 

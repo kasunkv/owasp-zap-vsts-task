@@ -2,13 +2,13 @@ import { ZapScanBase } from './ZapScanBase';
 import { ScanResult } from './../interfaces/types/ScanResult';
 import { ZapSpiderScanOptions } from '../interfaces/types/ZapScan';
 import { ZapScanType } from '../enums/Enums';
-import { TaskInputs } from './../interfaces/types/TaskInputs';
+import { TaskInput } from './TaskInput';
 
 export class SpiderScan extends ZapScanBase {
     zapScanType: ZapScanType = ZapScanType.Spider;
     private _scanOptions: ZapSpiderScanOptions;    
 
-    constructor(taskInputs: TaskInputs) {
+    constructor(taskInputs: TaskInput) {
         super(taskInputs);
 
         /* Set Scan Type for Logging */
