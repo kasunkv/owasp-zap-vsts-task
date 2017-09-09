@@ -145,161 +145,6 @@
         <sourceid>3</sourceid>
       </alertitem>
       <alertitem>
-        <pluginid>10020</pluginid>
-        <alert>X-Frame-Options Header Not Set</alert>
-        <name>X-Frame-Options Header Not Set</name>
-        <riskcode>2</riskcode>
-        <confidence>2</confidence>
-        <riskdesc>Medium (Medium)</riskdesc>
-        <desc>&lt;p&gt;X-Frame-Options header is not included in the HTTP response to protect against &apos;ClickJacking&apos; attacks.&lt;/p&gt;</desc>
-        <instances>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/Contact</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/About</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-        </instances>
-        <count>5</count>
-        <solution>&lt;p&gt;Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it&apos;s set on all web pages returned by your site (if you expect the page to be framed only by pages on your server (e.g. it&apos;s part of a FRAMESET) then you&apos;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. ALLOW-FROM allows specific websites to frame the web page in supported web browsers).&lt;/p&gt;</solution>
-        <reference>&lt;p&gt;http://blogs.msdn.com/b/ieinternals/archive/2010/03/30/combating-clickjacking-with-x-frame-options.aspx&lt;/p&gt;</reference>
-        <cweid>16</cweid>
-        <wascid>15</wascid>
-        <sourceid>3</sourceid>
-      </alertitem>
-      <alertitem>
-        <pluginid>10021</pluginid>
-        <alert>X-Content-Type-Options Header Missing</alert>
-        <name>X-Content-Type-Options Header Missing</name>
-        <riskcode>1</riskcode>
-        <confidence>2</confidence>
-        <riskdesc>Low (Medium)</riskdesc>
-        <desc>&lt;p&gt;The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &apos;nosniff&apos;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.&lt;/p&gt;</desc>
-        <instances>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/jquery?v=FVs3ACwOLIVInrAl5sdzR2jrCDmVOWFbZMY6g6Q0ulE1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/jqueryval?v=hEGG8cMxk9p0ncdRUOJ-CnKN7NezhnPnWIvn6REucZo1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/bootstrap?v=2Fz3B0iizV2NnnamQFrx-NbYJNTFeBJ2GM05SilbtQU1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/About</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Login</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Register</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/Contact</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Content/css?v=MDbdFKJHBa_ctS5x4He1bMV0_RjRq8jpcIAvPpKiN6U1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-        </instances>
-        <count>12</count>
-        <solution>&lt;p&gt;Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &apos;nosniff&apos; for all web pages.&lt;/p&gt;&lt;p&gt;If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.&lt;/p&gt;</solution>
-        <otherinfo>&lt;p&gt;This issue still applies to error type pages (401, 403, 500, etc) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.&lt;/p&gt;&lt;p&gt;At &quot;High&quot; threshold this scanner will not alert on client or server error responses.&lt;/p&gt;</otherinfo>
-        <reference>&lt;p&gt;http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx&lt;/p&gt;&lt;p&gt;https://www.owasp.org/index.php/List_of_useful_HTTP_headers&lt;/p&gt;</reference>
-        <cweid>16</cweid>
-        <wascid>15</wascid>
-        <sourceid>3</sourceid>
-      </alertitem>
-      <alertitem>
-        <pluginid>10012</pluginid>
-        <alert>Password Autocomplete in Browser</alert>
-        <name>Password Autocomplete in Browser</name>
-        <riskcode>1</riskcode>
-        <confidence>2</confidence>
-        <riskdesc>Low (Medium)</riskdesc>
-        <desc>&lt;p&gt;The AUTOCOMPLETE attribute is not disabled on an HTML FORM/INPUT element containing password type input.  Passwords may be stored in browsers and retrieved.&lt;/p&gt;</desc>
-        <instances>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Register</uri>
-            <method>GET</method>
-            <param>Password</param>
-            <evidence>&lt;input class=&quot;form-control&quot; data-val=&quot;true&quot; data-val-length=&quot;The Password must be at least 6 characters long.&quot; data-val-length-max=&quot;100&quot; data-val-length-min=&quot;6&quot; data-val-required=&quot;The Password field is required.&quot; id=&quot;Password&quot; name=&quot;Password&quot; type=&quot;password&quot; /&gt;</evidence>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Register</uri>
-            <method>GET</method>
-            <param>ConfirmPassword</param>
-            <evidence>&lt;input class=&quot;form-control&quot; data-val=&quot;true&quot; data-val-equalto=&quot;The password and confirmation password do not match.&quot; data-val-equalto-other=&quot;*.Password&quot; id=&quot;ConfirmPassword&quot; name=&quot;ConfirmPassword&quot; type=&quot;password&quot; /&gt;</evidence>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Login</uri>
-            <method>GET</method>
-            <param>Password</param>
-            <evidence>&lt;input class=&quot;form-control&quot; data-val=&quot;true&quot; data-val-required=&quot;The Password field is required.&quot; id=&quot;Password&quot; name=&quot;Password&quot; type=&quot;password&quot; /&gt;</evidence>
-          </instance>
-        </instances>
-        <count>3</count>
-        <solution>&lt;p&gt;Turn off the AUTOCOMPLETE attribute in forms or individual input elements containing password inputs by using AUTOCOMPLETE=&apos;OFF&apos;.&lt;/p&gt;</solution>
-        <reference>&lt;p&gt;http://www.w3schools.com/tags/att_input_autocomplete.asp&lt;/p&gt;&lt;p&gt;https://msdn.microsoft.com/en-us/library/ms533486%28v=vs.85%29.aspx&lt;/p&gt;</reference>
-        <cweid>525</cweid>
-        <wascid>15</wascid>
-        <sourceid>3</sourceid>
-      </alertitem>
-      <alertitem>
         <pluginid>10012</pluginid>
         <alert>Password Autocomplete in Browser</alert>
         <name>Password Autocomplete in Browser</name>
@@ -338,6 +183,33 @@
   </site>
   <site name="http://k2vowasptestsite2.azurewebsites.net" host="k2vowasptestsite.azurewebsites.net" port="80" ssl="false">
     <alerts>
+      <alertitem>
+        <pluginid>90022</pluginid>
+        <alert>Application Error Disclosure</alert>
+        <name>Application Error Disclosure</name>
+        <riskcode>3</riskcode>
+        <confidence>2</confidence>
+        <riskdesc>Medium (Medium)</riskdesc>
+        <desc>&lt;p&gt;This page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.&lt;/p&gt;</desc>
+        <instances>
+          <instance>
+            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Register</uri>
+            <method>POST</method>
+            <evidence>HTTP/1.1 500 Internal Server Error</evidence>
+          </instance>
+          <instance>
+            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Login</uri>
+            <method>POST</method>
+            <evidence>HTTP/1.1 500 Internal Server Error</evidence>
+          </instance>
+        </instances>
+        <count>2</count>
+        <solution>&lt;p&gt;Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.&lt;/p&gt;</solution>
+        <reference>&lt;p&gt;&lt;/p&gt;</reference>
+        <cweid>200</cweid>
+        <wascid>13</wascid>
+        <sourceid>3</sourceid>
+      </alertitem>
       <alertitem>
         <pluginid>90022</pluginid>
         <alert>Application Error Disclosure</alert>
@@ -454,130 +326,10 @@
         <sourceid>3</sourceid>
       </alertitem>
       <alertitem>
-        <pluginid>10020</pluginid>
-        <alert>X-Frame-Options Header Not Set</alert>
-        <name>X-Frame-Options Header Not Set</name>
-        <riskcode>2</riskcode>
-        <confidence>2</confidence>
-        <riskdesc>Medium (Medium)</riskdesc>
-        <desc>&lt;p&gt;X-Frame-Options header is not included in the HTTP response to protect against &apos;ClickJacking&apos; attacks.&lt;/p&gt;</desc>
-        <instances>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/Contact</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/About</uri>
-            <method>GET</method>
-            <param>X-Frame-Options</param>
-          </instance>
-        </instances>
-        <count>5</count>
-        <solution>&lt;p&gt;Most modern Web browsers support the X-Frame-Options HTTP header. Ensure it&apos;s set on all web pages returned by your site (if you expect the page to be framed only by pages on your server (e.g. it&apos;s part of a FRAMESET) then you&apos;ll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. ALLOW-FROM allows specific websites to frame the web page in supported web browsers).&lt;/p&gt;</solution>
-        <reference>&lt;p&gt;http://blogs.msdn.com/b/ieinternals/archive/2010/03/30/combating-clickjacking-with-x-frame-options.aspx&lt;/p&gt;</reference>
-        <cweid>16</cweid>
-        <wascid>15</wascid>
-        <sourceid>3</sourceid>
-      </alertitem>
-      <alertitem>
-        <pluginid>10021</pluginid>
-        <alert>X-Content-Type-Options Header Missing</alert>
-        <name>X-Content-Type-Options Header Missing</name>
-        <riskcode>1</riskcode>
-        <confidence>2</confidence>
-        <riskdesc>Low (Medium)</riskdesc>
-        <desc>&lt;p&gt;The Anti-MIME-Sniffing header X-Content-Type-Options was not set to &apos;nosniff&apos;. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.&lt;/p&gt;</desc>
-        <instances>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/jquery?v=FVs3ACwOLIVInrAl5sdzR2jrCDmVOWFbZMY6g6Q0ulE1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/jqueryval?v=hEGG8cMxk9p0ncdRUOJ-CnKN7NezhnPnWIvn6REucZo1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/bootstrap?v=2Fz3B0iizV2NnnamQFrx-NbYJNTFeBJ2GM05SilbtQU1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/About</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Login</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Account/Register</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Home/Contact</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-          <instance>
-            <uri>http://k2vowasptestsite.azurewebsites.net/Content/css?v=MDbdFKJHBa_ctS5x4He1bMV0_RjRq8jpcIAvPpKiN6U1</uri>
-            <method>GET</method>
-            <param>X-Content-Type-Options</param>
-          </instance>
-        </instances>
-        <count>12</count>
-        <solution>&lt;p&gt;Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to &apos;nosniff&apos; for all web pages.&lt;/p&gt;&lt;p&gt;If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.&lt;/p&gt;</solution>
-        <otherinfo>&lt;p&gt;This issue still applies to error type pages (401, 403, 500, etc) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.&lt;/p&gt;&lt;p&gt;At &quot;High&quot; threshold this scanner will not alert on client or server error responses.&lt;/p&gt;</otherinfo>
-        <reference>&lt;p&gt;http://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx&lt;/p&gt;&lt;p&gt;https://www.owasp.org/index.php/List_of_useful_HTTP_headers&lt;/p&gt;</reference>
-        <cweid>16</cweid>
-        <wascid>15</wascid>
-        <sourceid>3</sourceid>
-      </alertitem>
-      <alertitem>
         <pluginid>10012</pluginid>
         <alert>Password Autocomplete in Browser</alert>
         <name>Password Autocomplete in Browser</name>
-        <riskcode>1</riskcode>
+        <riskcode>0</riskcode>
         <confidence>2</confidence>
         <riskdesc>Low (Medium)</riskdesc>
         <desc>&lt;p&gt;The AUTOCOMPLETE attribute is not disabled on an HTML FORM/INPUT element containing password type input.  Passwords may be stored in browsers and retrieved.&lt;/p&gt;</desc>
