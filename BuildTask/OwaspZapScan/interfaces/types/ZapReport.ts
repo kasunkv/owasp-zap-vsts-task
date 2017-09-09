@@ -49,4 +49,5 @@ export interface Instance {
     method: string;
     evidence: string;
     param: string;
+    attack: string;
 }

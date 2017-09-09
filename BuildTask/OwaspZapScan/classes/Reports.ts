@@ -262,6 +262,7 @@ export class Report {
                     ${alert.instances.instance[i].method ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Method', alert.instances.instance[i].method, AlertRowType.InstanceRow) : ''}
                     ${alert.instances.instance[i].evidence ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Evidence', alert.instances.instance[i].evidence, AlertRowType.InstanceRow) : ''}
                     ${alert.instances.instance[i].param ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Parameters', alert.instances.instance[i].param, AlertRowType.InstanceRow) : ''}
+                    ${alert.instances.instance[i].attack ? this.createAlertRow('&nbsp;&nbsp;&nbsp;&nbsp;Attack', alert.instances.instance[i].attack, AlertRowType.InstanceRow) : ''}
                 `; 
             }            
         }
