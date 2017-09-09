@@ -12,16 +12,19 @@ import { Helpers } from './../classes/Helper';
 import { AlertResult } from './../interfaces/types/AlertResult';
 import { ZapScanReportOptions } from './../interfaces/types/ZapScan';
 import { TaskInputs } from './../interfaces/types/TaskInputs';
+import { RequestService } from './RequestService';
 
 export class Report {
     private _reportOptions: ZapScanReportOptions;
     private _requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;  
 
     private _helpers: Helpers;    
+    private _requestService: RequestService;
     private _taskInputs: TaskInputs;
 
-    constructor(helpers: Helpers, configInputs: TaskInputs) {
+    constructor(helpers: Helpers, requestService: RequestService, configInputs: TaskInputs) {
         this._helpers = helpers;
+        this._requestService = requestService;
         this._taskInputs = configInputs;
 
         /* Report Options */
@@ -50,15 +53,7 @@ export class Report {
 
         Task.debug(`Active Scan Results | ZAP API Call: ${this._requestOptions.uri} | Request Options: ${JSON.stringify(this._requestOptions)}`);
 
-        return new Promise<string>((resolve, reject) => {
-            RequestPromise(this._requestOptions)
-                .then((res: any) => {
-                    resolve(res);
-                })
-                .error((err: any) => {
-                    reject(err.message || err);
-                });
-        });
+        return this._requestService.ExecuteScanResultQuery(this._requestOptions);
     }
 
     async GenerateReport(): Promise<boolean> {
