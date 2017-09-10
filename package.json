@@ -26,6 +26,7 @@
     "test": "npm run test-build && npm run test-cov && npm run test-remap",
     "test-dev": "npm run test-build && npm run test-spec",
     "test-ci": "npm run test-build && npm run test-cov",
+    "test-libs": "snyk test",
     "coverage-publish": "cat ./spec/coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -88,6 +89,7 @@
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-microsoft-contrib": "^5.0.1",
-    "typescript": "^2.5.2"
+    "typescript": "^2.5.2",
+    "snyk": "^1.40.2"
   }
 }
