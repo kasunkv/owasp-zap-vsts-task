@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:shelljs:20140723':
+    - vsts-task-lib > shelljs:
+        reason: >-
+          A patch is not available to fix the issue and the build path does not
+          expose the code path.
+        expires: '2017-12-30T04:43:52.951Z'
+patch: {}
