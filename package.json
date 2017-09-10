@@ -62,10 +62,10 @@
     "xmljson": "^0.2.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.8",
+    "@types/bluebird": "^3.5.10",
     "@types/expect": "^1.20.2",
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^8.0.26",
+    "@types/mocha": "^2.2.43",
+    "@types/node": "^8.0.28",
     "@types/q": "^1.0.3",
     "@types/request": "^2.0.0",
     "@types/request-promise": "^4.1.36",
@@ -79,17 +79,17 @@
     "husky": "^0.14.3",
     "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
-    "mocha": "^3.5.0",
+    "mocha": "^3.5.1",
     "remap-istanbul": "^0.9.5",
     "rimraf": "^2.6.1",
     "semantic-release": "^7.0.2",
     "sinon": "^3.2.1",
+    "snyk": "^1.40.2",
     "source-map-support": "^0.4.17",
     "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "tslint-microsoft-contrib": "^5.0.1",
-    "typescript": "^2.5.2",
-    "snyk": "^1.40.2"
+    "typescript": "^2.5.2"
   }
 }
