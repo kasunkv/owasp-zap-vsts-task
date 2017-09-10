@@ -1,7 +1,7 @@
 [![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)](https://travis-ci.org/kasunkv/owasp-zap-vsts-task.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/kasunkv/owasp-zap-vsts-task/badge.svg)](https://coveralls.io/github/kasunkv/owasp-zap-vsts-task)
 [![bitHound Overall Score](https://www.bithound.io/github/kasunkv/owasp-zap-vsts-task/badges/score.svg)](https://www.bithound.io/github/kasunkv/owasp-zap-vsts-task)
-[![Known Vulnerabilities](https://snyk.io/test/github/kasunkv/owasp-zap-vsts-task/badge.svg)](https://snyk.io/org/kasunkv/project/2c43d9b0-ea95-43c5-a2f7-87fa0d736092/)
+[![Known Vulnerabilities](https://snyk.io/test/github/kasunkv/owasp-zap-vsts-task/badge.svg)](https://snyk.io/test/github/kasunkv/owasp-zap-vsts-task)
 [![dependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task)
 [![devDependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/dev-status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task?type=dev)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
