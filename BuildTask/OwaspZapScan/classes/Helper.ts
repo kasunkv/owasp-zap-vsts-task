@@ -31,7 +31,7 @@ export class Helper {
             const sites: Site[] = reportJson.OWASPZAPReport.site;
 
             for (const idx in sites) {
-                if (sites[idx].$.name === targetUrl) {
+                if (targetUrl.includes(sites[idx].$.host)) {
                     alerts = sites[idx].alerts.alertitem;
                 }
             }

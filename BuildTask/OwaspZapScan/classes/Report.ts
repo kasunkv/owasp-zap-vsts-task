@@ -132,10 +132,12 @@ export class Report {
         let alertHtmlTables: string = '';
 
         for (const idx of Object.keys(alertResult.Alerts)) {
-            alertHtmlTables += `
-                ${this.createAlertTable(alertResult.Alerts[Number(idx)])}
+            if (alertResult.Alerts[Number(idx)]) {
+                alertHtmlTables += `
+                    ${this.createAlertTable(alertResult.Alerts[Number(idx)])}
 
-            `;
+                `;
+            }            
         }
 
         const htmlLayout: string = `
@@ -288,7 +290,7 @@ export class Report {
         <table class="table">
             <tr class="${cssClass}" height="24">
                 <td width="20%"><p class="alert-header"><a name="${alert.riskcode}" class="alert-header-link" data-toggle="collapse" href="#collapseBlock${collapseId}" aria-expanded="false" aria-controls="collapseExample" >${alert.riskdesc}</a></p></td>
-                <td width="80%"><p class="alert-header">${alert.name}</p></td>
+                <td width="80%"><p class="alert-header">${alert.alert}</p></td>
             </tr>
             <tbody class="collapse" id="collapseBlock${collapseId}">
                 ${tableRows}

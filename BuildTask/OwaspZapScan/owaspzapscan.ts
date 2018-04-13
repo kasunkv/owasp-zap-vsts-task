@@ -105,5 +105,5 @@ async function run(): Promise<void> {
 }   
 
 run().catch((err: any) => {
-    Task.setResult(Task.TaskResult.Failed, `Failed to initiate the active scan. Error: ${err.message || err}`);
+    Task.setResult(Task.TaskResult.Failed, `Task Failed. Error: ${err.message || err}`);
 });
