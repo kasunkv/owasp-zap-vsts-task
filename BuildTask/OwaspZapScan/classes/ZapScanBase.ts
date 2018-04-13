@@ -38,7 +38,7 @@ export abstract class ZapScanBase implements IZapScan {
                     }                    
                     resolve(scanResult);
                 })
-                .error((err: any) => {
+                .catch((err: any) => {
                     scanResult.Success = false;
                     scanResult.Message = err.message || err;
                     reject(scanResult);
@@ -113,8 +113,8 @@ export abstract class ZapScanBase implements IZapScan {
                     Task.debug(`${this.scanType} | Status Result: ${JSON.stringify(res)}`);                    
                     resolve(result.status);
                 })
-                .error((err: any) => {
-                    reject(err);
+                .catch((err: any) => {
+                    reject(err.message || err);
                 });
         });
     }    
