@@ -10,7 +10,7 @@ export class RequestService {
                 .then((res: any) => {
                     resolve(res);
                 })
-                .error((err: any) => {
+                .catch((err: any) => {
                     reject(err.message || err);
                 });
         });
