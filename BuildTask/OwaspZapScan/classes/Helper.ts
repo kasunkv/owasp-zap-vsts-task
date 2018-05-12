@@ -28,7 +28,8 @@ export class Helper {
             }
 
             const reportJson: ScanReport = res;
-            const sites: Site[] = reportJson.OWASPZAPReport.site;
+            const siteCollection: any = reportJson.OWASPZAPReport.site;
+            const sites: Site[] = Object.keys(siteCollection)[0] === '0' ? siteCollection : [siteCollection as Site];
 
             for (const idx in sites) {
                 if (targetUrl.includes(sites[idx].$.host)) {

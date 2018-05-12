@@ -4,7 +4,7 @@ export interface ScanReport {
 }
 
 export interface OwaspZapReport {
-    site: Array<Site>;
+    site: Site[];
     $: { version: string, generated: string };
 }
 
