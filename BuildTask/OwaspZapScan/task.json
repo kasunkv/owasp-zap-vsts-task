@@ -12,8 +12,7 @@
     ],
     "runsOn": [
         "Agent",
-        "MachineGroup",
-        "Server"
+        "MachineGroup"
     ],
     "author": "Kasun Kodagoda",
     "version": {
@@ -21,9 +20,7 @@
         "Minor": 61,
         "Patch": 0
     },
-    "demands": [
-        "npm"
-    ],
+    "demands": [],
     "minimumAgentVersion": "1.92.0",
     "groups": [
         {
