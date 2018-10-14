@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 
 import * as path from 'path';
 import * as Task from 'vsts-task-lib';
+import * as sentry from '@sentry/node';
 
 import { RequestService } from './classes/RequestService';
 import { ScanResult } from './interfaces/types/ScanResult';
@@ -21,6 +22,12 @@ async function run(): Promise<string> {
     const promise = new Promise<string>(async (resolve, reject) => {
 
        try {
+
+            sentry.init({
+                dsn: 'SENTRY_DSN',
+                release: 'TASK_RELEASE_VERSION'
+            });
+
             const taskInputs: TaskInput = new TaskInput();
             /* Get the required inputs */
             taskInputs.ZapApiUrl = Task.getInput('ZapApiUrl', true);
@@ -120,5 +127,6 @@ run()
         Task.setResult(Task.TaskResult.Succeeded, result);
     })
     .catch((err: any) => {
+        sentry.captureException(err);
         Task.setResult(Task.TaskResult.Failed, `Task Failed. Error: ${JSON.stringify(err)}`);
     });
