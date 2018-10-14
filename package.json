@@ -55,6 +55,7 @@
     }
   },
   "dependencies": {
+    "@sentry/node": "^4.1.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "thread-sleep": "^2.0.0",
