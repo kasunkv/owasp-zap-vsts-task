@@ -41,9 +41,7 @@ export class Helper {
                 return;
             }
 
-            for (const idx of Object.keys(alerts)) {
-                const i: number = Number(idx);
-
+            for (var i in alerts) {
                 if (alerts[i].riskcode === Constants.HIGH_RISK) {
                     high.push(alerts[i]); 
                     alertResult.HighAlerts++; 
