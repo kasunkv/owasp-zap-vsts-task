@@ -30,10 +30,15 @@ export class Helper {
             const reportJson: ScanReport = res;
             const siteCollection: any = reportJson.OWASPZAPReport.site;
             const sites: Site[] = Object.keys(siteCollection)[0] === '0' ? siteCollection : [siteCollection as Site];
-
+            var cleanedTargetUrl = ""; 
+            
             for (const idx in sites) {
                 if (targetUrl.includes(sites[idx].$.host)) {
                     alerts = sites[idx].alerts.alertitem;
+                    
+                    //clean to remove basic auth creds from URI 
+                    var protocol = targetUrl.split("/")[0] + "//"; 
+                    cleanedTargetUrl = protocol + targetUrl.substr(targetUrl.indexOf(sites[idx].$.host)); 
                 }
             }
 
@@ -43,6 +48,21 @@ export class Helper {
 
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
+
+                var instances = {}; 
+                for (const idx of Object.keys(alerts[i].instances.instance)) { 
+                    const j = Number(idx); 
+                    var _instance = _alert.instances.instance[j]; 
+                    
+                    //filter down to just the context root being tested
+                    if (_instance.uri.startsWith(cleanedTargetUrl)) { 
+                        instances[idx] = _instance; 
+                    } 
+                } 
+                alerts[i].instances.instance = instances; 
+                if (Object.keys(alerts[i].instances.instance).length === 0) { 
+                    continue; 
+                } 
 
                 if (alerts[i].riskcode === Constants.HIGH_RISK) {
                     high.push(alerts[i]); 
