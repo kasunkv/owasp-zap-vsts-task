@@ -30,7 +30,7 @@ export class Helper {
             const reportJson: ScanReport = res;
             const siteCollection: any = reportJson.OWASPZAPReport.site;
             const sites: Site[] = Object.keys(siteCollection)[0] === '0' ? siteCollection : [siteCollection as Site];
-
+            
             for (const idx in sites) {
                 if (targetUrl.includes(sites[idx].$.host)) {
                     alerts = sites[idx].alerts.alertitem;
@@ -41,7 +41,12 @@ export class Helper {
                 return;
             }
 
-            for (var i in alerts) {
+            if (alerts["riskcode"]){ 
+                alerts = { "0": alerts }; 
+            } 
+            
+            for (var idx in Object.keys(alerts)) { 
+                const i = Number(idx); 
                 if (alerts[i].riskcode === Constants.HIGH_RISK) {
                     high.push(alerts[i]); 
                     alertResult.HighAlerts++; 
