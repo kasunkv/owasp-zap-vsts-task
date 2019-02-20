@@ -55,7 +55,7 @@ export class Helper {
                     var _instance = _alert.instances.instance[j]; 
                     
                     //filter down to just the context root being tested
-                    if (_instance.uri.startsWith(cleanedTargetUrl)) { 
+                    if (_instance && _instance.uri.startsWith(cleanedTargetUrl)) { 
                         instances[idx] = _instance; 
                     } 
                 } 
