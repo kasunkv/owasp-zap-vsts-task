@@ -75,6 +75,15 @@
             "helpMarkDown": "Target URL where the active scan is performed against."
         },
         {
+            "name": "ClearSession",
+            "type": "boolean",
+            "label": "Clear Zap Session",
+            "required": false,
+            "defaultdefaultValue": "true",
+            "groupName": "apiConfiguration",
+            "helpMarkDown": "Zap persists results between scans. Enable this option to clear all results before the scan is performed."
+        },
+        {
             "name": "ExecuteSpiderScan",
             "type": "boolean",
             "label": "Execute Spider",
