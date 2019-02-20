@@ -79,7 +79,7 @@
             "type": "boolean",
             "label": "Clear Zap Session",
             "required": false,
-            "defaultdefaultValue": "true",
+            "defaultValue": "true",
             "groupName": "apiConfiguration",
             "helpMarkDown": "Zap persists results between scans. Enable this option to clear all results before the scan is performed."
         },
