@@ -41,9 +41,8 @@ export class Helper {
                 return;
             }
 
-            if (alerts["riskcode"]){ 
-                alerts = { "0": alerts }; 
-            } 
+            const _alerts: any = alerts;
+            alerts = Object.keys(_alerts)[0] === '0' ? _alerts : [_alerts as AlertItem];
             
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
