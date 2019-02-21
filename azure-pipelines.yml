@@ -1,0 +1,90 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+name: $(MajorVersion).$(MinorVersion).$(Rev:r)
+variables:
+  MajorVersion: 2
+  MinorVersion: 0
+
+trigger:
+  branches:
+      include:
+      - master
+      - refs/tags/*
+pr:
+- master
+
+pool:
+  vmImage: 'vs2017-win2016'
+  demands: npm
+
+steps:
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: 'Prepare Analysis on SonarCloud'
+  inputs:
+    SonarCloud: SonarCloudConnection
+    organization: 'kasunkv-github'
+    scannerMode: CLI
+    configMode: manual
+    cliProjectKey: 'kasunkv_owasp-zap-vsts-task'
+    cliProjectName: 'owasp-zap-vsts-task '
+    cliProjectVersion: '$(Build.BuildNumber)'
+    cliSources: BuildTask
+    
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
+    
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build'
+    
+- task: Npm@1
+  displayName: 'npm test'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run test'
+
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: 'Run Code Analysis'
+    
+- task: CopyFiles@2
+  displayName: 'Copy Task Manifest, Markdown & Marketplace Icon'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+     **\vss-extension.json
+     **\marketplace-icon.png
+     **\license.md
+     **\overview.md
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    
+- task: CopyFiles@2
+  displayName: 'Copy Screenshots'
+  inputs:
+    SourceFolder: screenshots
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\screenshots'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    
+- task: CopyFiles@2
+  displayName: 'Copy dist Folder'
+  inputs:
+    SourceFolder: dist
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: VSIXPackage'
+  inputs:
+    ArtifactName: VSIXPackage
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
