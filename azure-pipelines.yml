@@ -16,11 +16,11 @@ steps:
     verbose: false
     
 - task: Npm@1
-  displayName: 'npm script build:clean'
+  displayName: 'npm build'
   inputs:
     command: custom
     verbose: false
-    customCommand: 'run build-clean'
+    customCommand: 'run build'
     
 - task: Npm@1
   displayName: 'npm test'
