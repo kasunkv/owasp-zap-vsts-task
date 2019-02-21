@@ -30,14 +30,14 @@ export class Helper {
             const reportJson: ScanReport = res;
             const siteCollection: any = reportJson.OWASPZAPReport.site;
             const sites: Site[] = Object.keys(siteCollection)[0] === '0' ? siteCollection : [siteCollection as Site];
-            var cleanedTargetUrl = ""; 
+            let cleanedTargetUrl = ''; 
             
             for (const idx in sites) {
                 if (targetUrl.includes(sites[idx].$.host)) {
                     alerts = sites[idx].alerts.alertitem;
                     
                     //clean to remove basic auth creds from URI 
-                    var protocol = targetUrl.split("/")[0] + "//"; 
+                    const protocol = targetUrl.split('/')[0] + '//'; 
                     cleanedTargetUrl = protocol + targetUrl.substr(targetUrl.indexOf(sites[idx].$.host)); 
                 }
             }
@@ -48,23 +48,23 @@ export class Helper {
 
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
-				const _alert: AlertItem = alerts[i];
-				
-				var instances: Array<Instance> = [];
-				for (const idx of Object.keys(_alert.instances.instance)) {
-					const i = Number(idx);
-					var _instance: Instance = _alert.instances.instance[i];
-					if (_instance && _instance.uri.startsWith(cleanedTargetUrl)){
-						instances[i] = _instance;
-					}
+                const _alert: AlertItem = alerts[i];
+                
+                const instances: Array<Instance> = [];
+                for (const _idx of Object.keys(_alert.instances.instance)) {
+                    const _i = Number(_idx);
+                    const _instance: Instance = _alert.instances.instance[_i];
+                    if (_instance && _instance.uri.startsWith(cleanedTargetUrl)) {
+                        instances[_i] = _instance;
+                    }
                 }
                 
-				_alert.instances.instance = instances;
-				if (Object.keys(_alert.instances.instance).length === 0){
-					continue;
-				}
-								
-				const riskcode = _alert.riskcode;
+                _alert.instances.instance = instances;
+                if (Object.keys(_alert.instances.instance).length === 0) {
+                    continue;
+                }
+                                
+                const riskcode = _alert.riskcode;
                 if (riskcode === Constants.HIGH_RISK) {
                     high.push(_alert);
                     alertResult.HighAlerts++;
