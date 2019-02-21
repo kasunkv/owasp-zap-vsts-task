@@ -1,10 +1,7 @@
-[![Travis](https://img.shields.io/travis/rust-lang/rust.svg?style=flat-square)](https://travis-ci.org/kasunkv/owasp-zap-vsts-task.svg?branch=master)
 [![Coveralls Status](https://img.shields.io/coveralls/kasunkv/owasp-zap-vsts-task.svg?style=flat-square)](https://coveralls.io/github/kasunkv/owasp-zap-vsts-task)
-[![bitHound Overall Score](https://www.bithound.io/github/kasunkv/owasp-zap-vsts-task/badges/score.svg)](https://www.bithound.io/github/kasunkv/owasp-zap-vsts-task)
 [![Known Vulnerabilities](https://snyk.io/test/github/kasunkv/owasp-zap-vsts-task/badge.svg?style=flat-square)](https://snyk.io/test/github/kasunkv/owasp-zap-vsts-task)
 [![dependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task)
 [![devDependencies Status](https://david-dm.org/kasunkv/owasp-zap-vsts-task/dev-status.svg?style=flat-square)](https://david-dm.org/kasunkv/owasp-zap-vsts-task?type=dev)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![Best Practices](https://bestpractices.coreinfrastructure.org/projects/1188/badge)](https://bestpractices.coreinfrastructure.org/projects/1188)
 [![GitHub release](https://img.shields.io/github/release/kasunkv/owasp-zap-vsts-task.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/releases/latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/blob/master/LICENSE.md)
@@ -112,33 +109,6 @@ as much relevant details regarding the issue as possible.
 ## Have Questions?
 
 * All of your questions are welcome. Post them in the [Gitter]() chat for the project.
-
-
-# Commit Guidelines (Git Commit Convention)
-
-A strict commit guidelines are followed so that its easy to do release with semantic versioning. [Semantic Release](https://github.com/semantic-release/semantic-release) package is used to do this. [Commitizen](https://www.npmjs.com/package/commitizen) is used with [Commitizen Conventional Changelog](https://www.npmjs.com/package/cz-conventional-changelog) to add proper commit messages. Git hooks  created using [ghooks](https://www.npmjs.com/package/ghooks) are inplace to enforce the commit format used in the project.
-Each commit message consists of a header, a body and a footer. The header has a special format that includes a type, a scope and a subject. The commit message format is bellow.
-
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
-
-Header is mandatory and the scope is optional, But its encouraged to add a scope. Footer is also optional.
-To perform a commit follow these steps
-
-```sh
-# Add the files you want to commit
-$ git add <FILES_TO_COMMIT>
-
-# Use the configured ghook
-$ npm run commit
-```
-
-[Read More](http://commitizen.github.io/cz-cli/) to learn about Commitizen and its conventions.
 
 # Current Contributors
 
