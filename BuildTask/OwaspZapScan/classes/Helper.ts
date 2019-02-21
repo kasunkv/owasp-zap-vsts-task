@@ -1,7 +1,7 @@
 import * as XmlParser from 'xmljson';
 
 import { AlertResult } from './../interfaces/types/AlertResult';
-import { AlertItem, ScanReport, Site } from './../interfaces/types/ZapReport';
+import { AlertItem, ScanReport, Site, Instance } from './../interfaces/types/ZapReport';
 import { Constants } from './Constants';
 
 export class Helper {
@@ -48,39 +48,40 @@ export class Helper {
 
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
-
-                var instances = {}; 
-                for (const idx of Object.keys(alerts[i].instances.instance)) { 
-                    const j = Number(idx); 
-                    var _instance = _alert.instances.instance[j]; 
-                    
-                    //filter down to just the context root being tested
-                    if (_instance && _instance.uri.startsWith(cleanedTargetUrl)) { 
-                        instances[idx] = _instance; 
-                    } 
-                } 
-                alerts[i].instances.instance = instances; 
-                if (Object.keys(alerts[i].instances.instance).length === 0) { 
-                    continue; 
-                } 
-
-                if (alerts[i].riskcode === Constants.HIGH_RISK) {
-                    high.push(alerts[i]); 
-                    alertResult.HighAlerts++; 
+				const _alert: AlertItem = alerts[i];
+				
+				var instances: Array<Instance> = [];
+				for (const idx of Object.keys(_alert.instances.instance)) {
+					const i = Number(idx);
+					var _instance: Instance = _alert.instances.instance[i];
+					if (_instance && _instance.uri.startsWith(cleanedTargetUrl)){
+						instances[i] = _instance;
+					}
+                }
+                
+				_alert.instances.instance = instances;
+				if (Object.keys(_alert.instances.instance).length === 0){
+					continue;
+				}
+								
+				const riskcode = _alert.riskcode;
+                if (riskcode === Constants.HIGH_RISK) {
+                    high.push(_alert);
+                    alertResult.HighAlerts++;
                 }
 
-                if (alerts[i].riskcode === Constants.MEDIUM_RISK) {
-                    mid.push(alerts[i]);
+                if (riskcode === Constants.MEDIUM_RISK) {
+                    mid.push(_alert);
                     alertResult.MediumAlerts++;
                 }
 
-                if (alerts[i].riskcode === Constants.LOW_RISK) {
-                    low.push(alerts[i]);
+                if (riskcode === Constants.LOW_RISK) {
+                    low.push(_alert);
                     alertResult.LowAlerts++;
                 }
 
-                if (alerts[i].riskcode === Constants.INFO_RISK) {
-                    info.push(alerts[i]);
+                if (riskcode === Constants.INFO_RISK) {
+                    info.push(_alert);
                     alertResult.InformationalAlerts++;
                 }
             }
