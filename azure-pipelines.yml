@@ -3,7 +3,17 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+name: $(MajorVersion).$(MinorVersion).$(Rev:r)
+variables:
+  MajorVersion: 2
+  MinorVersion: 0
+
 trigger:
+  branches:
+      include:
+      - master
+      - refs/tags/*
+pr:
 - master
 
 pool:
@@ -40,6 +50,7 @@ steps:
      **\license.md
      **\overview.md
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
 - task: CopyFiles@2
   displayName: 'Copy Screenshots'
@@ -47,6 +58,7 @@ steps:
     SourceFolder: screenshots
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\screenshots'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
     
 - task: CopyFiles@2
   displayName: 'Copy dist Folder'
@@ -54,8 +66,10 @@ steps:
     SourceFolder: dist
     Contents: '**\*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: VSIXPackage'
   inputs:
     ArtifactName: VSIXPackage
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
