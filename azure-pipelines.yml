@@ -10,12 +10,51 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- task: NodeTool@0
+- task: Npm@1
+  displayName: 'npm install'
   inputs:
-    versionSpec: '8.x'
-  displayName: 'Install Node.js'
+    verbose: false
+    
+- task: Npm@1
+  displayName: 'npm script build:clean'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build-clean'
+    
+- task: Npm@1
+  displayName: 'npm test'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run test'
+    
+- task: CopyFiles@2
+  displayName: 'Copy Task Manifest, Markdown & Marketplace Icon'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+     **\vss-extension.json
+     **\marketplace-icon.png
+     **\license.md
+     **\overview.md
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    
+- task: CopyFiles@2
+  displayName: 'Copy Screenshots'
+  inputs:
+    SourceFolder: screenshots
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\screenshots'
+    
+- task: CopyFiles@2
+  displayName: 'Copy dist Folder'
+  inputs:
+    SourceFolder: dist
+    Contents: '**\*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: VSIXPackage'
+  inputs:
+    ArtifactName: VSIXPackage
