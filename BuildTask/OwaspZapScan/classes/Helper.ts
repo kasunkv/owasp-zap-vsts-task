@@ -48,40 +48,40 @@ export class Helper {
 
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
-                const _alert: AlertItem = alerts[i];
+                const alert: AlertItem = alerts[i];
                 
                 const instances: Array<Instance> = [];
-                for (const _idx of Object.keys(_alert.instances.instance)) {
+                for (const _idx of Object.keys(alert.instances.instance)) {
                     const _i = Number(_idx);
-                    const _instance: Instance = _alert.instances.instance[_i];
+                    const _instance: Instance = alert.instances.instance[_i];
                     if (_instance && _instance.uri.startsWith(cleanedTargetUrl)) {
                         instances[_i] = _instance;
                     }
                 }
                 
-                _alert.instances.instance = instances;
-                if (Object.keys(_alert.instances.instance).length === 0) {
+                alert.instances.instance = instances;
+                if (Object.keys(alert.instances.instance).length === 0) {
                     continue;
                 }
                                 
-                const riskcode = _alert.riskcode;
+                const riskcode = alert.riskcode;
                 if (riskcode === Constants.HIGH_RISK) {
-                    high.push(_alert);
+                    high.push(alert);
                     alertResult.HighAlerts++;
                 }
 
                 if (riskcode === Constants.MEDIUM_RISK) {
-                    mid.push(_alert);
+                    mid.push(alert);
                     alertResult.MediumAlerts++;
                 }
 
                 if (riskcode === Constants.LOW_RISK) {
-                    low.push(_alert);
+                    low.push(alert);
                     alertResult.LowAlerts++;
                 }
 
                 if (riskcode === Constants.INFO_RISK) {
-                    info.push(_alert);
+                    info.push(alert);
                     alertResult.InformationalAlerts++;
                 }
             }
