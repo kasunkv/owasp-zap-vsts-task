@@ -37,6 +37,9 @@
         },
         "license": {
             "path": "LICENSE.md"
+        },
+        "privacypolicy": {
+            "path": "privacy-policy.md"
         }
     },
     "links": {
@@ -51,7 +54,7 @@
         },
         "issues": {
             "uri": "https://github.com/kasunkv/owasp-zap-vsts-task/issues"
-        }
+        }        
     },
     "branding": {
         "color": "rgb(34, 56, 108)",
