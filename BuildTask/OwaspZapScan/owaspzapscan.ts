@@ -13,6 +13,7 @@ import { SpiderScan } from './classes/SpiderScan';
 import { Report } from './classes/Report';
 import { Verify } from './classes/Verify';
 import { Helper } from './classes/Helper';
+import { ZapApiHelper } from './classes/ZapApiHelper';
 import { TaskInput } from './classes/TaskInput';
 
 Task.setResourcePath(path.join(__dirname, 'task.json'));
@@ -33,6 +34,7 @@ async function run(): Promise<string> {
             taskInputs.ZapApiUrl = Task.getInput('ZapApiUrl', true);
             taskInputs.ZapApiKey = Task.getInput('ZapApiKey', true);
             taskInputs.TargetUrl = Task.getInput('TargetUrl', true);
+            taskInputs.ClearSession = Task.getBoolInput('ClearSession');
 
             /* Spider Scan Options */
             taskInputs.ExecuteSpiderScan = Task.getBoolInput('ExecuteSpiderScan');
@@ -63,6 +65,11 @@ async function run(): Promise<string> {
             taskInputs.MaxMediumRiskAlerts = parseInt(Task.getInput('MaxMediumRiskAlerts'), 10);
             taskInputs.MaxLowRiskAlerts = parseInt(Task.getInput('MaxLowRiskAlerts'), 10);
 
+
+            if (taskInputs.ClearSession) {
+                const apiHelper: ZapApiHelper = new ZapApiHelper(taskInputs);
+                await apiHelper.ClearZapSession();
+            }
 
             const requestService: RequestService = new RequestService();
             const helper: Helper = new Helper();    

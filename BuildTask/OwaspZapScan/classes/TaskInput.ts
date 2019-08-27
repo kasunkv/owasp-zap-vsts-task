@@ -41,6 +41,17 @@ export class TaskInput {
         throw new Error('The Target URL is required but not set.');
     }
 
+    private _clearSession: boolean;
+    set ClearSession(value: boolean) {
+        this._clearSession = value;
+    }
+
+    get ClearSession(): boolean {
+        if (this._clearSession) {
+            return this._clearSession;
+        }
+        return true;
+    }
 
     /* Spider Scan */
     private _executeSpiderScan: boolean;
