@@ -6,6 +6,8 @@
 [![GitHub release](https://img.shields.io/github/release/kasunkv/owasp-zap-vsts-task.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/releases/latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/kasunkv/owasp-zap-vsts-task/blob/master/LICENSE.md)
 [![Visual Studio Marketplace](https://img.shields.io/badge/Visual%20Studio%20Marketplace-install-brightgreen.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=kasunkodagoda.owasp-zap-scan)
+[![Gitter](https://badges.gitter.im/OWASP-ZAP-Extension-for-Azure-Pipelines/community.svg)](https://gitter.im/OWASP-ZAP-Extension-for-Azure-Pipelines/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # OWASP Zed Attack Proxy Scan Task
 Visual Studio Team Services build/release task for running OWASP ZAP automated security tests. Run active scan against a target with security risk thresholds and ability to generate the scan report.
 
@@ -101,14 +103,14 @@ as much relevant details regarding the issue as possible.
 
 ## Add/Suggest a New Feature, or Change Existing One?
 
-* Add your suggestions to the [Gitter]() Chat for the project.
+* Add your suggestions to the [Gitter](https://gitter.im/OWASP-ZAP-Extension-for-Azure-Pipelines/community) Chat for the project.
 * After getting a discussion going, Create a new Issue related to the feature in the Issues section. Add detailed description with a title for the issue.
 * Follow the **Commit Guideline** mentioned bellow when committing.
 * Create a Pull Request when you are done with the feature.
 
 ## Have Questions?
 
-* All of your questions are welcome. Post them in the [Gitter]() chat for the project.
+* All of your questions are welcome. Post them in the [Gitter](https://gitter.im/OWASP-ZAP-Extension-for-Azure-Pipelines/community) chat for the project.
 
 # Current Contributors
 
