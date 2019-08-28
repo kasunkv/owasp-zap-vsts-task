@@ -50,7 +50,7 @@ export class TaskInput {
         if (this._clearSession) {
             return this._clearSession;
         }
-        return true;
+        return false;
     }
 
     /* Spider Scan */
