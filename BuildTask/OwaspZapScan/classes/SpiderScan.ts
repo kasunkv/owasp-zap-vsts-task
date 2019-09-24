@@ -13,6 +13,7 @@ export class SpiderScan extends ZapScanBase {
 
         /* Set Scan Type for Logging */
         this.scanType = 'Spider Scan';
+        this.apiScanType = 'spider';
 
         /* Spider Scan Options */
         this._scanOptions = {
