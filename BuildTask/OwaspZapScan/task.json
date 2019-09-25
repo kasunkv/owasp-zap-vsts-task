@@ -84,6 +84,15 @@
             "helpMarkDown": "Zap persists results between scans. Enable this option to clear all results before the scan is performed."
         },
         {
+            "name": "FilterScans",
+            "type": "boolean",
+            "label": "Target URL as Base Url",
+            "required": false,
+            "defaultValue": "true",
+            "groupName": "apiConfiguration",
+            "helpMarkDown": "When scanning sites with context roots, Zap will scan parent URLs (e.g. http://mysite.com/robots.txt when Target Url is http://mysite.com/contextroot). Enable to limit results to only URLs beginning with the Target URL (http://mysite.com/contextroot/*)"
+        },
+        {
             "name": "ExecuteSpiderScan",
             "type": "boolean",
             "label": "Execute Spider",

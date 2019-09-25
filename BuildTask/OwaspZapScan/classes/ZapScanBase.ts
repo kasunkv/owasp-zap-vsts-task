@@ -28,9 +28,15 @@ export abstract class ZapScanBase implements IZapScan {
         return new Promise<ScanResult>(async (resolve, reject) => {
             let scanResult: ScanResult = { Success: false };
             
-            await this.AddScanFilter();
+            if (this.taskInputs.FilterScans) {
+                await this.AddScanFilter();
+            }
+
             scanResult = await this.ExecuteScanPromise();
-            await this.ClearScanFilter();
+            
+            if (this.taskInputs.FilterScans) {
+                await this.ClearScanFilter();
+            }
 
             console.log('---------------------------------------');
             resolve(scanResult);
