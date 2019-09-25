@@ -70,6 +70,7 @@ async function run(): Promise<string> {
             if (taskInputs.ClearSession) {
                 const apiHelper: ZapApiHelper = new ZapApiHelper(taskInputs);
                 await apiHelper.ClearZapSession();
+                console.log('---------------------------------------');
             }
 
             const requestService: RequestService = new RequestService();

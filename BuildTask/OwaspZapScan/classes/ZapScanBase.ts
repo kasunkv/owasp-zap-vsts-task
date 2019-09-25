@@ -12,6 +12,7 @@ import { ZapScanResult, ZapScanStatus, ZapActiveScanOptions, ZapScanStatusOption
 import { ZapScanType } from './../enums/Enums';
 import { TaskInput } from './TaskInput';
 import { RequestService } from './RequestService';
+import { ZapApiHelper } from './ZapApiHelper';
 
 export abstract class ZapScanBase implements IZapScan {
     zapScanType: ZapScanType;
@@ -19,9 +20,11 @@ export abstract class ZapScanBase implements IZapScan {
     apiScanType: string;
     requestOptions: Request.UriOptions & RequestPromise.RequestPromiseOptions;
     protected taskInputs: TaskInput;
+    protected apiHelper: ZapApiHelper;
 
     constructor(taskInputs: TaskInput) {
         this.taskInputs = taskInputs;
+        this.apiHelper = new ZapApiHelper(taskInputs);
     }
 
     ExecuteScan(): Promise<ScanResult> {
@@ -84,19 +87,7 @@ export abstract class ZapScanBase implements IZapScan {
        console.log(`Setting ${this.scanType} filter to target url`);
        Task.debug(`Regex: ${statusOptions.regex}`);
        Task.debug(`ZAP API Call: ${requestOptions.uri} | Request Options: ${JSON.stringify(statusOptions)}`);
-       return new Promise<number>((resolve, reject) => {
-        RequestPromise(requestOptions)
-            .then((res: any) => {
-                const result = JSON.parse(res);
-
-                console.log('Successfully set scan filter');
-                Task.debug(`Status Result: ${JSON.stringify(res)}`);
-                resolve(result.status);
-            })
-            .catch((err: any) => {
-                reject(err.message || err);
-            });
-        });
+       return this.apiHelper.MakeZapRequest(requestOptions, 'Successfully set scan filter');
     }
 
     ClearScanFilter(): Promise<number> {
@@ -112,19 +103,7 @@ export abstract class ZapScanBase implements IZapScan {
 
        console.log(`Resetting scan filter for ${this.scanType}`);
        Task.debug(`ZAP API Call: ${requestOptions.uri} | Request Options: ${JSON.stringify(statusOptions)}`);
-       return new Promise<number>((resolve, reject) => {
-        RequestPromise(requestOptions)
-            .then((res: any) => {
-                const result = JSON.parse(res);
-
-                console.log('Successfully reset scan filter');
-                Task.debug(`Status Result: ${JSON.stringify(res)}`);
-                resolve(result.status);
-            })
-            .catch((err: any) => {
-                reject(err.message || err);
-            });
-        });
+       return this.apiHelper.MakeZapRequest(requestOptions, 'Successfully reset scan filter');
     }
 
     protected CheckScanStatus(scanId: number, scanType: ZapScanType): Promise<boolean> {
