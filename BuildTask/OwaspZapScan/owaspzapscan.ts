@@ -103,7 +103,7 @@ async function run(): Promise<string> {
             }
 
             /* If all scans are successful: 1). Generate the Report 2). Perform the Verifications */
-            if (scanStatus.Success) {
+            if (scanStatus.Success || selectedScans.length === 0) {
 
                 /* Generate the report */
                 console.log('Generating the report...');
