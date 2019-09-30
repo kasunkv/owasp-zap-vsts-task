@@ -73,6 +73,9 @@ export class Report {
         } else if (this._taskInputs.ReportType === Constants.MARKDOWN) {
             type = ReportType.MD;
             ext = Constants.MARKDOWN;
+        } else if (this._taskInputs.ReportType === Constants.JSON) {
+            type = ReportType.JSON;
+            ext = Constants.JSON;
         } else {
             type = ReportType.HTML;
             ext = Constants.HTML;
@@ -85,14 +88,19 @@ export class Report {
             Task.debug(`Report Filename: ${fullFilePath}`);
         }       
 
-        if (type === ReportType.HTML) {
+        if (type === ReportType.HTML || type === ReportType.JSON) {
             /* Get the Scan Result */
             const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
             const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
-            /* Generate the Custom HTML Report */
-            scanReport = this.createCustomHtmlReport(processedAlerts);
 
+            if (type === ReportType.HTML) {
+                /* Generate the Custom HTML Report */
+                scanReport = this.createCustomHtmlReport(processedAlerts);
+            }
+            else {
+                scanReport = JSON.stringify(processedAlerts);
+            }
         } else {
             scanReport = await this.GetScanResults(type);
         }        
@@ -101,7 +109,7 @@ export class Report {
         return new Promise<boolean>((resolve, reject) => {
             fs.writeFile(fullFilePath, scanReport, (err: any) => {
                 if (err) {
-                    Task.error('Failed to generate the HTML report');
+                    Task.error(`Failed to generate the ${ext.toUpperCase()} report`);
                     reject(false);
                 }
                 resolve(true);
