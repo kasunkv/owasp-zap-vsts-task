@@ -1,7 +1,8 @@
 export enum ReportType {
     XML,
     HTML,
-    MD
+    MD,
+    JSON
 }
 
 export enum AlertRowType {
