@@ -46,16 +46,11 @@ export class Helper {
             
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
-                
-                //convert instances to proper array instead of a dictionary
                 const alert = alerts[i];
-                const instances = [];
-                for (const _idx of Object.keys(alert.instances.instance)) {
-                    const _i = Number(_idx);
-                    const _instance = alert.instances.instance[_i];
-                    instances[_i] = _instance;
-                }
-                alert.instances.instance = instances;
+
+                //convert instances to proper array instead of a dictionary
+                const _instances: any = alert.instances.instance;
+                alert.instances.instance = Object.keys(_instances)[0] === '0' ? _instances : [_instances as Instance];
 
                 if (alert.riskcode === Constants.HIGH_RISK) {
                     high.push(alert); 
