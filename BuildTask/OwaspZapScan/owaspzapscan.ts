@@ -35,6 +35,7 @@ async function run(): Promise<string> {
             taskInputs.ZapApiKey = Task.getInput('ZapApiKey', true);
             taskInputs.TargetUrl = Task.getInput('TargetUrl', true);
             taskInputs.ClearSession = Task.getBoolInput('ClearSession');
+            taskInputs.FilterScans = Task.getBoolInput('FilterScans');
 
             /* Spider Scan Options */
             taskInputs.ExecuteSpiderScan = Task.getBoolInput('ExecuteSpiderScan');
@@ -69,6 +70,7 @@ async function run(): Promise<string> {
             if (taskInputs.ClearSession) {
                 const apiHelper: ZapApiHelper = new ZapApiHelper(taskInputs);
                 await apiHelper.ClearZapSession();
+                console.log('---------------------------------------');
             }
 
             const requestService: RequestService = new RequestService();

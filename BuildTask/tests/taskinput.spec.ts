@@ -23,6 +23,14 @@ describe('OWASP Zap Scan Inputs', () => {
             expect(taskInput.TargetUrl).toThrow(new Error('The Target URL is required but not set.'));
         });
 
+        it('Should return false when ClearSession is called', () => {
+            expect(taskInput.ClearSession).toBeFalsy();
+        });
+
+        it('Should return false when FilterScans is called', () => {
+            expect(taskInput.FilterScans).toBeFalsy();
+        });
+
         it('Should return false when ExecuteSpiderScan is called', () => {
             expect(taskInput.ExecuteSpiderScan).toBeFalsy();
         });
@@ -117,6 +125,8 @@ describe('OWASP Zap Scan Inputs', () => {
             taskInput.ZapApiUrl = 'zap.k2vsoftware.com';
             taskInput.ZapApiKey = 'xxxxxxxxxxxxx';
             taskInput.TargetUrl = 'http://example.com';
+            taskInput.ClearSession = true;
+            taskInput.FilterScans = true;
         
             /* Spider Scan Options */
             taskInput.ExecuteSpiderScan = true;
@@ -158,6 +168,14 @@ describe('OWASP Zap Scan Inputs', () => {
 
         it('Should return when ZapApiUrl is called', () => {
             expect(taskInput.TargetUrl).toEqual('http://example.com');
+        });
+
+        it('Should return true when ClearSession is called', () => {
+            expect(taskInput.ClearSession).toBeTruthy();
+        });
+
+        it('Should return true when FilterScans is called', () => {
+            expect(taskInput.FilterScans).toBeTruthy();
         });
 
         it('Should return true when ExecuteSpiderScan is called', () => {

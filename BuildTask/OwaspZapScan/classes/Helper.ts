@@ -1,7 +1,7 @@
 import * as XmlParser from 'xmljson';
 
 import { AlertResult } from './../interfaces/types/AlertResult';
-import { AlertItem, ScanReport, Site } from './../interfaces/types/ZapReport';
+import { AlertItem, ScanReport, Site, Instance } from './../interfaces/types/ZapReport';
 import { Constants } from './Constants';
 
 export class Helper {
@@ -46,24 +46,36 @@ export class Helper {
             
             for (const idx of Object.keys(alerts)) {
                 const i: number = Number(idx);
-                
-                if (alerts[i].riskcode === Constants.HIGH_RISK) {
-                    high.push(alerts[i]); 
+                const alert = alerts[i];
+
+                //convert instances to proper array instead of a dictionary
+                const _instances: any = alert.instances.instance;
+                alert.instances.instance = Object.keys(_instances)[0] === '0' ? _instances : [_instances as Instance];
+                const instances = [];
+                for (const _idx of Object.keys(alert.instances.instance)) {
+                    const _i = Number(_idx);
+                    const _instance = alert.instances.instance[_i];
+                    instances[_i] = _instance;
+                }
+                alert.instances.instance = instances;
+
+                if (alert.riskcode === Constants.HIGH_RISK) {
+                    high.push(alert); 
                     alertResult.HighAlerts++; 
                 }
 
-                if (alerts[i].riskcode === Constants.MEDIUM_RISK) {
-                    mid.push(alerts[i]);
+                if (alert.riskcode === Constants.MEDIUM_RISK) {
+                    mid.push(alert);
                     alertResult.MediumAlerts++;
                 }
 
-                if (alerts[i].riskcode === Constants.LOW_RISK) {
-                    low.push(alerts[i]);
+                if (alert.riskcode === Constants.LOW_RISK) {
+                    low.push(alert);
                     alertResult.LowAlerts++;
                 }
 
-                if (alerts[i].riskcode === Constants.INFO_RISK) {
-                    info.push(alerts[i]);
+                if (alert.riskcode === Constants.INFO_RISK) {
+                    info.push(alert);
                     alertResult.InformationalAlerts++;
                 }
             }

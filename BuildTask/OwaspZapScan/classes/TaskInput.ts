@@ -53,6 +53,18 @@ export class TaskInput {
         return false;
     }
 
+    private _filterScans: boolean;
+    set FilterScans(value: boolean) {
+        this._filterScans = value;
+    }
+
+    get FilterScans(): boolean {
+        if (this._filterScans) {
+            return this._filterScans;
+        }
+        return false;
+    }
+
     /* Spider Scan */
     private _executeSpiderScan: boolean;
     set ExecuteSpiderScan(value: boolean) {

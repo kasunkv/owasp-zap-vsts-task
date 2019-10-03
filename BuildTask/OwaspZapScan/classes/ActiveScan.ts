@@ -13,6 +13,7 @@ export class ActiveScan extends ZapScanBase {
         
         /* Set Scan Type for Logging */
         this.scanType = 'Active Scan';
+        this.apiScanType = 'ascan';
 
         /* Active Scan Options */
         this._scanOptions = {
