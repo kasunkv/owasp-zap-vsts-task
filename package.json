@@ -84,7 +84,7 @@
     "mocha": "^3.5.1",
     "remap-istanbul": "^0.9.5",
     "rimraf": "^2.6.1",
-    "semantic-release": "^8.0.0",
+    "semantic-release": "^17.2.3",
     "sinon": "^3.2.1",
     "snyk": "^1.40.2",
     "source-map-support": "^0.4.17",
