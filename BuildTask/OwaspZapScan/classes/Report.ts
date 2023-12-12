@@ -47,7 +47,8 @@ export class Report {
         /* Set report type */
         if (type === ReportType.XML) { reportType = Constants.XML_REPORT; }
         if (type === ReportType.HTML) { reportType = Constants.HTML_REPORT; } 
-        if (type === ReportType.MD) { reportType = Constants.MD_REPORT; }
+        if (type === ReportType.MD) { reportType = Constants.MD_REPORT; } 
+        if (type === ReportType.ALL) { reportType = Constants.ALL_REPORT; }
 
         this._requestOptions.uri = `${this._requestOptions.uri}/${reportType}/`;
 
@@ -58,56 +59,72 @@ export class Report {
 
         return this._requestService.ExecuteScanResultQuery(this._requestOptions);
     }
-
-    async GenerateReport(): Promise<boolean> {
-        let type: ReportType;
-        let ext: string;
-        let scanReport: string;
-
-        const fileName = this._taskInputs.ReportFileName === '' ? 'OWASP-ZAP-Report' :  this._taskInputs.ReportFileName;
-        const destination = this._taskInputs.ReportFileDestination === '' ? './' : this._taskInputs.ReportFileDestination;
+	async GenerateReport(): Promise<boolean> {
+		let type: ReportType;
 
         if (this._taskInputs.ReportType === Constants.XML) {
             type = ReportType.XML;
-            ext = Constants.XML;
         } else if (this._taskInputs.ReportType === Constants.MARKDOWN) {
             type = ReportType.MD;
-            ext = Constants.MARKDOWN;
-        } else {
+        } else if (this._taskInputs.ReportType === Constants.HTML){
             type = ReportType.HTML;
-            ext = Constants.HTML;
+        } else {
+            type = ReportType.ALL;
         }
-        
-        const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
-        
-        /* istanbul ignore if */
-        if (process.env.NODE_ENV !== 'test') { 
-            Task.debug(`Report Filename: ${fullFilePath}`);
-        }       
+		return this.GenerateReportInternal(type);
+	}
 
-        if (type === ReportType.HTML) {
-            /* Get the Scan Result */
+	async GenerateReportInternal(type: ReportType = ReportType.HTML): Promise<boolean> {
+		let ext: string;
+		let scanReport: string;
+
+		const fileName = this._taskInputs.ReportFileName === '' ? 'OWASP-ZAP-Report' :  this._taskInputs.ReportFileName;
+		const destination = this._taskInputs.ReportFileDestination === '' ? './' : this._taskInputs.ReportFileDestination;
+
+		if (type === ReportType.XML) {
+			ext = Constants.XML;
+		} else if (type === ReportType.MARKDOWN) {
+			ext = Constants.MARKDOWN;
+		} else if (type === ReportType.ALL) {
+			const allTypes = [ReportType.XML, ReportType.HTML, ReportType.MARKDOWN];
+			for (const t of allTypes) {
+				await this.GenerateReportInternal(t);
+			}
+			return true;
+		} else {
+			//  HTML is Default
+			ext = Constants.HTML;
+		}
+
+		const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
+
+		/* istanbul ignore if */
+		if (process.env.NODE_ENV !== 'test') { 
+			Task.debug(`Report Filename: ${fullFilePath}`);
+		}       
+
+		if (type === ReportType.HTML) {
+			/* Get the Scan Result */
             const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
             const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
             /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
-
-        } else {
-            scanReport = await this.GetScanResults(type);
-        }        
-        
-        /* Write the File */
-        return new Promise<boolean>((resolve, reject) => {
-            fs.writeFile(fullFilePath, scanReport, (err: any) => {
-                if (err) {
-                    Task.error('Failed to generate the HTML report');
-                    reject(false);
-                }
-                resolve(true);
-            });
-        });    
-    }
+		} else {
+			scanReport = await this.GetScanResults(type);
+		}        
+		
+		/* Write the File */
+		return new Promise<boolean>((resolve, reject) => {
+			fs.writeFile(fullFilePath, scanReport, (err: any) => {
+				if (err) {
+					Task.error('Error al generar el informe HTML');
+					reject(false);
+				}
+				resolve(true);
+			});
+		});    
+	}
 
     PrintResult(highAlerts: number, mediumAlerts: number, lowAlerts: number, infoAlerts: number): void {
         /* istanbul ignore if */
