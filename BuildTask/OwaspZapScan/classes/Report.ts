@@ -83,10 +83,10 @@ export class Report {
 
 		if (type === ReportType.XML) {
 			ext = Constants.XML;
-		} else if (type === ReportType.MARKDOWN) {
+		} else if (type === ReportType.MD) {
 			ext = Constants.MARKDOWN;
 		} else if (type === ReportType.ALL) {
-			const allTypes = [ReportType.XML, ReportType.HTML, ReportType.MARKDOWN];
+			const allTypes = [ReportType.XML, ReportType.HTML, ReportType.MD];
 			for (const t of allTypes) {
 				await this.GenerateReportInternal(t);
 			}
