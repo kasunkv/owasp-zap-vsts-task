@@ -59,8 +59,8 @@ export class Report {
 
         return this._requestService.ExecuteScanResultQuery(this._requestOptions);
     }
-	async GenerateReport(): Promise<boolean> {
-		let type: ReportType;
+    async GenerateReport(): Promise<boolean> {
+        let type: ReportType;
 
         if (this._taskInputs.ReportType === Constants.XML) {
             type = ReportType.XML;
@@ -71,60 +71,60 @@ export class Report {
         } else {
             type = ReportType.ALL;
         }
-		return this.GenerateReportInternal(type);
-	}
+        return this.GenerateReportInternal(type);
+    }
 
-	async GenerateReportInternal(type: ReportType = ReportType.HTML): Promise<boolean> {
-		let ext: string;
-		let scanReport: string;
+    async GenerateReportInternal(type: ReportType = ReportType.HTML): Promise<boolean> {
+        let ext: string;
+        let scanReport: string;
 
-		const fileName = this._taskInputs.ReportFileName === '' ? 'OWASP-ZAP-Report' :  this._taskInputs.ReportFileName;
-		const destination = this._taskInputs.ReportFileDestination === '' ? './' : this._taskInputs.ReportFileDestination;
+        const fileName = this._taskInputs.ReportFileName === '' ? 'OWASP-ZAP-Report' :  this._taskInputs.ReportFileName;
+        const destination = this._taskInputs.ReportFileDestination === '' ? './' : this._taskInputs.ReportFileDestination;
 
-		if (type === ReportType.XML) {
-			ext = Constants.XML;
-		} else if (type === ReportType.MD) {
-			ext = Constants.MARKDOWN;
-		} else if (type === ReportType.ALL) {
-			const allTypes = [ReportType.XML, ReportType.HTML, ReportType.MD];
-			for (const t of allTypes) {
-				await this.GenerateReportInternal(t);
-			}
-			return true;
-		} else {
-			//  HTML is Default
-			ext = Constants.HTML;
-		}
+        if (type === ReportType.XML) {
+            ext = Constants.XML;
+        } else if (type === ReportType.MD) {
+            ext = Constants.MARKDOWN;
+        } else if (type === ReportType.ALL) {
+            const allTypes = [ReportType.XML, ReportType.HTML, ReportType.MD];
+            for (const t of allTypes) {
+                await this.GenerateReportInternal(t);
+            }
+            return true;
+        } else {
+            //  HTML is Default
+            ext = Constants.HTML;
+        }
 
-		const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
+        const fullFilePath: string = path.normalize(`${destination}/${fileName}.${ext}`);
 
-		/* istanbul ignore if */
-		if (process.env.NODE_ENV !== 'test') { 
-			Task.debug(`Report Filename: ${fullFilePath}`);
-		}       
+        /* istanbul ignore if */
+        if (process.env.NODE_ENV !== 'test') { 
+            Task.debug(`Report Filename: ${fullFilePath}`);
+        }       
 
-		if (type === ReportType.HTML) {
-			/* Get the Scan Result */
+        if (type === ReportType.HTML) {
+            /* Get the Scan Result */
             const xmlResult: string = await this.GetScanResults(ReportType.XML);
             /* Sort and Count the Alerts */
             const processedAlerts: AlertResult = this._helper.ProcessAlerts(xmlResult, this._taskInputs.TargetUrl);
             /* Generate the Custom HTML Report */
             scanReport = this.createCustomHtmlReport(processedAlerts);
-		} else {
-			scanReport = await this.GetScanResults(type);
-		}        
-		
-		/* Write the File */
-		return new Promise<boolean>((resolve, reject) => {
-			fs.writeFile(fullFilePath, scanReport, (err: any) => {
-				if (err) {
-					Task.error('Error al generar el informe HTML');
-					reject(false);
-				}
-				resolve(true);
-			});
-		});    
-	}
+        } else {
+            scanReport = await this.GetScanResults(type);
+        }        
+        
+        /* Write the File */
+        return new Promise<boolean>((resolve, reject) => {
+            fs.writeFile(fullFilePath, scanReport, (err: any) => {
+                if (err) {
+                    Task.error('Error al generar el informe HTML');
+                    reject(false);
+                }
+                resolve(true);
+            });
+        });    
+    }
 
     PrintResult(highAlerts: number, mediumAlerts: number, lowAlerts: number, infoAlerts: number): void {
         /* istanbul ignore if */
