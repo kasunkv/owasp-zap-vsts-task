@@ -235,11 +235,12 @@
             "label": "Report Type",
             "required": false,
             "groupName": "reportingConfiguration",
-            "helpMarkDown": "Select the type of report you want generated. Available types are *HTML*, *XML* & *Markdown*",
+            "helpMarkDown": "Select the type of report you want generated. Available types are *HTML*, *XML*, *Markdown* or *All*",
             "options": {
                 "html": "HTML Report",
                 "xml": "XML Report",
-                "md": "Markdown Report"
+                "md": "Markdown Report",
+                "all": "All Reports"
             },
             "defaultValue": "html"
         },

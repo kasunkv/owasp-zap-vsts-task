@@ -3,11 +3,13 @@ export class Constants {
     static HTML_REPORT: string = 'htmlreport';
     static XML_REPORT: string = 'xmlreport';
     static MD_REPORT: string = 'mdreport';
+    static ALL_REPORT: string = 'allreport';
 
     /* Report Types */
     static HTML: string = 'html';
     static XML: string = 'xml';
     static MARKDOWN: string = 'md';
+    static ALL: string = 'all';
 
     /* Risk Code */
     static HIGH_RISK: string = '3';
