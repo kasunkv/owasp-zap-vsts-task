@@ -66,7 +66,7 @@ export class Report {
             type = ReportType.XML;
         } else if (this._taskInputs.ReportType === Constants.MARKDOWN) {
             type = ReportType.MD;
-        } else if (this._taskInputs.ReportType === Constants.HTML){
+        } else if (this._taskInputs.ReportType === Constants.HTML) {
             type = ReportType.HTML;
         } else {
             type = ReportType.ALL;
